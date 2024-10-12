@@ -1756,7 +1756,7 @@ function getDetailedDelay(date) {
     } else if (elapsed > 7) {
         delayClass = '> One Week';
     } else {
-        delayClass = '< One Week>';
+        delayClass = '< One Week';
     }
     return delayClass;
 }
@@ -2201,7 +2201,7 @@ function createThreadStats(data, site) {
     let partnerNames = [];
     threadPartners.forEach(thread => {
         thread.forEach(threadPartner => {
-            partnerNames.push(threadPartner.writer);
+            partnerNames.push(threadPartner.writer.trim().toLowerCase());
         });
     });
 
@@ -2243,22 +2243,92 @@ function createThreadStats(data, site) {
         },
     }
 
-    activeThreads.forEach(thread => {
-        countStats(stats.type, thread.Type);
+    let statusThreads = [...activeThreads];
+    statusThreads.sort((a, b) => {
+        if(a.Status < b.Status) {
+            return -1;
+        } else if(a.Status > b.Status) {
+            return 1;
+        } else {
+            return 0;
+        }
+    });
+    statusThreads.forEach(thread => {
         countStats(stats.status, thread.Status);
     });
 
+    let typeThreads = [...activeThreads];
+    typeThreads.sort((a, b) => {
+        if(a.Type < b.Type) {
+            return -1;
+        } else if(a.Type > b.Type) {
+            return 1;
+        } else {
+            return 0;
+        }
+    });
+    typeThreads.forEach(thread => {
+        countStats(stats.type, thread.Type);
+    });
+
+    partnerNames.sort();
     partnerNames.forEach(partner => {
         countStats(stats.partners, partner);
     });
 
-    icThreads.forEach(thread => {
+    let icStatusThreads = [...icThreads];
+    icStatusThreads.sort((a, b) => {
+        if(a.Status < b.Status) {
+            return -1;
+        } else if(a.Status > b.Status) {
+            return 1;
+        } else {
+            return 0;
+        }
+    });
+    icStatusThreads.forEach(thread => {
         countStats(icStats.status, thread.Status);
+    });
+
+    let icDelayThreads = [...icThreads];
+    icDelayThreads.sort((a, b) => {
+        if(new Date(a.ICDate) > new Date(b.ICDate)) {
+            return -1;
+        } else if(new Date(a.ICDate) < new Date(b.ICDate)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    });
+    icDelayThreads.forEach(thread => {
         countStats(icStats.replies, thread.Delay);
     });
 
-    commThreads.forEach(thread => {
+    let commStatusThreads = [...commThreads];
+    commStatusThreads.sort((a, b) => {
+        if(a.Status < b.Status) {
+            return -1;
+        } else if(a.Status > b.Status) {
+            return 1;
+        } else {
+            return 0;
+        }
+    });
+    commStatusThreads.forEach(thread => {
         countStats(commStats.status, thread.Status);
+    });
+
+    let commDelayThreads = [...commThreads];
+    commDelayThreads.sort((a, b) => {
+        if(new Date(a.ICDate) > new Date(b.ICDate)) {
+            return -1;
+        } else if(new Date(a.ICDate) < new Date(b.ICDate)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    });
+    commDelayThreads.forEach(thread => {
         countStats(commStats.replies, thread.Delay);
     });
 
