@@ -824,7 +824,7 @@ section.links {
   @media (min-width: 601px) {
     .thread {
       padding: var(--space--md) var(--space--lg); } }
-  .thread.status--mine {
+  .thread.status--mine, .thread:has([data-status="mine"]) {
     background: rgba(var(--rgb), 0.25); }
   .thread--wrap {
     display: -ms-grid;

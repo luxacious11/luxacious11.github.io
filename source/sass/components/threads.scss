@@ -211,7 +211,8 @@
         padding: var(--space--md) var(--space--lg);
     }
 
-    &.status--mine {
+    &.status--mine,
+    &:has([data-status="mine"]) {
         background: rgba(var(--rgb), 0.25);
     }
 

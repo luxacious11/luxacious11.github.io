@@ -2005,7 +2005,7 @@ function formatCharacter(character, viewAll, sites) {
     }
     return formatSingleInstance(character);
 }
-function formatSingleInstance(character) {
+function formatSingleInstance(character, sites) {
     let tagsString = ``;
     for(type in character.tags) {
         character.tags[type].tags.forEach((set, i) => {
@@ -2032,13 +2032,13 @@ function formatSingleInstance(character) {
         } else {
             return 0
         }
-    })
+    });
     
     return `<div class="character lux-track grid-item ${tagsString} ${character.character.split(' ')[0]}">
         <div class="character--wrap">
             <div class="character--image"><img src="${character.basics.image}" loading="lazy" /></div>
             <div class="character--main">
-                <a href="${character.sites.URL}/?showuser=${character.id}" target="_blank" class="character--title">${capitalize(character.character)}</a>
+                <a href="${character.sites.URL}/${character.sites.Directory}${character.id}" target="_blank" class="character--title">${capitalize(character.character)}</a>
                 <div class="character--basics">
                     ${character.basics.gender ? `<span>${character.basics.gender}</span>` : ''}
                     ${character.basics.pronouns ? `<span>${character.basics.pronouns}</span>` : ''}
@@ -2089,6 +2089,7 @@ function formatMultipleInstance(character, sites) {
         let basics = character.basics.filter(item => item.site === siteInstance.site)[0].basics;
         let ships = character.ships.filter(item => item.site === siteInstance.site)[0].characters;
         let site = sites.filter(item => item.Site === siteInstance.site)[0];
+        console.log(site);
         siteLabels += `<div class="character--label site--label" data-image="${basics.image}">${siteInstance.site}</div>`;
         siteTabs += `<div class="character--tab">
             <div class="character--basics">
@@ -2105,7 +2106,7 @@ function formatMultipleInstance(character, sites) {
                 <div class="character--tabs">
                     <div class="character--tab">
                         <div class="character--links">
-                            <a href="${site.URL}/?showuser=${siteInstance.id}" target="_blank">View Application</a>
+                            <a href="${site.URL}/${site.Directory}${siteInstance.id}" target="_blank">View Application</a>
                             ${character.links.map(item => `<a href="${item.url}" target="_blank">${item.title}</a>`).join('')}
                         </div>
                     </div>
@@ -2243,6 +2244,7 @@ function createThreadStats(data, site) {
         },
     }
 
+    //keep all these separate for correct sorting... even if it's an absolute pain
     let statusThreads = [...activeThreads];
     statusThreads.sort((a, b) => {
         if(a.Status < b.Status) {
