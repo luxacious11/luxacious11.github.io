@@ -1703,6 +1703,11 @@ function populateThreads(array, siteObject) {
     }
     document.querySelector('#threads--rows').insertAdjacentHTML('beforeend', html);
 
+    //standardize
+    characters = characters.map(item => item.toLowerCase());
+    partners = partners.map(item => item.toLowerCase());
+    featuring = featuring.map(item => item.toLowerCase());
+
     //sort appendable filters
     characters.sort();
     partners.sort();
