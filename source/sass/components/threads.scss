@@ -273,6 +273,13 @@
                 letter-spacing: 0.1em;
             }
         }
+
+        & > p {
+            border-bottom: 1px solid var(--accent, var(--bg--quintenary));
+            padding: var(--space--xs) 0 var(--space--sm);
+            line-height: 160%;
+            margin: 0 0 var(--space--xs);
+        }
     }
 
     &--dates {
