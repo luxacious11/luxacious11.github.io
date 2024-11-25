@@ -840,7 +840,7 @@ function submitPartner(form) {
         let name = character.value.trim().toLowerCase();
         let id = character.closest('.row').querySelector('#charId').value.trim();
         characterList.push({
-            name: name,
+            name: name.replaceAll(`'`, `&apos;`),
             id: id,
         });
     });
@@ -1022,7 +1022,7 @@ function submitThread(form) {
     let featuring = [];
     featuredRows.forEach(row => {
         featuring.push({
-            name: row.querySelector('#character').options[row.querySelector('#character').selectedIndex].innerText.trim().toLowerCase(),
+            name: row.querySelector('#character').options[row.querySelector('#character').selectedIndex].innerText.trim().toLowerCase().replaceAll(`'`, `&apos;`),
             id: row.querySelector('#character').options[row.querySelector('#character').selectedIndex].value.trim(),
             writer: row.querySelector('#partner').options[row.querySelector('#partner').selectedIndex].innerText.trim().toLowerCase(),
             writerId: row.querySelector('#partner').options[row.querySelector('#partner').selectedIndex].value.trim(),
@@ -1036,7 +1036,7 @@ function submitThread(form) {
         Status: status,
         Title: title,
         Character: JSON.stringify({
-            name: character.innerText.trim().toLowerCase(),
+            name: character.innerText.trim().toLowerCase().replaceAll(`'`, `&apos;`),
             id: character.value.trim().toLowerCase(),
         }),
         Featuring: JSON.stringify(featuring),
@@ -1082,7 +1082,7 @@ function updatePartner(form) {
         let name = character.value.trim().toLowerCase();
         let id = character.closest('.row').querySelector('#charId').value.trim();
         characterList.push({
-            name: name,
+            name: name.replaceAll(`'`, `&apos;`),
             id: id,
         });
     });
@@ -1818,7 +1818,7 @@ function changeStatus(e) {
             SubmissionType: 'thread-status',
             ThreadID: e.dataset.id,
             Site: e.dataset.site,
-            Character: e.dataset.character,
+            Character: e.dataset.character.replaceAll(`'`, `&apos;`),
             Status: 'theirs'
         }, thread);
     } else if(e.dataset.status === 'theirs') {
@@ -1829,7 +1829,7 @@ function changeStatus(e) {
             SubmissionType: 'thread-status',
             ThreadID: e.dataset.id,
             Site: e.dataset.site,
-            Character: e.dataset.character,
+            Character: e.dataset.character.replaceAll(`'`, `&apos;`),
             Status: 'mine'
         }, thread);
     }
@@ -1842,7 +1842,7 @@ function markComplete(e) {
         SubmissionType: 'thread-status',
         ThreadID: e.dataset.id,
         Site: e.dataset.site,
-        Character: e.dataset.character,
+        Character: e.dataset.character.replaceAll(`'`, `&apos;`),
         Status: 'complete'
     }, thread, null, 'complete');
 }
@@ -1854,7 +1854,7 @@ function markArchived(e) {
         SubmissionType: 'thread-status',
         ThreadID: e.dataset.id,
         Site: e.dataset.site,
-        Character: e.dataset.character,
+        Character: e.dataset.character.replaceAll(`'`, `&apos;`),
         Status: 'archived'
     }, thread, null, 'archived');
 }
