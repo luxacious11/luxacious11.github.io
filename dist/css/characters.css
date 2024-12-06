@@ -50,7 +50,9 @@
   .lux-track et-wrap, .light
   .lux-track et-comm, .light
   .lux-track et-social, .light
-  .lux-track.wthi .lux-bb, .light .totl
+  .lux-track.wthi .lux-bb, .light
+  .lux-track ner-wrap, .light
+  .lux-track ner-comm, .light .totl
   .lux, .light
   .lux.gb tag-wrap, .light
   .lux.gb tag-comm, .light
@@ -58,7 +60,9 @@
   .lux et-wrap, .light
   .lux et-comm, .light
   .lux et-social, .light
-  .lux.wthi .lux-bb, .light .totl
+  .lux.wthi .lux-bb, .light
+  .lux ner-wrap, .light
+  .lux ner-comm, .light .totl
   .parent-1, .light
   .parent-1.gb tag-wrap, .light
   .parent-1.gb tag-comm, .light
@@ -66,7 +70,9 @@
   .parent-1 et-wrap, .light
   .parent-1 et-comm, .light
   .parent-1 et-social, .light
-  .parent-1.wthi .lux-bb, .light .totl
+  .parent-1.wthi .lux-bb, .light
+  .parent-1 ner-wrap, .light
+  .parent-1 ner-comm, .light .totl
   .gb-1.parent-0, .light
   .gb-1.parent-0.gb tag-wrap, .light
   .gb-1.parent-0.gb tag-comm, .light
@@ -74,7 +80,9 @@
   .gb-1.parent-0 et-wrap, .light
   .gb-1.parent-0 et-comm, .light
   .gb-1.parent-0 et-social, .light
-  .gb-1.parent-0.wthi .lux-bb, .light .totl
+  .gb-1.parent-0.wthi .lux-bb, .light
+  .gb-1.parent-0 ner-wrap, .light
+  .gb-1.parent-0 ner-comm, .light .totl
   .lux-bb, .light
   .lux-bb.gb tag-wrap, .light
   .lux-bb.gb tag-comm, .light
@@ -82,7 +90,9 @@
   .lux-bb et-wrap, .light
   .lux-bb et-comm, .light
   .lux-bb et-social, .light
-  .lux-bb.wthi .lux-bb, .light .totl
+  .lux-bb.wthi .lux-bb, .light
+  .lux-bb ner-wrap, .light
+  .lux-bb ner-comm, .light .totl
   .account-1.parent-0, .light
   .account-1.parent-0.gb tag-wrap, .light
   .account-1.parent-0.gb tag-comm, .light
@@ -90,7 +100,9 @@
   .account-1.parent-0 et-wrap, .light
   .account-1.parent-0 et-comm, .light
   .account-1.parent-0 et-social, .light
-  .account-1.parent-0.wthi .lux-bb {
+  .account-1.parent-0.wthi .lux-bb, .light
+  .account-1.parent-0 ner-wrap, .light
+  .account-1.parent-0 ner-comm {
     --accent: rgb(var(--rgb-dark, var(--rgb)));
     --accent-10: rgba(var(--rgb-dark, var(--rgb)), 0.1);
     --accent-20: rgba(var(--rgb-dark, var(--rgb)), 0.2);
@@ -108,7 +120,9 @@
   .lux-track et-wrap, body:not(.light)
   .lux-track et-comm, body:not(.light)
   .lux-track et-social, body:not(.light)
-  .lux-track.wthi .lux-bb, body:not(.light) .totl
+  .lux-track.wthi .lux-bb, body:not(.light)
+  .lux-track ner-wrap, body:not(.light)
+  .lux-track ner-comm, body:not(.light) .totl
   .lux, body:not(.light)
   .lux.gb tag-wrap, body:not(.light)
   .lux.gb tag-comm, body:not(.light)
@@ -116,7 +130,9 @@
   .lux et-wrap, body:not(.light)
   .lux et-comm, body:not(.light)
   .lux et-social, body:not(.light)
-  .lux.wthi .lux-bb, body:not(.light) .totl
+  .lux.wthi .lux-bb, body:not(.light)
+  .lux ner-wrap, body:not(.light)
+  .lux ner-comm, body:not(.light) .totl
   .parent-1, body:not(.light)
   .parent-1.gb tag-wrap, body:not(.light)
   .parent-1.gb tag-comm, body:not(.light)
@@ -124,7 +140,9 @@
   .parent-1 et-wrap, body:not(.light)
   .parent-1 et-comm, body:not(.light)
   .parent-1 et-social, body:not(.light)
-  .parent-1.wthi .lux-bb, body:not(.light) .totl
+  .parent-1.wthi .lux-bb, body:not(.light)
+  .parent-1 ner-wrap, body:not(.light)
+  .parent-1 ner-comm, body:not(.light) .totl
   .gb-1.parent-0, body:not(.light)
   .gb-1.parent-0.gb tag-wrap, body:not(.light)
   .gb-1.parent-0.gb tag-comm, body:not(.light)
@@ -132,7 +150,9 @@
   .gb-1.parent-0 et-wrap, body:not(.light)
   .gb-1.parent-0 et-comm, body:not(.light)
   .gb-1.parent-0 et-social, body:not(.light)
-  .gb-1.parent-0.wthi .lux-bb, body:not(.light) .totl
+  .gb-1.parent-0.wthi .lux-bb, body:not(.light)
+  .gb-1.parent-0 ner-wrap, body:not(.light)
+  .gb-1.parent-0 ner-comm, body:not(.light) .totl
   .lux-bb, body:not(.light)
   .lux-bb.gb tag-wrap, body:not(.light)
   .lux-bb.gb tag-comm, body:not(.light)
@@ -140,7 +160,9 @@
   .lux-bb et-wrap, body:not(.light)
   .lux-bb et-comm, body:not(.light)
   .lux-bb et-social, body:not(.light)
-  .lux-bb.wthi .lux-bb, body:not(.light) .totl
+  .lux-bb.wthi .lux-bb, body:not(.light)
+  .lux-bb ner-wrap, body:not(.light)
+  .lux-bb ner-comm, body:not(.light) .totl
   .account-1.parent-0, body:not(.light)
   .account-1.parent-0.gb tag-wrap, body:not(.light)
   .account-1.parent-0.gb tag-comm, body:not(.light)
@@ -148,7 +170,9 @@
   .account-1.parent-0 et-wrap, body:not(.light)
   .account-1.parent-0 et-comm, body:not(.light)
   .account-1.parent-0 et-social, body:not(.light)
-  .account-1.parent-0.wthi .lux-bb {
+  .account-1.parent-0.wthi .lux-bb, body:not(.light)
+  .account-1.parent-0 ner-wrap, body:not(.light)
+  .account-1.parent-0 ner-comm {
     --accent: rgb(var(--rgb));
     --accent-10: rgba(var(--rgb), 0.1);
     --accent-20: rgba(var(--rgb), 0.2);
@@ -193,26 +217,44 @@
   .lux-track et-wrap,
   .lux-track et-comm,
   .lux-track et-social,
+  .lux-track ner-wrap,
+  .lux-track ner-comm,
   .lux et-wrap,
   .lux et-comm,
   .lux et-social,
+  .lux ner-wrap,
+  .lux ner-comm,
   .parent-1 et-wrap,
   .parent-1 et-comm,
   .parent-1 et-social,
+  .parent-1 ner-wrap,
+  .parent-1 ner-comm,
   .gb-1.parent-0 et-wrap,
   .gb-1.parent-0 et-comm,
   .gb-1.parent-0 et-social,
+  .gb-1.parent-0 ner-wrap,
+  .gb-1.parent-0 ner-comm,
   .lux-bb et-wrap,
   .lux-bb et-comm,
   .lux-bb et-social,
+  .lux-bb ner-wrap,
+  .lux-bb ner-comm,
   .account-1.parent-0 et-wrap,
   .account-1.parent-0 et-comm,
-  .account-1.parent-0 et-social {
+  .account-1.parent-0 et-social,
+  .account-1.parent-0 ner-wrap,
+  .account-1.parent-0 ner-comm {
     --border-accent: var(--accent);
     --bg-accent: var(--accent);
     --bg-accent-solid: var(--accent);
     --bg-accent-30: var(--accent-30);
     --bg-accent-50: var(--accent-50);
+    --text-accent: var(--accent);
+    --border-accent: var(--accent);
+    --border-accent-transparent: var(--accent-30);
+    --bg-accent: var(--accent);
+    --bg-accent-transparent: var(--accent-30);
+    --bg-accent-transparent-alt: var(--accent-50);
     --text-accent: var(--accent); }
   .lux-track.wthi .lux-bb,
   .lux.wthi .lux-bb,
@@ -242,6 +284,30 @@
     background-position: var(--postImagePosition, center);
     background-image: var(--postImage, var(--defaultPostImage));
     z-index: 1; }
+  .lux-track ner-image::before,
+  .lux ner-image::before,
+  .parent-1 ner-image::before,
+  .gb-1.parent-0 ner-image::before,
+  .lux-bb ner-image::before,
+  .account-1.parent-0 ner-image::before {
+    content: '';
+    width: calc(100% - (2 * var(--space-xs)));
+    height: calc(100% - (2 * var(--space-xs)));
+    position: absolute;
+    top: var(--space-xs);
+    left: var(--space-xs);
+    border-radius: 2px;
+    background-size: cover;
+    background-position: var(--nerPosition, var(--postImagePosition, center));
+    background-image: var(--nerImage, var(--postImage, var(--defaultPostImage)));
+    z-index: 2; }
+  .lux-track ner-image:only-child::before,
+  .lux ner-image:only-child::before,
+  .parent-1 ner-image:only-child::before,
+  .gb-1.parent-0 ner-image:only-child::before,
+  .lux-bb ner-image:only-child::before,
+  .account-1.parent-0 ner-image:only-child::before {
+    background-image: var(--nerWideImage, var(--nerImage, var(--postImage, var(--defaultPostImage)))); }
   .lux-track et-tag,
   .lux et-tag,
   .parent-1 et-tag,
@@ -1214,7 +1280,9 @@
   .account-1.parent-0.gb-732 {
     --rgb: 101, 108, 108;
     --postImage: url(https://64.media.tumblr.com/7c0298bd123de47d9879c47c363b54af/6f257d31caab1d38-5a/s1280x1920/3d8aa52ee9dda74002037d4a9b2fdfb779797506.jpg);
-    --postImagePosition: top; }
+    --postImagePosition: top;
+    --nerPosition: center;
+    --nerImage: url(https://64.media.tumblr.com/6b65ff577cd9d09e7f5a66bdbc99722a/6f257d31caab1d38-43/s1280x1920/634979bd431c4f245f10e7c97e19a6a547c37ed5.jpg); }
     .lux-track.hai .dragon, .lux-track.liu .dragon, .lux-track.gb-732 .dragon,
     .lux.hai .dragon,
     .lux.liu .dragon,

@@ -25,7 +25,9 @@
     & et-wrap,
     & et-comm,
     & et-social,
-    &.wthi .lux-bb {
+    &.wthi .lux-bb,
+    & ner-wrap,
+    & ner-comm {
         //shared
         .light & {
             --accent: rgb(var(--rgb-dark, var(--rgb)));
@@ -69,13 +71,21 @@
     }
     & et-wrap,
     & et-comm,
-    & et-social {
+    & et-social,
+    & ner-wrap,
+    & ner-comm {
         //gb:et only
         --border-accent: var(--accent);
         --bg-accent: var(--accent);
         --bg-accent-solid: var(--accent);
         --bg-accent-30: var(--accent-30);
         --bg-accent-50: var(--accent-50);
+        --text-accent: var(--accent);
+        --border-accent: var(--accent);
+        --border-accent-transparent: var(--accent-30);
+        --bg-accent: var(--accent);
+        --bg-accent-transparent: var(--accent-30);
+        --bg-accent-transparent-alt: var(--accent-50);
         --text-accent: var(--accent);
     }
     &.wthi .lux-bb {
@@ -101,6 +111,24 @@
         background-position: var(--postImagePosition, center);
         background-image: var(--postImage, var(--defaultPostImage));
         z-index: 1;
+    }
+    ner-image {
+        &::before {
+            content: '';
+            width: calc(100% - (2 * var(--space-xs)));
+            height: calc(100% - (2 * var(--space-xs)));
+            position: absolute;
+            top: var(--space-xs);
+            left: var(--space-xs);
+            border-radius: 2px;
+            background-size: cover;
+            background-position: var(--nerPosition, var(--postImagePosition, center));
+            background-image: var(--nerImage, var(--postImage, var(--defaultPostImage)));
+            z-index: 2;
+        }
+        &:only-child::before {
+            background-image: var(--nerWideImage, var(--nerImage, var(--postImage, var(--defaultPostImage))));
+        }
     }
     et-tag {
         order: 10;
@@ -436,6 +464,8 @@
         --rgb: 101, 108, 108;
         --postImage: url(https://64.media.tumblr.com/7c0298bd123de47d9879c47c363b54af/6f257d31caab1d38-5a/s1280x1920/3d8aa52ee9dda74002037d4a9b2fdfb779797506.jpg);
         --postImagePosition: top;
+        --nerPosition: center;
+        --nerImage: url(https://64.media.tumblr.com/6b65ff577cd9d09e7f5a66bdbc99722a/6f257d31caab1d38-43/s1280x1920/634979bd431c4f245f10e7c97e19a6a547c37ed5.jpg);
 
         .dragon {
             --postImage: url(https://i.pinimg.com/736x/06/87/b0/0687b061654b561b3dfe4786ce27f2d5.jpg);
