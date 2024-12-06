@@ -2359,6 +2359,20 @@
   .account-1.parent-0.gb-637 {
     --rgb: 206, 185, 135;
     --postImage: url(https://64.media.tumblr.com/5360f6f11b1dc0cea6e1d3f3a6efc38f/04f2d4a53730ebe8-da/s1280x1920/56302f7684a5a86f0297363c5643942ff4033e54.jpg); }
+  .lux-track.river, .lux-track.gb-993,
+  .lux.river,
+  .lux.gb-993,
+  .parent-1.river,
+  .parent-1.gb-993,
+  .gb-1.parent-0.river,
+  .gb-1.parent-0.gb-993,
+  .lux-bb.river,
+  .lux-bb.gb-993,
+  .account-1.parent-0.river,
+  .account-1.parent-0.gb-993 {
+    --rgb: 97, 143, 141;
+    --postImage: url(https://64.media.tumblr.com/5b88317fa423b84494ada56cf3150c4a/905f53e710799278-30/s1280x1920/13cd37c73210a45820a649a61d1d35fb6faa908a.gif);
+    --postImagePosition: left; }
   .lux-track.riordan, .lux-track.rory, .lux-track.gb-154, .lux-track.wthi-16,
   .lux.riordan,
   .lux.rory,
