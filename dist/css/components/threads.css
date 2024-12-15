@@ -160,6 +160,11 @@
       padding: var(--space--md) var(--space--lg); } }
   .thread.status--mine, .thread:has([data-status="mine"]) {
     background: rgba(var(--rgb), 0.25); }
+  .thread.status--complete {
+    opacity: 0.25;
+    transition-duration: 0.3s; }
+    .thread.status--complete:hover {
+      opacity: 1; }
   .thread--wrap {
     display: grid;
     gap: var(--space--xs);

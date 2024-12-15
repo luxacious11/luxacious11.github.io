@@ -216,6 +216,15 @@
         background: rgba(var(--rgb), 0.25);
     }
 
+    &.status--complete {
+        opacity: 0.25;
+        transition-duration: 0.3s;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
     &--wrap {
         display: grid;
         gap: var(--space--xs);
