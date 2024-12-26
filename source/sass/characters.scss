@@ -789,6 +789,10 @@ totl24-contact {
             --postImage: url(https://i.pinimg.com/564x/4c/1a/26/4c1a265e8698f166c9da04caec838b59.jpg);
         }
     }
+    .totl.m-54 & {
+        --postImage: url(https://64.media.tumblr.com/452e51377cddf8c3d748daf737b6b3c5/ed726d893e26c9fe-5d/s500x750/72a88a9e7aeb964b61989098dcfb68f2d31f7fcf.jpg);
+        --postImagePosition: top;
+    }
 
     &.nimue,
     &.nim,
