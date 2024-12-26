@@ -1,3 +1,19 @@
+//totl
+totl24-contact {
+    lux-image {
+        width: 70px;
+        height: 70px;
+        border-radius: 15px;
+        border: 1px solid var(--border-primary);
+        background-size: cover;
+        background-position: var(--postImagePosition, center);
+        background-image: var(--postImage, url(https://files.jcink.net/uploads2/godlybehaviour/GB24/forum_guidebook_min.jpg));
+    }
+    &:first-child lux-image {
+        margin-top: -35px;
+    }
+}
+
 .lux-track,
 .lux,
 .parent-1,
