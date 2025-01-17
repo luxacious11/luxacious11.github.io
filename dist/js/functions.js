@@ -1715,7 +1715,9 @@ function populateThreads(array, siteObject) {
 
     //Append filters
     characters.forEach(character => {
-        document.querySelector('.filter--characters').insertAdjacentHTML('beforeend', `<label><span><input type="checkbox" value=".${character.split(' ')[0].toLowerCase()}"/></span><b>${character.split(' ')[0].toLowerCase()} ${character.split(' ')[1][0].toLowerCase()}.</b></label>`);
+        let characterNameArr = character.split(' ');
+        let characterName = characterNameArr.length > 1 ? `${character.split(' ')[0].toLowerCase()} ${character.split(' ')[1][0].toLowerCase()}` : character.toLowerCase();
+        document.querySelector('.filter--characters').insertAdjacentHTML('beforeend', `<label><span><input type="checkbox" value=".${character.split(' ')[0].toLowerCase()}"/></span><b>${characterName}.</b></label>`);
     });
     partners.forEach(partner => {
         document.querySelector('.filter--partners').insertAdjacentHTML('beforeend', `<label><span><input type="checkbox" value=".partner--${partner.replaceAll(' ', '').toLowerCase().trim()}"/></span><b>${partner}</b></label>`);

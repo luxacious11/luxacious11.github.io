@@ -1476,18 +1476,23 @@ totl24-contact:first-child lux-image {
     .lux-bb.wthi-81 .wolf {
       --wideImage: url(https://i.pinimg.com/736x/c3/3b/47/c33b479950a70a77b68dc86b550b09a1.jpg);
       --postImagePosition: 50% 65%; }
-  .lux-track.lily, .lux-track.wthi-82,
+  .lux-track.lily, .lux-track.wthi-82, .lux-track.gb-1013,
   .lux.lily,
   .lux.wthi-82,
+  .lux.gb-1013,
   .parent-1.lily,
   .parent-1.wthi-82,
+  .parent-1.gb-1013,
   .gb-1.parent-0.lily,
   .gb-1.parent-0.wthi-82,
+  .gb-1.parent-0.gb-1013,
   .lux-bb.lily,
-  .lux-bb.wthi-82 {
+  .lux-bb.wthi-82,
+  .lux-bb.gb-1013 {
     --rgb: 126, 73, 52;
     --postImage: url(https://64.media.tumblr.com/f426c98f752ec6c255442b436ecca982/926fff7a7ade6cdc-3b/s1280x1920/f7ed9534f1df2dd7d11200608083be8359b6ba3a.gif);
-    --wideImage: url(https://64.media.tumblr.com/f426c98f752ec6c255442b436ecca982/926fff7a7ade6cdc-3b/s1280x1920/f7ed9534f1df2dd7d11200608083be8359b6ba3a.gif); }
+    --wideImage: url(https://64.media.tumblr.com/f426c98f752ec6c255442b436ecca982/926fff7a7ade6cdc-3b/s1280x1920/f7ed9534f1df2dd7d11200608083be8359b6ba3a.gif);
+    --nerWideImage: url(https://64.media.tumblr.com/f426c98f752ec6c255442b436ecca982/926fff7a7ade6cdc-3b/s1280x1920/f7ed9534f1df2dd7d11200608083be8359b6ba3a.gif); }
   .lux-track.lincoln, .lux-track.link, .lux-track.gb-430,
   .lux.lincoln,
   .lux.link,
