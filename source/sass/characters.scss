@@ -408,6 +408,12 @@ totl24-contact {
         --postImagePosition: bottom;
     }
 
+    &.erik,
+    &.gb-1000 {
+        --rgb: 73, 96, 126;
+        --postImage: url(https://64.media.tumblr.com/7dc2456315dc289a834b31d448118eb8/bbfbaa9f0db44d5c-db/s1280x1920/231f0049ddc5ae95fafe2080b0f42bdcc45fd0b4.gif);
+    }
+
     &.evangeline,
     &.evan,
     .totl.m-317 &,
@@ -1049,5 +1055,14 @@ totl24-contact {
         .hawk {
             --postImage: url(https://i.pinimg.com/564x/32/ca/c3/32cac301c59baaf5aeff0792c8fe2b30.jpg);
         }
+    }
+
+    &.winnifred,
+    &.winnie,
+    &.win,
+    &.gb-1041 {
+        --rgb: 148, 122, 99;
+        --postImage: url(https://64.media.tumblr.com/2aeb2e15afe68597c5986767388b2ab8/5f9276684595d771-00/s1280x1920/ea2cf57fcdf6952dba86d922a926d05948004196.jpg);
+        --postImagePosition: 50% 30%;
     }
 }
