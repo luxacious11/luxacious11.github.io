@@ -243,6 +243,12 @@ totl24-contact:first-child lux-image {
     --text-on-accent: var(--on-accent, rgb(245, 245, 245));
     --border-accent: var(--accent);
     --border-accent-transparent: var(--accent-60); }
+    .lux-track.wthi .lux-bb.lux-bb-v2,
+    .lux.wthi .lux-bb.lux-bb-v2,
+    .parent-1.wthi .lux-bb.lux-bb-v2,
+    .gb-1.parent-0.wthi .lux-bb.lux-bb-v2,
+    .lux-bb.wthi .lux-bb.lux-bb-v2 {
+      --border-accent: 1px solid var(--accent); }
   .lux-track span:not(.notExternal) et-image::before,
   .lux span:not(.notExternal) et-image::before,
   .parent-1 span:not(.notExternal) et-image::before,
@@ -258,10 +264,15 @@ totl24-contact:first-child lux-image {
     background-position: var(--postImagePosition, center);
     background-image: var(--postImage, var(--defaultPostImage));
     z-index: 1; }
+  .lux-track tag-image2::before,
   .lux-track ner-image::before,
+  .lux tag-image2::before,
   .lux ner-image::before,
+  .parent-1 tag-image2::before,
   .parent-1 ner-image::before,
+  .gb-1.parent-0 tag-image2::before,
   .gb-1.parent-0 ner-image::before,
+  .lux-bb tag-image2::before,
   .lux-bb ner-image::before {
     content: '';
     width: calc(100% - (2 * var(--space-xs)));
@@ -274,10 +285,15 @@ totl24-contact:first-child lux-image {
     background-position: var(--nerPosition, var(--postImagePosition, center));
     background-image: var(--nerImage, var(--postImage, var(--defaultPostImage)));
     z-index: 2; }
+  .lux-track tag-image2:only-child::before,
   .lux-track ner-image:only-child::before,
+  .lux tag-image2:only-child::before,
   .lux ner-image:only-child::before,
+  .parent-1 tag-image2:only-child::before,
   .parent-1 ner-image:only-child::before,
+  .gb-1.parent-0 tag-image2:only-child::before,
   .gb-1.parent-0 ner-image:only-child::before,
+  .lux-bb tag-image2:only-child::before,
   .lux-bb ner-image:only-child::before {
     background-position: var(--newWidePosition, var(--nerPosition, var(--postImagePosition, center)));
     background-image: var(--nerWideImage, var(--nerImage, var(--postImage, var(--defaultPostImage)))); }

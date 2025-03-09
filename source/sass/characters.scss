@@ -113,6 +113,10 @@ totl24-contact {
         
         --border-accent: var(--accent);
         --border-accent-transparent: var(--accent-60);
+
+        &.lux-bb-v2 {
+            --border-accent: 1px solid var(--accent);
+        }
     }
 
     span:not(.notExternal) et-image::before {
@@ -127,6 +131,7 @@ totl24-contact {
         background-image: var(--postImage, var(--defaultPostImage));
         z-index: 1;
     }
+    tag-image2,
     ner-image {
         &::before {
             content: '';
