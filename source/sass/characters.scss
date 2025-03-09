@@ -154,7 +154,7 @@ totl24-contact {
             background-image: var(--nerWideImage, var(--nerImage, var(--postImage, var(--defaultPostImage))));
         }
     }
-    tag-image2 {
+   tag-image2 {
         &::before {
             content: '';
             width: calc(100% - (2 * var(--space-xs)));
@@ -164,9 +164,15 @@ totl24-contact {
             left: var(--space-xs);
             border-radius: 2px;
             background-size: cover;
-            background-position: var(--newWidePosition, var(--nerPosition, var(--postImagePosition, center)));
+            background-position: var(--nerWidePosition, var(--nerPosition, var(--postImagePosition, center)));
             background-image: var(--nerWideImage, var(--nerImage, var(--postImage, var(--defaultPostImage))));
             z-index: 2;
+        }
+    }
+    tag-inner2 tag-image2 {
+        &::before {
+            background-position: var(--nerPosition, var(--postImagePosition, center));
+            background-image: var(--nerImage, var(--postImage, var(--defaultPostImage)));
         }
     }
     et-tag {

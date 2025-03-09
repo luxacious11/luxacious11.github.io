@@ -304,9 +304,16 @@ totl24-contact:first-child lux-image {
     left: var(--space-xs);
     border-radius: 2px;
     background-size: cover;
-    background-position: var(--newWidePosition, var(--nerPosition, var(--postImagePosition, center)));
+    background-position: var(--nerWidePosition, var(--nerPosition, var(--postImagePosition, center)));
     background-image: var(--nerWideImage, var(--nerImage, var(--postImage, var(--defaultPostImage))));
     z-index: 2; }
+  .lux-track tag-inner2 tag-image2::before,
+  .lux tag-inner2 tag-image2::before,
+  .parent-1 tag-inner2 tag-image2::before,
+  .gb-1.parent-0 tag-inner2 tag-image2::before,
+  .lux-bb tag-inner2 tag-image2::before {
+    background-position: var(--nerPosition, var(--postImagePosition, center));
+    background-image: var(--nerImage, var(--postImage, var(--defaultPostImage))); }
   .lux-track et-tag,
   .lux et-tag,
   .parent-1 et-tag,
