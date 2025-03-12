@@ -305,8 +305,7 @@ totl24-contact:first-child lux-image {
     border-radius: 2px;
     background-size: cover;
     background-position: var(--nerWidePosition, var(--nerPosition, var(--postImagePosition, center)));
-    background-image: var(--nerWideImage, var(--nerImage, var(--postImage, var(--defaultPostImage))));
-    z-index: 2; }
+    background-image: var(--nerWideImage, var(--nerImage, var(--postImage, var(--defaultPostImage)))); }
   .lux-track tag-inner2 tag-image2::before,
   .lux tag-inner2 tag-image2::before,
   .parent-1 tag-inner2 tag-image2::before,

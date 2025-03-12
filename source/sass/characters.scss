@@ -166,7 +166,6 @@ totl24-contact {
             background-size: cover;
             background-position: var(--nerWidePosition, var(--nerPosition, var(--postImagePosition, center)));
             background-image: var(--nerWideImage, var(--nerImage, var(--postImage, var(--defaultPostImage))));
-            z-index: 2;
         }
     }
     tag-inner2 tag-image2 {
