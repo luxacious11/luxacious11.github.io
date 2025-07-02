@@ -9,16 +9,16 @@ body#ST .post .luxpost.saf-custom {
   --accent-30: rgba(var(--rgb), 0.3);
   --accent-20: rgba(var(--rgb), 0.2);
   --accent-10: rgba(var(--rgb), 0.1);
-  --accent-light: rgb(var(--rgb-light, var(--rgb)));
-  --accent-light-90: rgba(var(--rgb-light, var(--rgb)), 0.9);
-  --accent-light-80: rgba(var(--rgb-light, var(--rgb)), 0.8);
-  --accent-light-70: rgba(var(--rgb-light, var(--rgb)), 0.7);
-  --accent-light-60: rgba(var(--rgb-light, var(--rgb)), 0.6);
-  --accent-light-50: rgba(var(--rgb-light, var(--rgb)), 0.5);
-  --accent-light-40: rgba(var(--rgb-light, var(--rgb)), 0.4);
-  --accent-light-30: rgba(var(--rgb-light, var(--rgb)), 0.3);
-  --accent-light-20: rgba(var(--rgb-light, var(--rgb)), 0.2);
-  --accent-light-10: rgba(var(--rgb-light, var(--rgb)), 0.1);
+  --accent-light: rgb(var(--rgb));
+  --accent-light-90: rgba(var(--rgb), 0.9);
+  --accent-light-80: rgba(var(--rgb), 0.8);
+  --accent-light-70: rgba(var(--rgb), 0.7);
+  --accent-light-60: rgba(var(--rgb), 0.6);
+  --accent-light-50: rgba(var(--rgb), 0.5);
+  --accent-light-40: rgba(var(--rgb), 0.4);
+  --accent-light-30: rgba(var(--rgb), 0.3);
+  --accent-light-20: rgba(var(--rgb), 0.2);
+  --accent-light-10: rgba(var(--rgb), 0.1);
   --wideImage: url(https://picsum.photos/500/250);
   --imagePosition: center; }
   body#ST .post .luxpost.saf-custom tag-image {
