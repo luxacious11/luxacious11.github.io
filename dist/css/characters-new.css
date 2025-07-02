@@ -20,7 +20,17 @@ body#ST .post .luxpost.saf-custom {
   --accent-light-20: rgba(var(--rgb), 0.2);
   --accent-light-10: rgba(var(--rgb), 0.1);
   --wideImage: url(https://picsum.photos/500/250);
-  --imagePosition: center; }
+  --imagePosition: center;
+  --bg-accent-solid: var(--accent);
+  --bg-accent: var(--accent-70);
+  --bg-accent-high: var(--accent-80);
+  --bg-accent-mid: var(--accent-60);
+  --bg-accent-low: var(--accent-40);
+  --text-accent: var(--accent-light);
+  --border-accent-color: var(--accent);
+  --border-accent: 1px solid var(--accent);
+  --border-accent-mid: 1px solid var(--accent-60);
+  --border-accent-low: 1px solid var(--accent-40); }
   body#ST .post .luxpost.saf-custom tag-image {
     background-image: var(--wideImage);
     background-size: cover;
