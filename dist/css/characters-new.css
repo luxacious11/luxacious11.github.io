@@ -42,7 +42,8 @@ body#ST .post.saf-1 .luxpost {
 
 body#ST .post.saf-10 .luxpost {
   --rgb: 178, 180, 146;
-  --wideImage: url(https://64.media.tumblr.com/0235938635ccbabb11726ee0087f2307/6e92ce0d831cced5-e9/s1280x1920/e8b7d08a4badce0ef30c6832c71a3fd16b0b99b5.jpg); }
+  --wideImage: url(https://64.media.tumblr.com/0235938635ccbabb11726ee0087f2307/6e92ce0d831cced5-e9/s1280x1920/e8b7d08a4badce0ef30c6832c71a3fd16b0b99b5.jpg);
+  --imagePosition: top; }
 
 body#ST .post.saf-15 .luxpost {
   --rgb: 104,118,139;
