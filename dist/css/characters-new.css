@@ -49,6 +49,10 @@ body#ST .post.saf-15 .luxpost {
   --rgb: 104,118,139;
   --wideImage: url(https://64.media.tumblr.com/5179380187ccf904a472c2101e707d87/tumblr_p2mn217UQa1vz2ghao7_500.gif); }
 
+body#ST .post.saf-54 .luxpost {
+  --rgb: 80, 96, 120;
+  --wideImage: url(https://64.media.tumblr.com/14db12bf938c6bd79d428a8ab9efc44a/20b1cc5f7cd7f757-e2/s1280x1920/3d840ebe350a0eca8f5525ec73d71fb205202b59.jpg); }
+
 body#ST .post.saf-11 .luxpost {
   --rgb: 200, 176, 191;
   --wideImage: url(https://64.media.tumblr.com/c1003be3f2640da516e73f8e30139f97/a2b0567dca8400b1-96/s540x810/97483a753024434459733feb4d8e2e817cb05348.gif); }
@@ -58,6 +62,11 @@ body#ST .post.saf-17 .luxpost {
   --wideImage: url(https://64.media.tumblr.com/0ffb1cfb82cf406caac25485cb8d5bf2/b27a2c24c1d7db82-e5/s1280x1920/9efe9b308a6cf44d88d294bf49ac0877931c210e.jpg);
   --imagePosition: top; }
 
+body#ST .post.saf-56 .luxpost {
+  --rgb: 81, 105, 130;
+  --wideImage: url(https://64.media.tumblr.com/d133839eb6885b7eca163a653b0fc9d2/4c1713a289ca5989-40/s1280x1920/b8a0c0a34aed9a87ffed21baf7d8c95c3d789d93.jpg);
+  --imagePosition: 50% 28%; }
+
 body#ST .post.saf-8 .luxpost {
   --rgb: 212, 161, 168;
   --wideImage: url(https://64.media.tumblr.com/af9ec3d9fd3a651a674d8c9c06f6e4a7/779500705ab3fd6b-f0/s1280x1920/93f140ea7927fb9c555a07b0a9938253ac86f3c3.jpg); }
@@ -65,6 +74,10 @@ body#ST .post.saf-8 .luxpost {
 body#ST .post.saf-2 .luxpost {
   --rgb: 142, 173, 179;
   --wideImage: url(https://64.media.tumblr.com/326fd41888ea4584b5fa85727be35123/c56795f303b806cd-3c/s1280x1920/c18cdbdd77fa3c6991cc3359ab9c9d646380a530.jpg); }
+
+body#ST .post.saf-55 .luxpost {
+  --rgb: 97, 143, 141;
+  --wideImage: url(https://64.media.tumblr.com/5b88317fa423b84494ada56cf3150c4a/905f53e710799278-30/s1280x1920/13cd37c73210a45820a649a61d1d35fb6faa908a.gif); }
 
 body#ST .post.saf-9 .luxpost {
   --rgb: 180, 199, 129;
@@ -77,3 +90,7 @@ body#ST .post.saf-22 .luxpost {
 body#ST .post.saf-16 .luxpost {
   --rgb: 127, 116, 143;
   --wideImage: url(https://64.media.tumblr.com/36e44e9ad70ac8a40962fb9fe7c3edc6/1dd90c44adb5d1a7-2d/s1280x1920/16a2ec0d6c2a5df7460e67e7d4ad51309b27e915.jpg); }
+
+body#ST .post.saf-53 .luxpost {
+  --rgb: 148, 122, 99;
+  --wideImage: url(https://64.media.tumblr.com/412fa866c550cfa96c564b99d1136a72/5f9276684595d771-72/s1280x1920/539ba2ee43b5aaeed5343ea02de01a63dd28014a.jpg); }

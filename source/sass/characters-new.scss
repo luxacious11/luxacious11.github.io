@@ -66,6 +66,12 @@ body#ST {
             --wideImage: url(https://64.media.tumblr.com/5179380187ccf904a472c2101e707d87/tumblr_p2mn217UQa1vz2ghao7_500.gif);
         }
 
+        //gideon
+        &.saf-54 .luxpost {
+            --rgb: 80, 96, 120;
+            --wideImage: url(https://64.media.tumblr.com/14db12bf938c6bd79d428a8ab9efc44a/20b1cc5f7cd7f757-e2/s1280x1920/3d840ebe350a0eca8f5525ec73d71fb205202b59.jpg);
+        }
+
         //harley
         &.saf-11 .luxpost {
             --rgb: 200, 176, 191;
@@ -79,6 +85,13 @@ body#ST {
             --imagePosition: top;
         }
 
+        //lincoln
+        &.saf-56 .luxpost {
+            --rgb: 81, 105, 130;
+            --wideImage: url(https://64.media.tumblr.com/d133839eb6885b7eca163a653b0fc9d2/4c1713a289ca5989-40/s1280x1920/b8a0c0a34aed9a87ffed21baf7d8c95c3d789d93.jpg);
+            --imagePosition: 50% 28%;
+        }
+
         //lottie
         &.saf-8 .luxpost {
             --rgb: 212, 161, 168;
@@ -89,6 +102,12 @@ body#ST {
         &.saf-2 .luxpost {
             --rgb: 142, 173, 179;
             --wideImage: url(https://64.media.tumblr.com/326fd41888ea4584b5fa85727be35123/c56795f303b806cd-3c/s1280x1920/c18cdbdd77fa3c6991cc3359ab9c9d646380a530.jpg);
+        }
+
+        //river
+        &.saf-55 .luxpost {
+            --rgb: 97, 143, 141;
+            --wideImage: url(https://64.media.tumblr.com/5b88317fa423b84494ada56cf3150c4a/905f53e710799278-30/s1280x1920/13cd37c73210a45820a649a61d1d35fb6faa908a.gif);
         }
 
         //simon
@@ -107,6 +126,12 @@ body#ST {
         &.saf-16 .luxpost {
             --rgb: 127, 116, 143;
             --wideImage: url(https://64.media.tumblr.com/36e44e9ad70ac8a40962fb9fe7c3edc6/1dd90c44adb5d1a7-2d/s1280x1920/16a2ec0d6c2a5df7460e67e7d4ad51309b27e915.jpg);
+        }
+
+        //winnifred
+        &.saf-53 .luxpost {
+            --rgb: 148, 122, 99;
+            --wideImage: url(https://64.media.tumblr.com/412fa866c550cfa96c564b99d1136a72/5f9276684595d771-72/s1280x1920/539ba2ee43b5aaeed5343ea02de01a63dd28014a.jpg);
         }
     }
 }
