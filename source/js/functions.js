@@ -1738,6 +1738,7 @@ function populateThreads(array, siteObject) {
         document.querySelector('.filter--tags').insertAdjacentHTML('beforeend', `<label><span><input type="checkbox" value=".tag--${tag}"/></span><b>${tag}</b></label>`);
     });
     if(siteObject.length > 1) {
+        siteObject = siteObject.filter(item => item.Status === 'active');
         siteObject.forEach(site => {
             document.querySelector('.filter--sites').insertAdjacentHTML('beforeend', `<label><span><input type="checkbox" value=".site--${site.ID}"/></span><b>${site.Site}</b></label>`);
         });
