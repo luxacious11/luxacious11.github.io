@@ -99,7 +99,7 @@
 </nav>
         <main>
             <section class="charts">
-                <div class="charts--triple">
+                <div class="charts--double">
                     <div class="charts--thread-status charts--breakdown">
     <h2>start a fire</h2>
     <canvas id="saf"></canvas>
@@ -133,8 +133,8 @@
     });
 </script>
                     <div class="charts--thread-status charts--breakdown">
-    <h2>godly behaviour</h2>
-    <canvas id="gb"></canvas>
+    <h2>idols & ichor</h2>
+    <canvas id="ichor"></canvas>
 </div>
 <script>
     fetch(`https://opensheet.elk.sh/${sheetID}/Threads`)
@@ -144,44 +144,12 @@
         .then((response) => response.json())
         .then((siteData) => {
             //set overall variables
-            let siteName = 'godly behaviour';
+            let siteName = 'idols & ichor';
             let siteObject = siteName !== 'all' ? siteData.filter(item => item.Site === siteName) : siteData;
             let threadStats = createThreadStats(threadData, siteObject);
 
             /*Thread Status*/
-            new Chart(document.getElementById('gb'), {
-                type: 'pie',
-                data: {
-                    labels: threadStats[0].status.tags.map(item => item.toUpperCase()),
-                    datasets: [{
-                        data: threadStats[0].status.totals,
-                        backgroundColor: chartColors,
-                        borderWidth: 0
-                    }]
-                },
-                options: chartOptions
-            });
-        });
-    });
-</script>
-                    <div class="charts--thread-status charts--breakdown">
-    <h2>where the hell is</h2>
-    <canvas id="wthi"></canvas>
-</div>
-<script>
-    fetch(`https://opensheet.elk.sh/${sheetID}/Threads`)
-    .then((response) => response.json())
-    .then((threadData) => {
-        fetch(`https://opensheet.elk.sh/${sheetID}/Sites`)
-        .then((response) => response.json())
-        .then((siteData) => {
-            //set overall variables
-            let siteName = 'where the hell is';
-            let siteObject = siteName !== 'all' ? siteData.filter(item => item.Site === siteName) : siteData;
-            let threadStats = createThreadStats(threadData, siteObject);
-
-            /*Thread Status*/
-            new Chart(document.getElementById('wthi'), {
+            new Chart(document.getElementById('ichor'), {
                 type: 'pie',
                 data: {
                     labels: threadStats[0].status.tags.map(item => item.toUpperCase()),

@@ -78,6 +78,7 @@
 <nav class="subnav" data-menu="stats">
     <div class="subnav--inner">
         <a href="../stats/index.html">View Combined</a>
+        <a href="../stats/statuses.html">Status Comparison</a>
     </div>
 </nav>
 <nav class="subnav" data-menu="admin">
@@ -95,24 +96,26 @@
 </nav>
         <main>
             <section class="charts">
-                <div class="charts--top">
-    <div class="charts--characters charts--number"></div>
+                <div class="charts--triple">
     <div class="charts--threads charts--number"></div>
     <div class="charts--completed charts--number"></div>
-    <div class="charts--character-genders charts--breakdown">
-        <h2>Genders</h2>
-        <canvas id="genders"></canvas>
-    </div>
-    <div class="charts--character-pronouns charts--breakdown">
-        <h2>Pronouns</h2>
-        <canvas id="pronouns"></canvas>
-    </div>
-    <div class="charts--character-ages charts--breakdown">
-        <h2>Ages</h2>
-        <canvas id="ages"></canvas>
-    </div>
+    <div class="charts--characters charts--number"></div>
+    
+        <div class="charts--character-genders charts--breakdown">
+            <h2>Genders</h2>
+            <canvas id="genders"></canvas>
+        </div>
+        <div class="charts--character-pronouns charts--breakdown">
+            <h2>Pronouns</h2>
+            <canvas id="pronouns"></canvas>
+        </div>
+        <div class="charts--character-ages charts--breakdown">
+            <h2>Ages</h2>
+            <canvas id="ages"></canvas>
+        </div>
+    
 </div>
-<div class="charts--middle">
+<div class="charts--double">
     <div class="charts--thread-type charts--breakdown">
         <h2>Overall Threads - Type</h2>
         <canvas id="type"></canvas>
@@ -122,13 +125,13 @@
         <canvas id="status"></canvas>
     </div>
 </div>
-<div class="charts--bottom">
+<div class="charts--single">
     <div class="charts--thread-partners charts--breakdown">
         <h2>Overall Threads - Partners</h2>
         <canvas id="partners"></canvas>
     </div>
 </div>
-<div class="charts--middle">
+<div class="charts--double">
     <div class="charts--ic-status charts--breakdown">
         <h2>Active Threads - Status</h2>
         <canvas id="icStatus"></canvas>
@@ -137,8 +140,6 @@
         <h2>Active Threads - Reply Date</h2>
         <canvas id="icReplies"></canvas>
     </div>
-</div>
-<div class="charts--middle">
     <div class="charts--comm-status charts--breakdown">
         <h2>Comm Threads - Status</h2>
         <canvas id="commStatus"></canvas>
@@ -152,10 +153,7 @@
 <script src="@@prefix/js/charts.js"></script>
 <script>
     //set overall variables
-    let siteName = 'where the hell is';
-
-    //set class variables
-    let $container = $('.charts');
+    let siteName = 'idols & ichor';
 
     fetch(`https://opensheet.elk.sh/${sheetID}/Characters`)
     .then((response) => response.json())
@@ -167,46 +165,51 @@
             .then((response) => response.json())
             .then((siteData) => {
                 let siteObject = siteName !== 'all' ? siteData.filter(item => item.Site === siteName) : siteData;
-                let characterStats = createCharacterStats(characterData, siteObject);
-                let threadStats = createThreadStats(threadData, siteObject);
+                let characterStats = createCharacterStats(characterData, siteObject, siteData);
+                let threadStats = createThreadStats(threadData, siteObject, siteName, siteData);
 
-                document.querySelector('.charts--characters').innerHTML = `<b>${characterStats.total}</b><span>Characters</span>`;
-                document.querySelector('.charts--threads').innerHTML = `<b>${threadStats[0].active}</b><span>Active Threads</span>`;
-                document.querySelector('.charts--completed').innerHTML = `<b>${threadStats[0].completed}</b><span>Completed Threads</span>`;
+                if(siteName === 'all') {
+                    document.querySelector('.charts--characters').innerHTML = `<b>${characterStats.total}</b><span>${characterStats.total === 1 ? 'Unique Active Character' : 'Unique Active Characters'}</span>`;
+                } else {
+                    document.querySelector('.charts--characters').innerHTML = `<b>${characterStats.total}</b><span>${characterStats.total === 1 ? 'Character' : 'Characters'}</span>`;
+                }
+                document.querySelector('.charts--threads').innerHTML = `<b>${threadStats[0].active}</b><span>${threadStats[0].active === 1 ? 'Active Thread' : 'Active Threads'}</span>`;
+                document.querySelector('.charts--completed').innerHTML = `<b>${threadStats[0].completed}</b><span>${threadStats[0].completed === 1 ? 'Completed Thread' : 'Completed Threads'}</span>`;
 
-                /*Genders*/
-                const genders = document.getElementById('genders');
-                new Chart(genders, {
-                    type: 'pie',
-                    data: {
-                        labels: characterStats.genders.tags.map(item => item.toUpperCase()),
-                        datasets: [{
-                            data: characterStats.genders.totals,
-                            backgroundColor: chartColors,
-                            borderWidth: 0
-                        }]
-                    },
-                    options: chartOptions
-                });
+                if(siteName !== 'all') {
+                    /*Genders*/
+                    const genders = document.getElementById('genders');
+                    new Chart(genders, {
+                        type: 'pie',
+                        data: {
+                            labels: characterStats.genders.tags.map(item => item.toUpperCase()),
+                            datasets: [{
+                                data: characterStats.genders.totals,
+                                backgroundColor: chartColors,
+                                borderWidth: 0
+                            }]
+                        },
+                        options: chartOptions
+                    });
 
-                /*Pronouns*/
-                const pronouns = document.getElementById('pronouns');
-                new Chart(pronouns, {
-                    type: 'pie',
-                    data: {
-                        labels: characterStats.pronouns.tags.map(item => item.toUpperCase()),
-                        datasets: [{
-                            data: characterStats.pronouns.totals,
-                            backgroundColor: chartColors,
-                            borderWidth: 0
-                        }]
-                    },
-                    options: chartOptions
-                });
+                    /*Pronouns*/
+                    const pronouns = document.getElementById('pronouns');
+                    new Chart(pronouns, {
+                        type: 'pie',
+                        data: {
+                            labels: characterStats.pronouns.tags.map(item => item.toUpperCase()),
+                            datasets: [{
+                                data: characterStats.pronouns.totals,
+                                backgroundColor: chartColors,
+                                borderWidth: 0
+                            }]
+                        },
+                        options: chartOptions
+                    });
 
-                /*Ages*/
-                const ages = document.getElementById('ages');
-                new Chart(ages, {
+                    /*Ages*/
+                    const ages = document.getElementById('ages');
+                    new Chart(ages, {
                     type: 'pie',
                     data: {
                         labels: characterStats.ages.tags.map(item => item.toUpperCase()),
@@ -218,6 +221,7 @@
                     },
                     options: chartOptions
                 });
+                }
 
                 /*Thread Type*/
                 const type = document.getElementById('type');
