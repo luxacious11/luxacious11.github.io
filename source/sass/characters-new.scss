@@ -1,4 +1,4 @@
-#post-preview .ii-custom,
+#post-preview,
 body#ST .post {
     .luxpost {
         //SAF only
@@ -65,7 +65,10 @@ body#ST .post {
             }
         }
     }
+}
 
+#post-preview .ii-custom,
+body#ST .post .luxpost {
     //aiden
     &.luxpost.aiden {
         --squareImage: url('https://64.media.tumblr.com/0720c51d8604fb4e91ea67797e99aced/31edb05a278d2403-5b/s640x960/bb482fcd68b3a3b0aeb511fa2787b5973659c6f8.jpg');
