@@ -55,163 +55,163 @@ body#ST .post .luxpost.ii-custom {
     content: var(--quote); }
 
 #post-preview .ii-custom.luxpost.aiden,
-body#ST .post:not([data-equestrian]) .luxpost.luxpost.aiden,
-body#ST .post[data-equestrian].luxpost.aiden {
+body#ST .post .luxpost.luxpost.aiden,
+body#ST .post:has(.saf-custom).luxpost.aiden {
   --squareImage: url('https://64.media.tumblr.com/0720c51d8604fb4e91ea67797e99aced/31edb05a278d2403-5b/s640x960/bb482fcd68b3a3b0aeb511fa2787b5973659c6f8.jpg');
   --quote: 'i had all and then most of you, some and now none of you; take me back to the night we met'; }
 
 #post-preview .ii-custom.saf-10 .luxpost,
-body#ST .post:not([data-equestrian]) .luxpost.saf-10 .luxpost,
-body#ST .post[data-equestrian].saf-10 .luxpost {
+body#ST .post .luxpost.saf-10 .luxpost,
+body#ST .post:has(.saf-custom).saf-10 .luxpost {
   --rgb: 178, 180, 146;
   --wideImage: url(https://64.media.tumblr.com/0235938635ccbabb11726ee0087f2307/6e92ce0d831cced5-e9/s1280x1920/e8b7d08a4badce0ef30c6832c71a3fd16b0b99b5.jpg);
   --imagePosition: top; }
 
 #post-preview .ii-custom.luxpost.ben,
-body#ST .post:not([data-equestrian]) .luxpost.luxpost.ben,
-body#ST .post[data-equestrian].luxpost.ben {
+body#ST .post .luxpost.luxpost.ben,
+body#ST .post:has(.saf-custom).luxpost.ben {
   --squareImage: url('https://64.media.tumblr.com/9702c38a393bac94dea372e2ef8118d6/4900206cef0dc00e-58/s250x400/d0595ad129f9ad76d805d03445c97306e59fbdcd.gif');
   --quote: "isn't it lovely all alone?"; }
 
 #post-preview .ii-custom.saf-15 .luxpost,
-body#ST .post:not([data-equestrian]) .luxpost.saf-15 .luxpost,
-body#ST .post[data-equestrian].saf-15 .luxpost {
+body#ST .post .luxpost.saf-15 .luxpost,
+body#ST .post:has(.saf-custom).saf-15 .luxpost {
   --rgb: 104,118,139;
   --wideImage: url(https://64.media.tumblr.com/5179380187ccf904a472c2101e707d87/tumblr_p2mn217UQa1vz2ghao7_500.gif); }
 
 #post-preview .ii-custom.luxpost.chris,
-body#ST .post:not([data-equestrian]) .luxpost.luxpost.chris,
-body#ST .post[data-equestrian].luxpost.chris {
+body#ST .post .luxpost.luxpost.chris,
+body#ST .post:has(.saf-custom).luxpost.chris {
   --squareImage: url('https://64.media.tumblr.com/590ec697dc374d70f6fff88044a35f5d/tumblr_p2mn9qOC1r1vz2ghao3_250.gif');
   --quote: "but you're broken on the floor, still asking him for more"; }
 
 #post-preview .ii-custom.luxpost.foxchris,
-body#ST .post:not([data-equestrian]) .luxpost.luxpost.foxchris,
-body#ST .post[data-equestrian].luxpost.foxchris {
+body#ST .post .luxpost.luxpost.foxchris,
+body#ST .post:has(.saf-custom).luxpost.foxchris {
   --squareImage: url('https://64.media.tumblr.com/866615b3a34ec2f6b10d3f0e9541fdaf/9a570f2874979637-96/s1280x1920/e9f5fa662d60da334651965b6d9662215c09938d.jpg');
   --imagePosition: top;
   --quote: "but you're broken on the floor, still asking him for more"; }
 
 #post-preview .ii-custom.luxpost.fio,
-body#ST .post:not([data-equestrian]) .luxpost.luxpost.fio,
-body#ST .post[data-equestrian].luxpost.fio {
+body#ST .post .luxpost.luxpost.fio,
+body#ST .post:has(.saf-custom).luxpost.fio {
   --squareImage: url('https://64.media.tumblr.com/a1253db6762664bd19a2036ef864ef40/5ef0677be384507c-82/s1280x1920/36fb589ce72f6ce62a61eedc35f2531641dfab35.jpg');
   --quote: "sick of the poison, wish i had something to live for tomorrow"; }
 
 #post-preview .ii-custom.saf-54 .luxpost,
-body#ST .post:not([data-equestrian]) .luxpost.saf-54 .luxpost,
-body#ST .post[data-equestrian].saf-54 .luxpost {
+body#ST .post .luxpost.saf-54 .luxpost,
+body#ST .post:has(.saf-custom).saf-54 .luxpost {
   --rgb: 80, 96, 120;
   --wideImage: url(https://64.media.tumblr.com/14db12bf938c6bd79d428a8ab9efc44a/20b1cc5f7cd7f757-e2/s1280x1920/3d840ebe350a0eca8f5525ec73d71fb205202b59.jpg); }
 
 #post-preview .ii-custom.luxpost.gideon,
-body#ST .post:not([data-equestrian]) .luxpost.luxpost.gideon,
-body#ST .post[data-equestrian].luxpost.gideon {
+body#ST .post .luxpost.luxpost.gideon,
+body#ST .post:has(.saf-custom).luxpost.gideon {
   --squareImage: url('https://64.media.tumblr.com/4b677ac2413fe3aca506328f8a158b09/20b1cc5f7cd7f757-8b/s1280x1920/21984cfd1cbf6420132538e62d975912cfdca93c.jpg');
   --quote: "but if i forgive you, i'll never forgive myself"; }
 
 #post-preview .ii-custom.saf-11 .luxpost,
-body#ST .post:not([data-equestrian]) .luxpost.saf-11 .luxpost,
-body#ST .post[data-equestrian].saf-11 .luxpost {
+body#ST .post .luxpost.saf-11 .luxpost,
+body#ST .post:has(.saf-custom).saf-11 .luxpost {
   --rgb: 200, 176, 191;
   --wideImage: url(https://64.media.tumblr.com/c1003be3f2640da516e73f8e30139f97/a2b0567dca8400b1-96/s540x810/97483a753024434459733feb4d8e2e817cb05348.gif); }
 
 #post-preview .ii-custom.saf-17 .luxpost,
-body#ST .post:not([data-equestrian]) .luxpost.saf-17 .luxpost,
-body#ST .post[data-equestrian].saf-17 .luxpost {
+body#ST .post .luxpost.saf-17 .luxpost,
+body#ST .post:has(.saf-custom).saf-17 .luxpost {
   --rgb: 217, 195, 167;
   --wideImage: url(https://64.media.tumblr.com/0ffb1cfb82cf406caac25485cb8d5bf2/b27a2c24c1d7db82-e5/s1280x1920/9efe9b308a6cf44d88d294bf49ac0877931c210e.jpg);
   --imagePosition: top; }
 
 #post-preview .ii-custom.saf-56 .luxpost,
-body#ST .post:not([data-equestrian]) .luxpost.saf-56 .luxpost,
-body#ST .post[data-equestrian].saf-56 .luxpost {
+body#ST .post .luxpost.saf-56 .luxpost,
+body#ST .post:has(.saf-custom).saf-56 .luxpost {
   --rgb: 81, 105, 130;
   --wideImage: url(https://64.media.tumblr.com/d133839eb6885b7eca163a653b0fc9d2/4c1713a289ca5989-40/s1280x1920/b8a0c0a34aed9a87ffed21baf7d8c95c3d789d93.jpg);
   --imagePosition: 50% 28%; }
 
 #post-preview .ii-custom.luxpost.loki,
-body#ST .post:not([data-equestrian]) .luxpost.luxpost.loki,
-body#ST .post[data-equestrian].luxpost.loki {
+body#ST .post .luxpost.luxpost.loki,
+body#ST .post:has(.saf-custom).luxpost.loki {
   --squareImage: url('https://64.media.tumblr.com/76148d5b9076d72784707aee26269fde/1dd90c44adb5d1a7-62/s1280x1920/4e80013eb70bba0717bf8d055784faf6a7b5d9e5.jpg');
   --imagePosition: top;
   --quote: "never was built to be this way, but turns out the villain is fun to play"; }
 
 #post-preview .ii-custom.saf-8 .luxpost,
-body#ST .post:not([data-equestrian]) .luxpost.saf-8 .luxpost,
-body#ST .post[data-equestrian].saf-8 .luxpost {
+body#ST .post .luxpost.saf-8 .luxpost,
+body#ST .post:has(.saf-custom).saf-8 .luxpost {
   --rgb: 212, 161, 168;
   --wideImage: url(https://64.media.tumblr.com/af9ec3d9fd3a651a674d8c9c06f6e4a7/779500705ab3fd6b-f0/s1280x1920/93f140ea7927fb9c555a07b0a9938253ac86f3c3.jpg); }
 
 #post-preview .ii-custom.luxpost.naomi,
-body#ST .post:not([data-equestrian]) .luxpost.luxpost.naomi,
-body#ST .post[data-equestrian].luxpost.naomi {
+body#ST .post .luxpost.luxpost.naomi,
+body#ST .post:has(.saf-custom).luxpost.naomi {
   --squareImage: url('https://64.media.tumblr.com/53a9e899bfe66e9d42f2aef0ce90c1e2/9d0622e23af270f0-9c/s1280x1920/a3899ac773d7cfcee1794ab680ffddd1dbd8dc2f.gif');
   --quote: "i'll lace up my armour and fight for us both"; }
 
 #post-preview .ii-custom.saf-2 .luxpost,
-body#ST .post:not([data-equestrian]) .luxpost.saf-2 .luxpost,
-body#ST .post[data-equestrian].saf-2 .luxpost {
+body#ST .post .luxpost.saf-2 .luxpost,
+body#ST .post:has(.saf-custom).saf-2 .luxpost {
   --rgb: 142, 173, 179;
   --wideImage: url(https://64.media.tumblr.com/326fd41888ea4584b5fa85727be35123/c56795f303b806cd-3c/s1280x1920/c18cdbdd77fa3c6991cc3359ab9c9d646380a530.jpg); }
 
 #post-preview .ii-custom.luxpost.nik,
-body#ST .post:not([data-equestrian]) .luxpost.luxpost.nik,
-body#ST .post[data-equestrian].luxpost.nik {
+body#ST .post .luxpost.luxpost.nik,
+body#ST .post:has(.saf-custom).luxpost.nik {
   --squareImage: url('https://i.pinimg.com/736x/48/67/9c/48679c0b451d62da1f6932b67116321f.jpg');
   --quote: 'and i was raised on excellence, always taught to look my best'; }
 
 #post-preview .ii-custom.saf-55 .luxpost,
-body#ST .post:not([data-equestrian]) .luxpost.saf-55 .luxpost,
-body#ST .post[data-equestrian].saf-55 .luxpost {
+body#ST .post .luxpost.saf-55 .luxpost,
+body#ST .post:has(.saf-custom).saf-55 .luxpost {
   --rgb: 97, 143, 141;
   --wideImage: url(https://64.media.tumblr.com/5b88317fa423b84494ada56cf3150c4a/905f53e710799278-30/s1280x1920/13cd37c73210a45820a649a61d1d35fb6faa908a.gif); }
 
 #post-preview .ii-custom.luxpost.rory,
-body#ST .post:not([data-equestrian]) .luxpost.luxpost.rory,
-body#ST .post[data-equestrian].luxpost.rory {
+body#ST .post .luxpost.luxpost.rory,
+body#ST .post:has(.saf-custom).luxpost.rory {
   --squareImage: url('https://64.media.tumblr.com/b2fed84e8a19723cb45acb0a8ec63731/cc781a69d683e7d7-b8/s1280x1920/1f42391af20a85077e23c2d39f033fcec94a1f3d.gif');
   --quote: "heavy is the crown only for the weak"; }
 
 #post-preview .ii-custom.saf-9 .luxpost,
-body#ST .post:not([data-equestrian]) .luxpost.saf-9 .luxpost,
-body#ST .post[data-equestrian].saf-9 .luxpost {
+body#ST .post .luxpost.saf-9 .luxpost,
+body#ST .post:has(.saf-custom).saf-9 .luxpost {
   --rgb: 180, 199, 129;
   --wideImage: url(https://64.media.tumblr.com/e1a8b296e71bd501418c9a0eed3fd5cf/tumblr_ocq1j35zbo1qbvi8yo1_540.gif); }
 
 #post-preview .ii-custom.saf-89 .luxpost,
-body#ST .post:not([data-equestrian]) .luxpost.saf-89 .luxpost,
-body#ST .post[data-equestrian].saf-89 .luxpost {
+body#ST .post .luxpost.saf-89 .luxpost,
+body#ST .post:has(.saf-custom).saf-89 .luxpost {
   --rgb: 160, 74, 74;
   --wideImage: url(https://64.media.tumblr.com/8487672442548db0c9e8f65ca065c06a/26b68bc3945651f3-7c/s1280x1920/cb8bdcf3e08ec0e44ce53cac766b04b7e1383ecd.jpg); }
 
 #post-preview .ii-custom.saf-22 .luxpost,
-body#ST .post:not([data-equestrian]) .luxpost.saf-22 .luxpost,
-body#ST .post[data-equestrian].saf-22 .luxpost {
+body#ST .post .luxpost.saf-22 .luxpost,
+body#ST .post:has(.saf-custom).saf-22 .luxpost {
   --rgb: 207, 167, 52;
   --wideImage: url(https://64.media.tumblr.com/889b0b7596365cfcc1e602d2a789dc73/90c3ab572ea71606-c7/s1280x1920/7fa10af1ede8c0e3214d3e929a7cb8e7e602197c.jpg); }
 
 #post-preview .ii-custom.luxpost.vee,
-body#ST .post:not([data-equestrian]) .luxpost.luxpost.vee,
-body#ST .post[data-equestrian].luxpost.vee {
+body#ST .post .luxpost.luxpost.vee,
+body#ST .post:has(.saf-custom).luxpost.vee {
   --squareImage: url('https://64.media.tumblr.com/60ed9e156c6076fc309080bb40fc4f89/tumblr_pehwdpjqpX1r3i2gwo5_540.gif');
   --quote: "i won't die for love, but ever since i met you, you could have my heart and i would break it for you"; }
 
 #post-preview .ii-custom.saf-16 .luxpost,
-body#ST .post:not([data-equestrian]) .luxpost.saf-16 .luxpost,
-body#ST .post[data-equestrian].saf-16 .luxpost {
+body#ST .post .luxpost.saf-16 .luxpost,
+body#ST .post:has(.saf-custom).saf-16 .luxpost {
   --rgb: 127, 116, 143;
   --wideImage: url(https://64.media.tumblr.com/36e44e9ad70ac8a40962fb9fe7c3edc6/1dd90c44adb5d1a7-2d/s1280x1920/16a2ec0d6c2a5df7460e67e7d4ad51309b27e915.jpg); }
 
 #post-preview .ii-custom.saf-53 .luxpost,
-body#ST .post:not([data-equestrian]) .luxpost.saf-53 .luxpost,
-body#ST .post[data-equestrian].saf-53 .luxpost {
+body#ST .post .luxpost.saf-53 .luxpost,
+body#ST .post:has(.saf-custom).saf-53 .luxpost {
   --rgb: 148, 122, 99;
   --wideImage: url(https://64.media.tumblr.com/412fa866c550cfa96c564b99d1136a72/5f9276684595d771-72/s1280x1920/539ba2ee43b5aaeed5343ea02de01a63dd28014a.jpg); }
 
 #post-preview .ii-custom.luxpost.winnie,
-body#ST .post:not([data-equestrian]) .luxpost.luxpost.winnie,
-body#ST .post[data-equestrian].luxpost.winnie {
+body#ST .post .luxpost.luxpost.winnie,
+body#ST .post:has(.saf-custom).luxpost.winnie {
   --squareImage: url('https://64.media.tumblr.com/a15be12b9853c3474c008e37489f98e6/5f9276684595d771-23/s1280x1920/b56d7a2a75c7c7e69fd0182627010d95db7e914f.jpg');
   --imagePosition: top;
   --quote: 'give me peace through the heartache, give me hope in the heartbreak'; }
