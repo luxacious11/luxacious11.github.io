@@ -191,6 +191,12 @@ body#ST .post:has(.saf-custom).saf-22 .luxpost {
   --rgb: 207, 167, 52;
   --wideImage: url(https://64.media.tumblr.com/889b0b7596365cfcc1e602d2a789dc73/90c3ab572ea71606-c7/s1280x1920/7fa10af1ede8c0e3214d3e929a7cb8e7e602197c.jpg); }
 
+#post-preview .ii-custom.luxpost.sterling,
+body#ST .post .luxpost.luxpost.sterling,
+body#ST .post:has(.saf-custom).luxpost.sterling {
+  --squareImage: url('https://64.media.tumblr.com/9cd2ad95eeaefc08ccbb7f011efd5ab1/c4a88870f28cf267-27/s1280x1920/40a19c8a21ad45069a33fd4621794f5426532c1a.jpg');
+  --quote: "weep, little lion man, you're not as brave as you were at the start"; }
+
 #post-preview .ii-custom.luxpost.vee,
 body#ST .post .luxpost.luxpost.vee,
 body#ST .post:has(.saf-custom).luxpost.vee {
