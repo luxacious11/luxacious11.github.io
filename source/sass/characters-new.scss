@@ -89,6 +89,13 @@ body#ST .post:has(.saf-custom) {
         --quote: "isn't it lovely all alone?";
     }
 
+    //charon
+    &.luxpost.charon {
+        --squareImage: url('https://64.media.tumblr.com/263259a8a6b0a61c2460bc16c4ac7672/f2774900d8b148c1-6b/s1280x1920/76955caae91e52ee81d01372e2ef76b646aa02d6.png');
+        --imagePosition: top;
+        --quote: 'and i watched him go, that weary soul, and he felt so tired, to be so alone';
+    }
+
     //chris
     &.saf-15 .luxpost {
         --rgb: 104,118,139;
@@ -102,6 +109,13 @@ body#ST .post:has(.saf-custom) {
         --squareImage: url('https://64.media.tumblr.com/866615b3a34ec2f6b10d3f0e9541fdaf/9a570f2874979637-96/s1280x1920/e9f5fa662d60da334651965b6d9662215c09938d.jpg');
         --imagePosition: top;
         --quote: "but you're broken on the floor, still asking him for more";
+    }
+
+    //emma
+    &.luxpost.emma {
+        --squareImage: url('https://64.media.tumblr.com/65702c7da346a27a57038cfcc22581a2/1890138647412025-fa/s1280x1920/ee56c3405e9b94cfcd168a7b325e8e8172be831d.jpg');
+        --imagePosition: top;
+        --quote: "everyone said 'you look fine from the outside' but in my mind i was upside down and screaming";
     }
 
     //fio
@@ -169,6 +183,12 @@ body#ST .post:has(.saf-custom) {
         --quote: 'and i was raised on excellence, always taught to look my best';
     }
 
+    /*/pluto
+    &.luxpost.pluto {
+        --squareImage: url('');
+        --quote: '';
+    }*/
+
     //river
     &.saf-55 .luxpost {
         --rgb: 97, 143, 141;
@@ -191,6 +211,12 @@ body#ST .post:has(.saf-custom) {
     &.saf-89 .luxpost {
         --rgb: 160, 74, 74;
         --wideImage: url(https://64.media.tumblr.com/8487672442548db0c9e8f65ca065c06a/26b68bc3945651f3-7c/s1280x1920/cb8bdcf3e08ec0e44ce53cac766b04b7e1383ecd.jpg);
+    }
+
+    //spence
+    &.luxpost.spence {
+        --squareImage: url('https://64.media.tumblr.com/f3cbeb06c988e0c6ab6af8911cfeea4a/tumblr_p2s9rxYaMm1vz2ghao1_1280.jpg');
+        --quote: "blood is thicker than the water i'm running from; i'd be the wayward love if i wasn't too proud for home";
     }
 
     //sterling
