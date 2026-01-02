@@ -1803,17 +1803,26 @@ function sendThreadAjax(data, thread, form = null, complete = null) {
                 thread.classList.remove('status--theirs');
                 thread.classList.remove('status--expecting');
                 thread.classList.add('status--complete');
-                thread.querySelectorAll('button').forEach(button => button.classList.remove('is-updating'));
+                thread.querySelectorAll('button').forEach(button => {
+                    button.classList.remove('is-updating');
+                    button.removeAttribute('disabled');
+                });
             } else if(data.Status === 'theirs') {
                 thread.classList.remove('status--mine');
                 thread.classList.remove('status--start');
                 thread.classList.add('status--theirs');
                 thread.querySelector('[data-status]').classList.remove('is-updating');
+                thread.querySelectorAll('button').forEach(button => {
+                    button.removeAttribute('disabled');
+                });
             } else if(data.Status === 'mine') {
                 thread.classList.remove('status--theirs');
                 thread.classList.remove('status--expecting');
                 thread.classList.add('status--mine');
                 thread.querySelector('[data-status]').classList.remove('is-updating');
+                thread.querySelectorAll('button').forEach(button => {
+                    button.removeAttribute('disabled');
+                });
             }
         }
     });
@@ -1823,6 +1832,7 @@ function changeStatus(e) {
         e.dataset.status = 'theirs';
         let thread = e.parentNode.parentNode.parentNode;
         e.classList.add('is-updating');
+        e.setAttribute('disabled', true);
         sendThreadAjax({
             SubmissionType: 'thread-status',
             ThreadID: e.dataset.id,
@@ -1834,6 +1844,7 @@ function changeStatus(e) {
         e.dataset.status = 'mine';
         let thread = e.parentNode.parentNode.parentNode;
         e.classList.add('is-updating');
+        e.setAttribute('disabled', true);
         sendThreadAjax({
             SubmissionType: 'thread-status',
             ThreadID: e.dataset.id,
@@ -1847,6 +1858,7 @@ function markComplete(e) {
     e.dataset.status = 'complete';
     let thread = e.parentNode.parentNode.parentNode;
     e.classList.add('is-updating');
+    e.setAttribute('disabled', true);
     sendThreadAjax({
         SubmissionType: 'thread-status',
         ThreadID: e.dataset.id,
@@ -1859,6 +1871,7 @@ function markArchived(e) {
     e.dataset.status = 'archived';
     let thread = e.parentNode.parentNode.parentNode;
     e.classList.add('is-updating');
+    e.setAttribute('disabled', true);
     sendThreadAjax({
         SubmissionType: 'thread-status',
         ThreadID: e.dataset.id,
@@ -1885,29 +1898,40 @@ function formatThread(thread) {
 
     let buttons = ``;
     if (thread.status !== 'complete' && thread.status !== 'archived') {
-        buttons = `<div class="icon" title="${thread.type}"></div><button onClick="changeStatus(this)" data-status="${thread.status}" data-id="${thread.id}" data-site="${thread.site.Site}" data-character='${JSON.stringify(thread.character)}' title="Change Turn"><i class="fa-regular fa-arrow-right-arrow-left"></i><i class="fa-solid fa-spinner fa-spin"></i></button>
-        <button onClick="markComplete(this)" data-id="${thread.id}" data-site="${thread.site.Site}" data-character='${JSON.stringify(thread.character)}' title="Mark Complete"><i class="fa-regular fa-badge-check"></i><i class="fa-solid fa-spinner fa-spin"></i></button>
-        <button onClick="markArchived(this)" data-id="${thread.id}" data-site="${thread.site.Site}" data-character='${JSON.stringify(thread.character)}' title="Archive"><i class="fa-regular fa-trash"></i><i class="fa-solid fa-spinner fa-spin"></i></button>`;
-    } else if (thread.status !== 'archived') {
-        buttons = `<div class="icon" title="${thread.type}"></div><button onClick="markArchived(this)" data-id="${thread.id}" data-site="${thread.site.Site}" data-character='${JSON.stringify(thread.character)}' title="Archive"><i class="fa-regular fa-trash"></i><i class="fa-solid fa-spinner fa-spin"></i></button>`;
-    } else {
-        buttons = `<div class="icon" title="${thread.type}"></div>`;
+        buttons = `<button onClick="changeStatus(this)" data-status="${thread.status}" data-id="${thread.id}" data-site="${thread.site.Site}" data-character='${JSON.stringify(thread.character)}'>
+            <span class="not-loading">Update Status</span>
+            <span class="loading">Updating...</span>
+        </button>
+        <button onClick="markComplete(this)" data-id="${thread.id}" data-site="${thread.site.Site}" data-character='${JSON.stringify(thread.character)}'>
+            <span class="not-loading">Mark Complete</span>
+            <span class="loading">Updating...</span>
+        </button>`;
+
+        if (thread.status !== 'archived') {
+            buttons += `<button onClick="markArchived(this)" data-id="${thread.id}" data-site="${thread.site.Site}" data-character='${JSON.stringify(thread.character)}'>
+                <span class="not-loading">Archive</span>
+                <span class="loading">Updating...</span>
+            </button>`;
+        }
     }
 
     return `<div class="thread lux-track grid-item grid-item ${thread.character.name.split(' ')[0]} ${partnerClasses} ${featuringClasses} status--${thread.status} type--${thread.type} delay--${getDelay(thread.updated)} ${extraTags} site--${thread.site.ID}">
         <div class="thread--wrap">
             <div class="thread--main">
-                <a href="${thread.site.URL}/?showtopic=${thread.id}&view=getnewpost" target="_blank" class="thread--title">${capitalize(thread.title, [' ', '-'])}</a>
                 <div class="thread--dates">
+                    <div class="thread--type">${thread.type}</div>
                     <span class="thread--ic-date">Set <span>${thread.date}</span></span>
                     <span class="thread--last-post">Last Active <span>${thread.updated}</span></span>
                 </div>
-                ${thread.description && thread.description !== '' ? `<p>${thread.description}</p>` : ''}
+                <div class="thread--title">
+                    <a href="${thread.site.URL}/?showtopic=${thread.id}&view=getnewpost" target="_blank">${capitalize(thread.title, [' ', '-'])}</a>
+                </div>
                 <span class="bigger">Writing as <a class="thread--character" href="${thread.site.URL}/${thread.site.Directory}${thread.character.id}">${thread.character.name}</a></span>
                 <span class="thread--feature">ft. ${featuringText}</span>
                 <span class="thread--partners italic">Writing with ${partnersText}</span>
+                <div class="thread--buttons">${buttons}</div>
             </div>
-            <div class="thread--buttons">${buttons}</div>
+            ${thread.description && thread.description !== '' ? `<div class="thread--right"><div class="thread--right-inner"><div class="scroll"><p>${thread.description}</p></div></div></div>` : ''}
         </div>
     </div>`;
 }
