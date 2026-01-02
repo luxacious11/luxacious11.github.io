@@ -111,6 +111,12 @@ body#ST .post:has(.saf-custom) {
         --quote: "but you're broken on the floor, still asking him for more";
     }
 
+    //cyn
+    &.luxpost.cyn {
+        --squareImage: url('https://64.media.tumblr.com/ca475ca3d9a0901625be9cbcbea1ef89/f104b885346aef95-b3/s1280x1920/24c1fb936a3d867eaa81ea936d43a2f102a14232.jpg');
+        --quote: "reckless but honest words leave out my mouth, like kerosene on a flame of doubt; i just couldn't make it right";
+    }
+
     //emma
     &.luxpost.emma {
         --squareImage: url('https://64.media.tumblr.com/65702c7da346a27a57038cfcc22581a2/1890138647412025-fa/s1280x1920/ee56c3405e9b94cfcd168a7b325e8e8172be831d.jpg');
@@ -132,6 +138,16 @@ body#ST .post:has(.saf-custom) {
     &.luxpost.gideon {
         --squareImage: url('https://64.media.tumblr.com/4b677ac2413fe3aca506328f8a158b09/20b1cc5f7cd7f757-8b/s1280x1920/21984cfd1cbf6420132538e62d975912cfdca93c.jpg');
         --quote: "but if i forgive you, i'll never forgive myself";
+    }
+
+    //hai
+    &.luxpost.hai {
+        --squareImage: url('https://files.jcink.net/uploads2/idolsandichor//av-190.jpg');
+        --quote: "so cross your thoughtless heart, she's the albatross, she is here to destroy you";
+    }
+    &.luxpost.haidragon {
+        --squareImage: url('https://i.pinimg.com/736x/06/87/b0/0687b061654b561b3dfe4786ce27f2d5.jpg');
+        --quote: "so cross your thoughtless heart, she's the albatross, she is here to destroy you";
     }
 
     //harley
@@ -193,6 +209,11 @@ body#ST .post:has(.saf-custom) {
     &.saf-55 .luxpost {
         --rgb: 97, 143, 141;
         --wideImage: url(https://64.media.tumblr.com/5b88317fa423b84494ada56cf3150c4a/905f53e710799278-30/s1280x1920/13cd37c73210a45820a649a61d1d35fb6faa908a.gif);
+    }
+    &.luxpost.river {
+        --squareImage: url('https://64.media.tumblr.com/5b88317fa423b84494ada56cf3150c4a/905f53e710799278-30/s1280x1920/13cd37c73210a45820a649a61d1d35fb6faa908a.gif');
+        --imagePosition: left;
+        --quote: "choked up, i realize: i've been less than half myself for more than half my life";
     }
 
     //rory
