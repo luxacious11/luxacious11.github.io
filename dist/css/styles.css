@@ -824,7 +824,7 @@ section.links {
   margin-bottom: var(--space--sm);
   background: var(--bg--tertiary);
   border-left: 5px solid var(--bg--quintenary); }
-  .thread.status--mine, .thread:has([data-status="mine"]) {
+  .thread:has(.status--mine), .thread:has([data-status="mine"]) {
     border-left: 5px solid var(--bg-accent); }
   .thread.status--complete {
     opacity: 0.25;
