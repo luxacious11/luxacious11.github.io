@@ -14,7 +14,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap" rel="stylesheet">
 
 <!--Icons-->
-<link href="https://dawneggleton.github.io/css/all.css" rel="stylesheet" />
+<link href="https://dawneggleton.github.io/css/all-fa7.min.css" rel="stylesheet" />
 
 <!--Script Libraries-->
 <script type='text/javascript' src='https://files.jcink.net/html/jquery-1.7.2.min.js'></script>
@@ -25,7 +25,6 @@
 <script type='text/javascript' src='../dist/js/settings.js'></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>let statusChart = {};</script>
-        <!--this is a comment so there's a change-->
     </head>
     <body>
         <div class="backdrop horizontal"></div>
@@ -33,35 +32,35 @@
 <nav class="nav">
     <div class="nav--inner">
         <a href="../index.html">
-            <i class="fa-light fa-house"></i>
+            <i class="fa-solid fa-house"></i>
             <span>Home</span>
         </a>
         <button onClick="openSubmenu(this)" data-menu="sites">
-            <i class="fa-light fa-sitemap"></i>
+            <i class="fa-solid fa-sitemap"></i>
             <span>Sites</span>
         </button>
         <button onClick="openSubmenu(this)" data-menu="characters">
-            <i class="fa-light fa-users"></i>
+            <i class="fa-solid fa-users"></i>
             <span>Muses</span>
         </button>
         <button onClick="openSubmenu(this)" data-menu="threads">
-            <i class="fa-light fa-books"></i>
+            <i class="fa-solid fa-books"></i>
             <span>Threads</span>
         </button>
         <button onClick="openSubmenu(this)" data-menu="stats">
-            <i class="fa-light fa-chart-pie"></i>
+            <i class="fa-solid fa-chart-pie"></i>
             <span>Stats</span>
         </button>
         <button onClick="openSubmenu(this)" data-menu="admin">
-            <i class="fa-light fa-wrench"></i>
+            <i class="fa-solid fa-wrench"></i>
             <span>Admin</span>
         </button>
-        <button class="toggle--theme" onClick="toggleTheme()">
-            <i class="fa-light fa-brightness mode--light"></i>
+        <!--<button class="toggle--theme" onClick="toggleTheme()">
+            <i class="fa-solid fa-brightness mode--light"></i>
             <span class="mode--light">Light</span>
-            <i class="fa-light fa-brightness-low mode--dark"></i>
+            <i class="fa-solid fa-brightness-low mode--dark"></i>
             <span class="mode--dark">Dark</span>
-        </button>
+        </button>-->
     </div>
 </nav>
 <nav class="subnav" data-menu="sites">
@@ -98,7 +97,37 @@
 </nav>
         <main>
             <section class="charts">
-                <div class="charts--double">
+                <div class="charts--triple">
+                    <div class="charts--thread-status charts--breakdown">
+    <h2>all</h2>
+    <canvas id="all"></canvas>
+</div>
+<script>
+    fetch(`https://opensheet.elk.sh/${sheetID}/Threads`)
+    .then((response) => response.json())
+    .then((threadData) => {
+        fetch(`https://opensheet.elk.sh/${sheetID}/Sites`)
+        .then((response) => response.json())
+        .then((siteData) => {
+            //set overall variables
+            let siteName = 'all';
+            let siteObject = siteName !== 'all' ? siteData.filter(item => item.Site === siteName) : siteData;
+            let threadStats = createThreadStats(threadData, siteObject);
+
+            /*Thread Status*/
+            new Chart(document.getElementById('all'), {
+                ...chartOptions,
+                data: {
+                    labels: threadStats[0].status.tags.map(item => item.toUpperCase()),
+                    datasets: [{
+                        data: threadStats[0].status.totals,
+                        ...datasetOptions
+                    }]
+                },
+            });
+        });
+    });
+</script>
                     <div class="charts--thread-status charts--breakdown">
     <h2>start a fire</h2>
     <canvas id="saf"></canvas>
@@ -117,16 +146,14 @@
 
             /*Thread Status*/
             new Chart(document.getElementById('saf'), {
-                type: 'pie',
+                ...chartOptions,
                 data: {
                     labels: threadStats[0].status.tags.map(item => item.toUpperCase()),
                     datasets: [{
                         data: threadStats[0].status.totals,
-                        backgroundColor: chartColors,
-                        borderWidth: 0
+                        ...datasetOptions
                     }]
                 },
-                options: chartOptions
             });
         });
     });
@@ -149,50 +176,14 @@
 
             /*Thread Status*/
             new Chart(document.getElementById('ichor'), {
-                type: 'pie',
+                ...chartOptions,
                 data: {
                     labels: threadStats[0].status.tags.map(item => item.toUpperCase()),
                     datasets: [{
                         data: threadStats[0].status.totals,
-                        backgroundColor: chartColors,
-                        borderWidth: 0
+                        ...datasetOptions
                     }]
                 },
-                options: chartOptions
-            });
-        });
-    });
-</script>
-                </div>
-                <div class="charts--single" style="max-width: 500px;">
-                    <div class="charts--thread-status charts--breakdown">
-    <h2>all</h2>
-    <canvas id="all"></canvas>
-</div>
-<script>
-    fetch(`https://opensheet.elk.sh/${sheetID}/Threads`)
-    .then((response) => response.json())
-    .then((threadData) => {
-        fetch(`https://opensheet.elk.sh/${sheetID}/Sites`)
-        .then((response) => response.json())
-        .then((siteData) => {
-            //set overall variables
-            let siteName = 'all';
-            let siteObject = siteName !== 'all' ? siteData.filter(item => item.Site === siteName) : siteData;
-            let threadStats = createThreadStats(threadData, siteObject);
-
-            /*Thread Status*/
-            new Chart(document.getElementById('all'), {
-                type: 'pie',
-                data: {
-                    labels: threadStats[0].status.tags.map(item => item.toUpperCase()),
-                    datasets: [{
-                        data: threadStats[0].status.totals,
-                        backgroundColor: chartColors,
-                        borderWidth: 0
-                    }]
-                },
-                options: chartOptions
             });
         });
     });

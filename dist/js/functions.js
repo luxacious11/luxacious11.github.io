@@ -1629,6 +1629,9 @@ function initIsotope() {
 }
 function toggleFilters(e) {
     e.closest('.filters--wrap').querySelector('.filters--collapsible').classList.toggle('is-open');
+    if(!e.closest('.filters--wrap').querySelector('.filters--collapsible').classList.contains('is-open')) {
+        document.querySelectorAll('.backdrop').forEach(item => item.classList.remove('is-active'));
+    }
 }
 
 /***** THREAD TRACKING FUNCTIONS *****/
@@ -2258,10 +2261,10 @@ function createThreadStats(data, site, siteID, sites) {
     }
 
     icThreads.forEach(item => {
-        item.Delay = getDetailedDelay(item.ICDate);
+        item.Delay = getDetailedDelay(item.LastUpdated);
     });
     commThreads.forEach(item => {
-        item.Delay = getDetailedDelay(item.ICDate);
+        item.Delay = getDetailedDelay(item.LastUpdated);
     });
 
     let threadPartners = activeThreads.map(thread => JSON.parse(thread.Featuring));
@@ -2345,6 +2348,7 @@ function createThreadStats(data, site, siteID, sites) {
     });
 
     let icStatusThreads = [...icThreads];
+    console.log(icStatusThreads);
     icStatusThreads.sort((a, b) => {
         if(a.Status < b.Status) {
             return -1;

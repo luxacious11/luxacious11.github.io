@@ -7,7 +7,6 @@
         })
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>let statusChart = {};</script>
-        <!--this is a comment so there's a change-->
     </head>
     <body>
         @@include('../../source/templates/nav.html', {
@@ -15,7 +14,11 @@
         })
         <main>
             <section class="charts">
-                <div class="charts--double">
+                <div class="charts--triple">
+                    @@include('../../source/templates/status.html', {
+                        "sitename": "all",
+                        "siteID": "all"
+                    })
                     @@include('../../source/templates/status.html', {
                         "sitename": "start a fire",
                         "siteID": "saf"
@@ -23,12 +26,6 @@
                     @@include('../../source/templates/status.html', {
                         "sitename": "idols & ichor",
                         "siteID": "ichor"
-                    })
-                </div>
-                <div class="charts--single" style="max-width: 500px;">
-                    @@include('../../source/templates/status.html', {
-                        "sitename": "all",
-                        "siteID": "all"
                     })
                 </div>
             </section>
