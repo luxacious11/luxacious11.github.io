@@ -272,7 +272,8 @@ a {
   padding: var(--space--md);
   -webkit-transition-duration: 0.3s;
           transition-duration: 0.3s;
-  opacity: 0; }
+  opacity: 0;
+  border-right: var(--border--primary); }
   .subnav.is-open {
     left: var(--size--menu-width);
     opacity: 1; }

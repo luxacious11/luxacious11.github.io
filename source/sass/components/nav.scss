@@ -81,6 +81,7 @@
     padding: var(--space--md);
     transition-duration: 0.3s;
     opacity: 0;
+    border-right: var(--border--primary);
 
     &.is-open {
         left: var(--size--menu-width);
