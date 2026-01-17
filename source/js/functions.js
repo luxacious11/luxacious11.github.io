@@ -694,11 +694,25 @@ function addRow(e) {
     } else if(e.closest('.multi-buttons').dataset.rowType === 'add-ships') {
         e.closest('.adjustable').querySelector('.rows').insertAdjacentHTML('beforeend', formatShipsRow(e));
         initPartnerSelect(e, 'initial', '#characterSite');
+    } else if(e.closest('.multi-buttons').dataset.rowType === 'add-info') {
+        e.closest('.adjustable').querySelector('.rows').insertAdjacentHTML('beforeend', formatInfoRow(e));
     }
 }
 function removeRow(e) {
     let rows = e.closest('.adjustable').querySelectorAll('.row');
     rows[rows.length - 1].remove();
+}
+function formatInfoRow() {
+    return `<div class="row extra-info">
+        <label>
+            <b>Variable Title</b>
+            <span><input type="text" class="title" placeholder="Title" required /></span>
+        </label>
+        <label>
+            <b>Variable Content</b>
+            <span><input type="text" class="content" placeholder="Content" required /></span>
+        </label>
+    </div>`;
 }
 function formatLinksRow() {
     return `<div class="row links">
@@ -869,6 +883,15 @@ function submitCharacter(form) {
         image: form.querySelector('#image').value.trim(),
     };
 
+    //complex data - extras
+    let extras = Array.from(form.querySelectorAll('.row.extra-info'));
+    let formattedExtras = {};
+    extras.forEach(extra => {
+        let title = extra.querySelector('.title').value.toLowerCase().trim();
+        let content = extra.querySelector('.content').value.trim();
+        formattedExtras[title] = content;
+    });
+
     //complex data - links
     let links = form.querySelectorAll('#linkTitle');
     let linkList = [];
@@ -946,6 +969,7 @@ function submitCharacter(form) {
             let basics = {
                 site: site,
                 basics: basicsValues,
+                extras: formattedExtras,
             }
 
             let data = {
@@ -978,6 +1002,7 @@ function submitCharacter(form) {
             let basics = [...JSON.parse(existing[0].Basics), {
                 site: site,
                 basics: basicsValues,
+                extras: formattedExtras,
             }];
 
             let data = {
@@ -1140,27 +1165,34 @@ function updateCharacter(form) {
                         let age = form.querySelector('#ageValue').value.trim().toLowerCase();
                         let face = form.querySelector('#face').value.trim().toLowerCase();
                         let image = form.querySelector('#image').value.trim();
+                        let extras = Array.from(form.querySelectorAll('.row.extra-info'));
+                        let formattedExtras = {};
+                        extras.forEach(extra => {
+                            let title = extra.querySelector('.title').value.toLowerCase().trim();
+                            let content = extra.querySelector('.content').value.trim();
+                            formattedExtras[title] = content;
+                        });
     
                         existingBasics[instance].basics.gender = (gender && gender !== '') ? gender : existingBasics[instance].basics.gender;
                         existingBasics[instance].basics.pronouns = (pronouns && pronouns !== '') ? pronouns : existingBasics[instance].basics.pronouns;
                         existingBasics[instance].basics.age = (age && age !== '') ? age : existingBasics[instance].basics.age;
                         existingBasics[instance].basics.face = (face && face !== '') ? face : existingBasics[instance].basics.face;
                         existingBasics[instance].basics.image = (image && image !== '') ? image : existingBasics[instance].basics.image;
-                    } else {
-                        existingBasics.push({
-                            site: site,
-                            basics: {
-                                gender: form.querySelector('#gender').value.trim().toLowerCase(),
-                                pronouns: form.querySelector('#pronouns').value.trim().toLowerCase(),
-                                age: form.querySelector('#ageValue').value.trim().toLowerCase(),
-                                face: form.querySelector('#face').value.trim().toLowerCase(),
-                                image: form.querySelector('#image').value.trim(),
-                            }
-                        });
+                        if(Object.keys(formattedExtras).length > 0) {
+                            existingBasics[instance].extras = formattedExtras;
+                        }
                     }
                 }
                 existing.Basics = JSON.stringify(existingBasics);
             } else {
+                let extras = Array.from(form.querySelectorAll('.row.extra-info'));
+                let formattedExtras = {};
+                extras.forEach(extra => {
+                    let title = extra.querySelector('.title').value.toLowerCase().trim();
+                    let content = extra.querySelector('.content').value.trim();
+                    formattedExtras[title] = content;
+                });
+
                 existing.Basics = JSON.stringify([{
                     site: site,
                     basics: {
@@ -1169,7 +1201,8 @@ function updateCharacter(form) {
                         age: form.querySelector('#ageValue').value.trim().toLowerCase(),
                         face: form.querySelector('#face').value.trim().toLowerCase(),
                         image: form.querySelector('#image').value.trim(),
-                    }
+                    },
+                    extras: formattedExtras
                 }]);
             }
         }

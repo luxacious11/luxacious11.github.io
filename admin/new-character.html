@@ -131,6 +131,14 @@
         <b>Image URL</b>
         <span><input type="text" id="image" placeholder="URL" required /></span>
     </label>
+    <div class="field-wrap fullWidth adjustable">
+        <b>Extra Info</b>
+        <div class="rows"></div>
+        <div class="multi-buttons" data-row-type="add-info">
+            <button type="button" onclick="addRow(this)">+ New Row</button>
+            <button type="button" onclick="removeRow(this)">- Remove Row</button>
+        </div>
+    </div>
     <label class="fullWidth">
         <b>Vibes</b>
         <span><textarea type="text" id="vibes" placeholder="(Optional)"></textarea></span>
