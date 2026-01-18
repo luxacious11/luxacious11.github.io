@@ -2151,7 +2151,7 @@ function openModal(e) {
     let modal = site ? e.closest('.has-modal').querySelector(`.character--modal[data-type="${type}"][data-site="${site}"]`) : e.closest('.has-modal').querySelector(`.character--modal[data-type="${type}"]`);
     modal.classList.toggle('is-open');
     modal.addEventListener('click', e => {
-        e.currentTarget.classList.remove('is-open');
+        e.target.classList.remove('is-open');
     })
 }
 function switchSite(e) {
@@ -2195,7 +2195,10 @@ function formatMultipleInstance(character, sites) {
         let extras = character.basics.filter(item => item.site === siteInstance.site)[0].extras;
         let ships = character.ships.filter(item => item.site === siteInstance.site)[0].characters;
         let site = sites.filter(item => item.Site === siteInstance.site)[0];
-        
+        if(character.character === 'nikolas kovac') {
+            console.log(site);
+            console.log(ships);
+        }
         siteImages += `<img src="${basics.image}" loading="lazy" data-site="${site.Site}" class="switchable ${i === 0 ? '' : 'hidden'}" />`;
         siteLabels += `<button onclick="switchSite(this)" data-site="${site.Site}">${site.Site}</button>`;
         siteModalButtons += `<button onclick="openModal(this)" data-type="info" data-site="${site.Site}" class="switchable ${i === 0 ? '' : 'hidden'}">info</button>
@@ -2224,7 +2227,7 @@ function formatMultipleInstance(character, sites) {
                 <div class="character--modal-inner">
                     <div class="character--modal-inner-scroll">
                         <ul>
-                            ${ships.length > 0 ? `<li>No relationships registered with the tracker.</li>` : ``}
+                            ${ships.length === 0 ? `<li class="fullWidth">No relationships registered with the tracker.</li>` : ``}
                             ${ships.map(item => `<li><b>${item.character}</b><span>played by ${item.writer}</span><span>${item.relationship}</span></li>`).join('')}
                         </ul>
                     </div>
