@@ -164,7 +164,9 @@ function initPartnerSelect(el, type = 'initial', siteField = '#site', hasNPC = f
                         }
                     });
                 } else {
-                    select.closest('.row').querySelector('.ifPlayed').classList.remove('hidden');
+                    if(select.closest('.row').querySelector('.ifPlayed')) {
+                        select.closest('.row').querySelector('.ifPlayed').classList.remove('hidden');
+                    }
                     select.addEventListener('change', e => {
                         initShipSelect(e.currentTarget, siteField);
                     });
@@ -356,6 +358,7 @@ function initChangeBasics(el) {
                 el.closest('form').querySelector('#ageValue').setAttribute('placeholder', basics[0].basics.age);
                 el.closest('form').querySelector('#face').setAttribute('placeholder', basics[0].basics.face);
                 el.closest('form').querySelector('#image').setAttribute('placeholder', basics[0].basics.image);
+                el.closest('form').querySelector('.imagePreview img').setAttribute('src', basics[0].basics.image);
             }
         }
     });
