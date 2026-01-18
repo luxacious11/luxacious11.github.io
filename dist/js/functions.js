@@ -1372,9 +1372,8 @@ function updateCharacter(form) {
         }
 
         existing.SubmissionType = 'edit-character';
-        console.log(existing);
     
-        //sendAjax(form, existing, successMessage);
+        sendAjax(form, existing, successMessage);
     });
 }
 function updateThread(form) {
