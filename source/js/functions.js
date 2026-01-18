@@ -1191,7 +1191,7 @@ function updateCharacter(form) {
                         existingBasics[instance].basics.face = (face && face !== '') ? face : existingBasics[instance].basics.face;
                         existingBasics[instance].basics.image = (image && image !== '') ? image : existingBasics[instance].basics.image;
                         if(Object.keys(formattedExtras).length > 0) {
-                            existingBasics[instance].extras = formattedExtras;
+                            existingBasics[instance].extras = {...existingBasics[instance].extras, ...formattedExtras};
                         }
                     }
                 }
@@ -1372,8 +1372,9 @@ function updateCharacter(form) {
         }
 
         existing.SubmissionType = 'edit-character';
+        console.log(existing);
     
-        sendAjax(form, existing, successMessage);
+        //sendAjax(form, existing, successMessage);
     });
 }
 function updateThread(form) {
@@ -2236,7 +2237,6 @@ function formatMultipleInstance(character, sites) {
             <button onclick="openModal(this)" data-type="links" data-site="${site.Site}" class="switchable ${i === 0 ? '' : 'hidden'}">links</button>`;
         siteProfiles += `<a href="${site.URL}/${site.Directory}${charSite.id}" target="_blank" data-site="${site.Site}" class="switchable ${i === 0 ? '' : 'hidden'}">${capitalize(character.character)}</a>`;
 
-        
         let extrasHTML = ``;
         for(item in extras) {
             extrasHTML += `<li><b>${item}</b><span>${extras[item]}</span></li>`;
