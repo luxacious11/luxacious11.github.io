@@ -2,6 +2,7 @@ const relationshipOptions = `<option value="">(select)</option>
     <optgroup label="Family">
         <option value="parent">Parent</option>
         <option value="sibling">Sibling</option>
+        <option value="sibling">Half-Sibling</option>
         <option value="child">Child</option>
         <option value="step-parent">Step-parent</option>
         <option value="step-sibling">Step-sibling</option>
