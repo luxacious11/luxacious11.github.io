@@ -204,6 +204,9 @@
       height: 100%;
       object-fit: cover;
       object-position: center; }
+    @media (max-width: 1024px) {
+      .character--image {
+        display: none; } }
   .character--main {
     display: grid;
     padding: var(--space--md) var(--space--md) 0;

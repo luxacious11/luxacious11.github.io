@@ -1275,6 +1275,9 @@ section.links {
          object-fit: cover;
       -o-object-position: center;
          object-position: center; }
+    @media (max-width: 1024px) {
+      .character--image {
+        display: none; } }
   .character--main {
     display: -ms-grid;
     display: grid;

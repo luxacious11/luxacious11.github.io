@@ -285,6 +285,9 @@
             object-fit: cover;
             object-position: center;
         }
+        @include mq-down(md) {
+            display: none;
+        }
     }
 
     &--main {
