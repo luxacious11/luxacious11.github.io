@@ -2074,6 +2074,7 @@ function populateCharacters(array, siteObject) {
             array[i].Basics.forEach(instance => {
                 if(instance.site === siteObject[0].Site) {
                     character.basics = instance.basics;
+                    character.extras = instance.extras;
                 }
             });
         } else {
@@ -2143,6 +2144,10 @@ function formatSingleInstance(character, sites) {
     for(ship in combinedShips) {
         shipHTML += `<li><b>${ship}</b><i>${combinedShips[ship].writer === 'npc' ? combinedShips[ship].writer : `played by ${combinedShips[ship].writer}`}</i><i>${combinedShips[ship].relationship}</i></li>`
     }
+    let extrasHTML = ``;
+    for(item in character.extras) {
+        extrasHTML += `<li><b>${item}</b><span>${character.extras[item]}</span></li>`;
+    }
     
     return `<div class="character lux-track grid-item has-modal ${tagsString} ${character.character.split(' ')[0]}">
         <div class="character--wrap">
@@ -2158,11 +2163,25 @@ function formatSingleInstance(character, sites) {
                     <a href="${character.sites.URL}/${character.sites.Directory}${character.id}" target="_blank">${capitalize(character.character)}</a>
                 </div>
                 <div class="character--info">
+                    <button onclick="openModal(this)" data-type="info">info</button>
                     ${character.ships.length > 0 ? `<button onclick="openModal(this)" data-type="ships">relationships</button>` : ``}
                     ${character.links.map(item => `<a href="${item.url}" target="_blank">${item.title}</a>`).join('')}
                 </div>
             </div>
             ${character.vibes && character.vibes !== '' ? `<div class="character--right"><div class="thread--right-inner"><div class="scroll"><p>${character.vibes}</p></div></div></div>` : ''}
+        </div>
+        <div class="character--modal" data-type="info">
+            <div class="character--modal-inner">
+                <div class="character--modal-inner-scroll">
+                    <ul>
+                        <li><b>Gender</b><span>${character.basics.gender}</span></li>
+                        <li><b>Pronouns</b><span>${character.basics.pronouns}</span></li>
+                        <li><b>Age</b><span>${character.basics.age} years old</span></li>
+                        <li><b>Face</b><span>${character.basics.face}</span></li>
+                        ${extrasHTML}
+                    </ul>
+                </div>
+            </div>
         </div>
         <div class="character--modal" data-type="ships">
             <div class="character--modal-inner">
