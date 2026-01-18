@@ -2214,7 +2214,7 @@ function formatMultipleInstance(character, sites) {
         tagsString += ` site--${site.ID}`;
     });
     
-    let siteLabels = ``, siteModalButtons = ``, siteModals = ``, siteImages = ``;
+    let siteLabels = ``, siteModalButtons = ``, siteModals = ``, siteImages = ``, siteProfiles = ``;
 
     character.sites.sort((a, b) => {
         if(a.Site < b.Site) return -1;
@@ -2223,6 +2223,7 @@ function formatMultipleInstance(character, sites) {
     });
     
     character.sites.forEach((siteInstance, i) => {
+        let charSite = character.sites.filter(item => item.site === siteInstance.site)[0];
         let basics = character.basics.filter(item => item.site === siteInstance.site)[0].basics;
         let extras = character.basics.filter(item => item.site === siteInstance.site)[0].extras;
         let ships = character.ships.filter(item => item.site === siteInstance.site)[0].characters;
@@ -2233,7 +2234,9 @@ function formatMultipleInstance(character, sites) {
         siteModalButtons += `<button onclick="openModal(this)" data-type="info" data-site="${site.Site}" class="switchable ${i === 0 ? '' : 'hidden'}">info</button>
             <button onclick="openModal(this)" data-type="ships" data-site="${site.Site}" class="switchable ${i === 0 ? '' : 'hidden'}">relationships</button>
             <button onclick="openModal(this)" data-type="links" data-site="${site.Site}" class="switchable ${i === 0 ? '' : 'hidden'}">links</button>`;
+        siteProfiles += `<a href="${site.URL}/${site.Directory}${charSite.id}" target="_blank" data-site="${site.Site}" class="switchable ${i === 0 ? '' : 'hidden'}">${capitalize(character.character)}</a>`;
 
+        
         let extrasHTML = ``;
         for(item in extras) {
             extrasHTML += `<li><b>${item}</b><span>${extras[item]}</span></li>`;
@@ -2299,7 +2302,7 @@ function formatMultipleInstance(character, sites) {
                     ${siteLabels}
                 </div>
                 <div class="character--title">
-                    <a href="${character.sites.URL}/${character.sites.Directory}${character.id}" target="_blank">${capitalize(character.character)}</a>
+                    ${siteProfiles}
                 </div>
                 <div class="character--info">
                     ${siteModalButtons}
