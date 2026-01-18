@@ -2,11 +2,14 @@ const relationshipOptions = `<option value="">(select)</option>
     <optgroup label="Family">
         <option value="parent">Parent</option>
         <option value="sibling">Sibling</option>
-        <option value="stepfather">Child</option>
+        <option value="child">Child</option>
         <option value="step-parent">Step-parent</option>
         <option value="step-sibling">Step-sibling</option>
+        <option value="step-child">Step-child</option>
         <option value="adopted parent">Adopted Parent</option>
         <option value="adopted sibling">Adopted Sibling</option>
+        <option value="adopted child">Adopted Child</option>
+        <option value="foster child">Foster Child</option>
     </optgroup>
     <optgroup label="Extended Family">
         <option value="ancestor">Ancestor</option>
@@ -44,6 +47,7 @@ const relationshipOptions = `<option value="">(select)</option>
         <option value="ex-friend">Ex-friend</option>
         <option value="rival">Rival</option>
         <option value="annoyance">Annoyance</option>
+        <option value="dislikes">Dislikes</option>
     </optgroup>
     <optgroup label="Miscellaneous">
         <option value="aquaintance">Aquaintance</option>
