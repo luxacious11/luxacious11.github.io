@@ -254,6 +254,9 @@
       cursor: pointer;
       margin: 0;
       padding: 0; }
+      .character--info > button.is-active {
+        border-bottom: var(--border--primary);
+        border-color: var(--accent); }
   .character--right {
     position: relative;
     font-size: 12px;
