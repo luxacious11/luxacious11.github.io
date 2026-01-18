@@ -49,6 +49,7 @@ const relationshipOptions = `<option value="">(select)</option>
         <option value="rival">Rival</option>
         <option value="annoyance">Annoyance</option>
         <option value="dislikes">Dislikes</option>
+        <option value="estranged">Estranged</option>
     </optgroup>
     <optgroup label="Miscellaneous">
         <option value="aquaintance">Aquaintance</option>
