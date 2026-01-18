@@ -52,6 +52,7 @@ const relationshipOptions = `<option value="">(select)</option>
     <optgroup label="Miscellaneous">
         <option value="aquaintance">Aquaintance</option>
         <option value="deceased">Deceased</option>
+        <option value="pet">Pet</option>
         <option value="other">Other</option>
     </optgroup>`;
 
