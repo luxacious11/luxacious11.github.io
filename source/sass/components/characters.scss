@@ -240,6 +240,7 @@
         }
     }
     &--content {
+        overflow: hidden;
         padding: var(--space--md);
 
         @include mq-up(xs) {

@@ -1282,6 +1282,7 @@ section.links {
           border-color: var(--accent);
           background: var(--accent); }
   .characters--content {
+    overflow: hidden;
     padding: var(--space--md); }
     @media (min-width: 601px) {
       .characters--content {
