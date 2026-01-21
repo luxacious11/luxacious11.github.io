@@ -240,6 +240,7 @@
         }
     }
     &--content {
+        overflow: hidden;
         padding: var(--space--md);
 
         @include mq-up(xs) {
@@ -256,6 +257,20 @@
     &:has(.status--mine),
     &:has([data-status="mine"]) {
         border-color: var(--bg-accent);
+    }
+
+    &.status--mine,
+    &.status--theirs {
+        .inactiveOnly {
+            display: none;
+        }
+    }
+
+    &.status--complete,
+    &.status--archived {
+        .activeOnly {
+            display: none;
+        }
     }
 
     &.status--complete {

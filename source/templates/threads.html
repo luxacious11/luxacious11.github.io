@@ -136,7 +136,7 @@
             let siteObject = siteName !== 'all' ? siteData.filter(item => item.Site === siteName) : siteData;
             let threads = prepThreads(threadData, siteName, siteData);
             populateThreads(threads, siteObject);
-
+        }).then(() => {
             //initialize isotope
             // quick search regex
             let qsRegex;
@@ -164,9 +164,34 @@
                     lastpost: true,
                 }
             });
-            setTimeout(function() {
-                $container.isotope('layout');
-            }, 300);
+
+            //handle filter storage
+            let queryParamsArray = window.location.search.split('&').map(param => param.split('='));
+            let queryParams = {};
+            queryParamsArray.forEach(param => {
+                queryParams[param[0]] = param[1];
+            });
+            for (const param in queryParams) {
+                if(param !== '') {
+                    let key = param;
+                    let values = queryParams[param].split('_');
+
+                    if(document.querySelector(`[data-filter-group="${key}"]`) && values.length > 0) {
+                        document.querySelector(`[data-filter-group="${key}"] .all`).classList.remove('is-checked');
+                        values.filter(item => item !== '').forEach(value => {
+                            document.querySelector(`[data-filter-group="${key}"] [value="${value}"]`)
+                            .closest('label')
+                            .classList.add('is-checked');
+                        });
+                        setCustomFilter();
+                    }
+                }
+            }
+
+            if(window.location.search.split('typesearch=')[1]) {
+                document.querySelector(typeSearch).value = window.location.search.split('typesearch=')[1].split('&')[0].replaceAll('+', ' ');
+                setCustomFilter();
+            }
             initIsotope();
         });
     });

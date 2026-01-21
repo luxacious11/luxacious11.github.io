@@ -921,6 +921,7 @@ section.links {
           border-color: var(--accent);
           background: var(--accent); }
   .threads--content {
+    overflow: hidden;
     padding: var(--space--md); }
     @media (min-width: 601px) {
       .threads--content {
@@ -933,6 +934,10 @@ section.links {
   border-left: var(--border--thick); }
   .thread:has(.status--mine), .thread:has([data-status="mine"]) {
     border-color: var(--bg-accent); }
+  .thread.status--mine .inactiveOnly, .thread.status--theirs .inactiveOnly {
+    display: none; }
+  .thread.status--complete .activeOnly, .thread.status--archived .activeOnly {
+    display: none; }
   .thread.status--complete {
     opacity: 0.25;
     -webkit-transition-duration: 0.3s;

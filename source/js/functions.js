@@ -1524,10 +1524,10 @@ function setCustomFilter() {
     const hideUnless = document.querySelector('.completed-label');
 
     //get search value
-    qsRegex = document.querySelector(typeSearch).value;
-    elements = document.querySelectorAll(gridItem);
+    qsRegex = document.querySelector(typeSearch).value.toLowerCase().trim();
     
     //add show class to all items to reset
+    elements = document.querySelectorAll(gridItem);
     elements.forEach(el => el.classList.add(visible));
     
     //filter by nothing
@@ -1544,6 +1544,7 @@ function setCustomFilter() {
 
     let filterGroups = document.querySelectorAll(filterGroup);
     let groups = [];
+    let checkFilters;
     filterGroups.forEach(group => {
         let filters = [];
         group.querySelectorAll('label.is-checked input').forEach(filter => {
@@ -1552,6 +1553,11 @@ function setCustomFilter() {
             }
         });
         groups.push({group: group.dataset.filterGroup, selected: filters});
+    });
+
+    groups.forEach(group => {
+        let tagString = group.selected.join('_');
+        appendSearchQuery(group.group, tagString);
     });
 
     let filterCount = 0;
@@ -1605,20 +1611,13 @@ function setCustomFilter() {
     }
 
     //join array into string
-    if(hideUnless && hideUnless.classList.contains('is-checked')) {
-        filter = filter.join(', ');
-    } else {
-        filter = filter.map(item => `${item}${defaultShow}`);
-        if(filter.length === 0) {
-            filter = [defaultShow];
-        }
-        filter = filter.join(', ');
-    }
-    
+    filter = filter.join(', ');
+        
     //render isotope
     $container.isotope({
-        filter: filter
+        filter: filter,
     });
+    $container.isotope('layout');
 }
 function initIsotope() {
     //use value of input select to filter
@@ -1661,6 +1660,7 @@ function initIsotope() {
 
     // use value of search field to filter
     document.querySelector(typeSearch).addEventListener('keyup', e => {
+        appendSearchQuery('typesearch', e.currentTarget.value);
         setCustomFilter();
     });
 
@@ -1797,6 +1797,11 @@ function populateThreads(array, siteObject) {
         });
     }
 }
+function appendSearchQuery(param, value) {
+	const url = new URL(window.location.href);
+	url.searchParams.set(param, value);
+	window.history.replaceState(null, null, url);
+}
 function getDelay(date) {
     let elapsed = (new Date() - Date.parse(date)) / (1000*60*60*24);
     let delayClass;
@@ -1856,26 +1861,51 @@ function sendThreadAjax(data, thread, form = null, complete = null) {
                 thread.classList.remove('status--theirs');
                 thread.classList.remove('status--expecting');
                 thread.classList.add('status--complete');
+                thread.closest('.thread').classList.remove('status--mine');
+                thread.closest('.thread').classList.remove('status--start');
+                thread.closest('.thread').classList.remove('status--theirs');
+                thread.closest('.thread').classList.remove('status--expecting');
+                thread.closest('.thread').classList.add('status--complete');
                 thread.querySelectorAll('button').forEach(button => {
                     button.classList.remove('is-updating');
                     button.removeAttribute('disabled');
                 });
+                setCustomFilter();
+                $('#threads--rows').isotope('layout');
             } else if(data.Status === 'theirs') {
                 thread.classList.remove('status--mine');
                 thread.classList.remove('status--start');
                 thread.classList.add('status--theirs');
+                thread.classList.remove('status--expecting');
+                thread.classList.remove('status--complete');
+                thread.closest('.thread').classList.remove('status--mine');
+                thread.closest('.thread').classList.remove('status--start');
+                thread.closest('.thread').classList.add('status--theirs');
+                thread.closest('.thread').classList.remove('status--expecting');
+                thread.closest('.thread').classList.remove('status--complete');
                 thread.querySelector('[data-status]').classList.remove('is-updating');
                 thread.querySelectorAll('button').forEach(button => {
                     button.removeAttribute('disabled');
                 });
+                setCustomFilter();
+                $('#threads--rows').isotope('layout');
             } else if(data.Status === 'mine') {
                 thread.classList.remove('status--theirs');
                 thread.classList.remove('status--expecting');
                 thread.classList.add('status--mine');
+                thread.classList.remove('status--expecting');
+                thread.classList.remove('status--complete');
+                thread.closest('.thread').classList.remove('status--theirs');
+                thread.closest('.thread').classList.remove('status--expecting');
+                thread.closest('.thread').classList.add('status--mine');
+                thread.closest('.thread').classList.remove('status--expecting');
+                thread.closest('.thread').classList.remove('status--complete');
                 thread.querySelector('[data-status]').classList.remove('is-updating');
                 thread.querySelectorAll('button').forEach(button => {
                     button.removeAttribute('disabled');
                 });
+                setCustomFilter();
+                $('#threads--rows').isotope('layout');
             }
         }
     });
@@ -1906,6 +1936,7 @@ function changeStatus(e) {
             Status: 'mine'
         }, thread);
     }
+    $('#threads--rows').isotope('layout');
 }
 function markComplete(e) {
     e.dataset.status = 'complete';
@@ -1919,6 +1950,19 @@ function markComplete(e) {
         Character: e.dataset.character.replaceAll(`'`, `&apos;`),
         Status: 'complete'
     }, thread, null, 'complete');
+}
+function reactivateThread(e) {
+    e.dataset.status = 'mine';
+    let thread = e.parentNode.parentNode.parentNode;
+    e.classList.add('is-updating');
+    e.setAttribute('disabled', true);
+    sendThreadAjax({
+        SubmissionType: 'thread-status',
+        ThreadID: e.dataset.id,
+        Site: e.dataset.site,
+        Character: e.dataset.character.replaceAll(`'`, `&apos;`),
+        Status: 'mine'
+    }, thread);
 }
 function markArchived(e) {
     e.dataset.status = 'archived';
@@ -1949,24 +1993,22 @@ function formatThread(thread) {
     });
     let extraTags = thread.tags !== '' ? JSON.parse(thread.tags).map(item => `tag--${item}`).join(' ') : '';
 
-    let buttons = ``;
-    if (thread.status !== 'complete' && thread.status !== 'archived') {
-        buttons = `<button onClick="changeStatus(this)" data-status="${thread.status}" data-id="${thread.id}" data-site="${thread.site.Site}" data-character='${JSON.stringify(thread.character)}'>
+    let buttons = `<button class="activeOnly" onClick="changeStatus(this)" data-status="${thread.status}" data-id="${thread.id}" data-site="${thread.site.Site}" data-character='${JSON.stringify(thread.character)}'>
             <span class="not-loading">Update Status</span>
             <span class="loading">Updating...</span>
         </button>
-        <button onClick="markComplete(this)" data-id="${thread.id}" data-site="${thread.site.Site}" data-character='${JSON.stringify(thread.character)}'>
+        <button class="activeOnly" onClick="markComplete(this)" data-id="${thread.id}" data-site="${thread.site.Site}" data-character='${JSON.stringify(thread.character)}'>
             <span class="not-loading">Mark Complete</span>
             <span class="loading">Updating...</span>
+        </button>
+        <button class="inactiveOnly" onClick="reactivateThread(this)" data-id="${thread.id}" data-site="${thread.site.Site}" data-character='${JSON.stringify(thread.character)}'>
+            <span class="not-loading">Reactivate</span>
+            <span class="loading">Updating...</span>
+        </button>
+        <button class="activeOnly" onClick="markArchived(this)" data-id="${thread.id}" data-site="${thread.site.Site}" data-character='${JSON.stringify(thread.character)}'>
+            <span class="not-loading">Archive</span>
+            <span class="loading">Updating...</span>
         </button>`;
-
-        if (thread.status !== 'archived') {
-            buttons += `<button onClick="markArchived(this)" data-id="${thread.id}" data-site="${thread.site.Site}" data-character='${JSON.stringify(thread.character)}'>
-                <span class="not-loading">Archive</span>
-                <span class="loading">Updating...</span>
-            </button>`;
-        }
-    }
 
     return `<div class="thread lux-track grid-item grid-item ${thread.character.name.split(' ')[0]} ${partnerClasses} ${featuringClasses} status--${thread.status} type--${thread.type} delay--${getDelay(thread.updated)} ${extraTags} site--${thread.site.ID}">
         <div class="thread--wrap">
