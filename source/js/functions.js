@@ -2015,7 +2015,7 @@ function formatThread(thread) {
             <div class="thread--main">
                 <div class="thread--dates">
                     <div class="thread--type">${thread.type}</div>
-                    <span class="thread--ic-date">Set <span>${thread.date}</span></span>
+                    ${thread.date ? `<span class="thread--ic-date">Set <span>${thread.date}</span></span>` : ``}
                     <span class="thread--last-post">Last Active <span>${thread.updated}</span></span>
                 </div>
                 <div class="thread--title">
