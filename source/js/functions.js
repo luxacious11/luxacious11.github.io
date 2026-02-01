@@ -2017,6 +2017,7 @@ function formatThread(thread) {
                     <div class="thread--type">${thread.type}</div>
                     ${thread.date ? `<span class="thread--ic-date">Set <span>${thread.date}</span></span>` : ``}
                     <span class="thread--last-post">Last Active <span>${thread.updated}</span></span>
+                    ${thread.date ? `` : `<span class="thread--ic-date"><span></span></span>`}
                 </div>
                 <div class="thread--title">
                     <a href="${thread.site.URL}/?showtopic=${thread.id}&view=getnewpost" target="_blank">${capitalize(thread.title, [' ', '-'])}</a>

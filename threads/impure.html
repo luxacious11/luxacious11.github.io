@@ -239,7 +239,7 @@
                     character: '.thread--character',
                     title: '.thread--title',
                     icdate: function ($elem) {
-                        return $elem.querySelector('.thread--ic-date span') ? Date.parse($elem.querySelector('.thread--ic-date span').innerText) : Date.parse($elem.querySelector('.thread--last-post span').innerText);
+                        return Date.parse($elem.querySelector('.thread--ic-date span').innerText);
                     },
                     lastpost: function ($elem) {
                         return Date.parse($elem.querySelector('.thread--last-post span').innerText);
