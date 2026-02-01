@@ -112,7 +112,7 @@
             //set overall variables
             let siteName = 'all';
             let siteObject = siteName !== 'all' ? siteData.filter(item => item.Site === siteName) : siteData;
-            let threadStats = createThreadStats(threadData, siteObject);
+            let threadStats = createThreadStats(threadData, siteObject, siteName, siteData);
 
             /*Thread Status*/
             new Chart(document.getElementById('all'), {
@@ -142,7 +142,7 @@
             //set overall variables
             let siteName = 'idols & ichor';
             let siteObject = siteName !== 'all' ? siteData.filter(item => item.Site === siteName) : siteData;
-            let threadStats = createThreadStats(threadData, siteObject);
+            let threadStats = createThreadStats(threadData, siteObject, siteName, siteData);
 
             /*Thread Status*/
             new Chart(document.getElementById('ichor'), {
@@ -172,7 +172,7 @@
             //set overall variables
             let siteName = 'impure';
             let siteObject = siteName !== 'all' ? siteData.filter(item => item.Site === siteName) : siteData;
-            let threadStats = createThreadStats(threadData, siteObject);
+            let threadStats = createThreadStats(threadData, siteObject, siteName, siteData);
 
             /*Thread Status*/
             new Chart(document.getElementById('impure'), {
