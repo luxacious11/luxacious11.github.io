@@ -1317,11 +1317,13 @@ function updateCharacter(form) {
                                 : ship.closest('.row').querySelector('#character').options[ship.closest('.row').querySelector('#character').selectedIndex].innerText.trim().toLowerCase();
                 let type = ship.closest('.row').querySelector('#type').options[ship.closest('.row').querySelector('#type').selectedIndex].innerText.trim().toLowerCase();
                 let section = ship.closest('.row').querySelector('#section').options[ship.closest('.row').querySelector('#section').selectedIndex].innerText.trim().toLowerCase();
+                let sectionID = ship.closest('.row').querySelector('#section').options[ship.closest('.row').querySelector('#section').selectedIndex].value;
                 shipList.push({
                     writer: writer,
                     character: character,
                     relationship: type,
                     section: section,
+                    sectionID: sectionID,
                 });
             });
             let existingShips = JSON.parse(existing.Ships);
