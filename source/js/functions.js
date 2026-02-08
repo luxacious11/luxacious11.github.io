@@ -1605,7 +1605,7 @@ function debounce(fn, threshold) {
         setTimeout(delayed, threshold || 100);
     };
 }
-function setCustomFilter() {
+function setCustomFilter(removeFilters = null) {
     const hideUnless = document.querySelector('.completed-label');
 
     //get search value
@@ -1697,6 +1697,12 @@ function setCustomFilter() {
 
     //join array into string
     filter = filter.join(', ');
+    if(!filter.includes('status--')) {
+        if(filter !== '') {
+            filter += ', ';
+        }
+        filter += activeStatusClasses;
+    }
         
     //render isotope
     $container.isotope({
@@ -1923,6 +1929,23 @@ function getDetailedDelay(date) {
     }
     return delayClass;
 }
+function updateStatusClass(thread, active) {
+    thread.classList.remove('status--mine');
+    thread.classList.remove('status--start');
+    thread.classList.remove('status--theirs');
+    thread.classList.remove('status--expecting');
+    thread.classList.remove('status--complete');
+    thread.closest('.thread').classList.remove('status--mine');
+    thread.closest('.thread').classList.remove('status--start');
+    thread.closest('.thread').classList.remove('status--theirs');
+    thread.closest('.thread').classList.remove('status--expecting');
+    thread.closest('.thread').classList.remove('status--complete');
+
+    active.forEach(item => {
+        thread.classList.add(item);
+        thread.closest('.thread').classList.add(item);
+    });
+}
 function sendThreadAjax(data, thread, form = null, complete = null) {
     $.ajax({
         url: `https://script.google.com/macros/s/${deployID}/exec`,   
@@ -1941,55 +1964,28 @@ function sendThreadAjax(data, thread, form = null, complete = null) {
             if(form) {
                 form.originalTarget.querySelector('button[type="submit"]').innerText = 'Submit';
             } else if(complete) {
-                thread.classList.remove('status--mine');
-                thread.classList.remove('status--start');
-                thread.classList.remove('status--theirs');
-                thread.classList.remove('status--expecting');
-                thread.classList.add('status--complete');
-                thread.closest('.thread').classList.remove('status--mine');
-                thread.closest('.thread').classList.remove('status--start');
-                thread.closest('.thread').classList.remove('status--theirs');
-                thread.closest('.thread').classList.remove('status--expecting');
-                thread.closest('.thread').classList.add('status--complete');
+                updateStatusClass(thread, ['status--complete']);
                 thread.querySelectorAll('button').forEach(button => {
                     button.classList.remove('is-updating');
                     button.removeAttribute('disabled');
                 });
-                setCustomFilter();
+                setCustomFilter(['.status--complete']);
                 $('#threads--rows').isotope('layout');
             } else if(data.Status === 'theirs') {
-                thread.classList.remove('status--mine');
-                thread.classList.remove('status--start');
-                thread.classList.add('status--theirs');
-                thread.classList.remove('status--expecting');
-                thread.classList.remove('status--complete');
-                thread.closest('.thread').classList.remove('status--mine');
-                thread.closest('.thread').classList.remove('status--start');
-                thread.closest('.thread').classList.add('status--theirs');
-                thread.closest('.thread').classList.remove('status--expecting');
-                thread.closest('.thread').classList.remove('status--complete');
+                updateStatusClass(thread, ['status--theirs'])
                 thread.querySelector('[data-status]').classList.remove('is-updating');
                 thread.querySelectorAll('button').forEach(button => {
                     button.removeAttribute('disabled');
                 });
-                setCustomFilter();
+                setCustomFilter(['.status--complete']);
                 $('#threads--rows').isotope('layout');
             } else if(data.Status === 'mine') {
-                thread.classList.remove('status--theirs');
-                thread.classList.remove('status--expecting');
-                thread.classList.add('status--mine');
-                thread.classList.remove('status--expecting');
-                thread.classList.remove('status--complete');
-                thread.closest('.thread').classList.remove('status--theirs');
-                thread.closest('.thread').classList.remove('status--expecting');
-                thread.closest('.thread').classList.add('status--mine');
-                thread.closest('.thread').classList.remove('status--expecting');
-                thread.closest('.thread').classList.remove('status--complete');
+                updateStatusClass(thread, ['status--mine'])
                 thread.querySelector('[data-status]').classList.remove('is-updating');
                 thread.querySelectorAll('button').forEach(button => {
                     button.removeAttribute('disabled');
                 });
-                setCustomFilter();
+                setCustomFilter(['.status--complete']);
                 $('#threads--rows').isotope('layout');
             }
         }
