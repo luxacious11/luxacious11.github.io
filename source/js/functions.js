@@ -1463,7 +1463,6 @@ function updateCharacter(form) {
         }
 
         existing.SubmissionType = 'edit-character';
-        console.log(existing);
     
         sendAjax(form, existing, successMessage);
     });
@@ -1609,7 +1608,7 @@ function debounce(fn, threshold) {
         setTimeout(delayed, threshold || 100);
     };
 }
-function setCustomFilter(removeFilters = null) {
+function setCustomFilter() {
     const hideUnless = document.querySelector('.completed-label');
 
     //get search value

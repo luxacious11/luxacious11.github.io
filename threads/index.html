@@ -233,7 +233,7 @@
             let siteObject = siteName !== 'all' ? siteData.filter(item => item.Site === siteName) : siteData;
             let threads = prepThreads(threadData, siteName, siteData);
             populateThreads(threads, siteObject);
-        }).then(() => {
+
             //initialize isotope
             // quick search regex
             let qsRegex;
