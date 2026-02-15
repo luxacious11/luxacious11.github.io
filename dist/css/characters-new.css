@@ -105,6 +105,12 @@ body#ST .post:has(.saf-custom).luxpost.cyn {
   --squareImage: url('https://64.media.tumblr.com/ca475ca3d9a0901625be9cbcbea1ef89/f104b885346aef95-b3/s1280x1920/24c1fb936a3d867eaa81ea936d43a2f102a14232.jpg');
   --quote: "reckless but honest words leave out my mouth, like kerosene on a flame of doubt; i just couldn't make it right"; }
 
+#post-preview .ii-custom.luxpost.fiendcyn,
+body#ST .post .luxpost.luxpost.fiendcyn,
+body#ST .post:has(.saf-custom).luxpost.fiendcyn {
+  --squareImage: url('https://i.pinimg.com/1200x/06/31/6d/06316d98c8701a770f0018e408ff9b9c.jpg');
+  --quote: "reckless but honest words leave out my mouth, like kerosene on a flame of doubt; i just couldn't make it right"; }
+
 #post-preview .ii-custom.luxpost.emma,
 body#ST .post .luxpost.luxpost.emma,
 body#ST .post:has(.saf-custom).luxpost.emma {
