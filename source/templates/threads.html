@@ -9,9 +9,14 @@
                     <button onClick="openFilters(this)">Sort</button>
                     <div class="threads--filter-dropdown threads--sorting">
                         <button type="button" class="threads--sort is-checked" data-sort="character">Character (A -> Z)</button>
+                        <button type="button" class="threads--sort" data-sort="characterdesc">Character (Z -> A)</button>
                         <button type="button" class="threads--sort" data-sort="title">Title (A -> Z)</button>
+                        <button type="button" class="threads--sort" data-sort="titledesc">Title (Z -> A)</button>
                         <button type="button" class="threads--sort" data-sort="icdate">IC Date (Asc)</button>
-                        <button type="button" class="threads--sort" data-sort="lastpost">Last Post (Desc)</button>
+                        <button type="button" class="threads--sort" data-sort="icdatedesc">IC Date (Desc)</button>
+                        <button type="button" class="threads--sort" data-sort="lastpost">Last Post (Asc)</button>
+                        <button type="button" class="threads--sort" data-sort="lastpostdesc">Last Post (Desc)</button>
+                        <button type="button" class="threads--sort" data-sort="owing">Owing First</button>
                     </div>
                 </div>
                 <!--Characters-->
@@ -149,19 +154,35 @@
                 filter: defaultShow,
                 getSortData: {
                     character: '.thread--character',
+                    characterdesc: '.thread--character',
                     title: '.thread--title',
+                    titledesc: '.thread--title',
                     icdate: function ($elem) {
+                        return Date.parse($elem.querySelector('.thread--ic-date span').innerText);
+                    },
+                    icdatedesc: function ($elem) {
                         return Date.parse($elem.querySelector('.thread--ic-date span').innerText);
                     },
                     lastpost: function ($elem) {
                         return Date.parse($elem.querySelector('.thread--last-post span').innerText);
                     },
+                    lastpostdesc: function ($elem) {
+                        return Date.parse($elem.querySelector('.thread--last-post span').innerText);
+                    },
+                    owing: function ($elem) {
+                        return $elem.classList.contains('status--mine');
+                    },
                 },
                 sortAscending: {
                     character: true,
+                    characterdesc: false,
                     title: true,
-                    icdate: false,
+                    titledesc: false,
+                    icdate: true,
+                    icdatedesc: false,
                     lastpost: true,
+                    lastpostdesc: false,
+                    owing: false,
                 }
             });
 
