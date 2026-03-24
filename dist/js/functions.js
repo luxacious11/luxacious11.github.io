@@ -810,6 +810,7 @@ function formatInfoRow() {
     </div>`;
 }
 function formatRecordsRow() {
+    let formattedDate = `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}-${new Date().getDate()}`;
     return `<div class="row records-row grid">
         <label>
             <b>Word Count</b>
@@ -817,7 +818,7 @@ function formatRecordsRow() {
         </label>
         <label>
             <b>Post Date</b>
-            <span><input type="date" class="date" value="${new Date()}" /></span>
+            <span><input type="date" class="date" value="${formattedDate}" /></span>
         </label>
     </div>`;
 }
