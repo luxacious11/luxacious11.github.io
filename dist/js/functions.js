@@ -635,24 +635,36 @@ function sendAjaxSync(data, form = null, count = null, num = null) {
         async: false,
         success: function () {
             console.log('success');
+            if(form && count > 1) {
+                form.querySelector('[type="submit"]').innerText = 'Submitting...';
+            } else if(form) { 
+                if(successMessage) {
+                    form.querySelector('[type="submit"]').innerText = 'Submitted';
+                    form.innerHTML = successMessage;
+                }
+            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log('error');
             console.log(`Whoops! The sheet connection didn't quite work. Please refresh the page and try again! If this persists, please open the console (ctrl + shift + J) and send Lux a screenshot of what's there.`);
+            if(form) {
+                form.querySelector('[type="submit"]').innerText = 'ERROR!!';
+            }
         },
         complete: function () {
             console.log('call complete');
-            if(count && num && count - 1 === num) {
+            if(count && num && (count - 1 === num || count === 1)) {
                 console.log('all complete');
-                form.querySelector('[type="submit"]').innerText = `Submit`;
-                form.querySelector('[type="submit"]').removeAttribute('disabled');
-                
-                if(successMessage) {
-                    form.innerHTML = successMessage;
-                }
-            } else {
-                form.querySelector('[type="submit"]').innerText = `Submitting...`;
-                form.querySelector('[type="submit"]').addAttribute('disabled', true);
+                setTimeout(() => {
+                    if(form) {
+                        form.querySelector('[type="submit"]').innerText = `Submit`;
+                        form.querySelector('[type="submit"]').removeAttribute('disabled');
+                    
+                        if(successMessage) {
+                            form.innerHTML = successMessage;
+                        }
+                    }
+                }, 100);
             }
         }
     });
@@ -811,6 +823,7 @@ function formatInfoRow() {
 }
 function formatRecordsRow() {
     let formattedDate = `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}-${new Date().getDate()}`;
+    formattedDate = '2026-02-16';
     return `<div class="row records-row grid">
         <label>
             <b>Word Count</b>
