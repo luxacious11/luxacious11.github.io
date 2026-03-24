@@ -595,7 +595,7 @@ function openSubmenu(e) {
         document.querySelectorAll(`[data-menu="${menu}"]`).forEach(el => el.classList.add('is-open'));
     }
 }
-function sendAjax(form, data, successMessage) {
+function sendAjax(form, data, successMessage, async = true) {
     $(form).trigger('reset');
     
     $.ajax({
@@ -604,6 +604,7 @@ function sendAjax(form, data, successMessage) {
         method: "POST",
         type: "POST",
         dataType: "json", 
+        async: async,
         success: function () {
             console.log('success');
         },
@@ -776,6 +777,8 @@ function addRow(e) {
         initPartnerSelect(e, 'initial', '#characterSite', true);
     } else if(e.closest('.multi-buttons').dataset.rowType === 'add-info') {
         e.closest('.adjustable').querySelector('.rows').insertAdjacentHTML('beforeend', formatInfoRow(e));
+    } else if(e.closest('.multi-buttons').dataset.rowType === 'records') {
+        e.closest('.adjustable').querySelector('.rows').insertAdjacentHTML('beforeend', formatRecordsRow(e));
     }
 }
 function removeRow(e) {
@@ -791,6 +794,18 @@ function formatInfoRow() {
         <label>
             <b>Variable Content</b>
             <span><input type="text" class="content" placeholder="Content" required /></span>
+        </label>
+    </div>`;
+}
+function formatRecordsRow() {
+    return `<div class="row records-row grid">
+        <label>
+            <b>Word Count</b>
+            <span><input type="number" class="words" min="0" required /></span>
+        </label>
+        <label>
+            <b>Post Date</b>
+            <span><input type="date" class="date" /></span>
         </label>
     </div>`;
 }
@@ -1558,24 +1573,28 @@ function addRecord(form) {
     let site = form.querySelector('#site').options[form.querySelector('#site').selectedIndex].innerText.trim().toLowerCase();
     let character = form.querySelector('#character').options[form.querySelector('#character').selectedIndex];
     let id = form.querySelector('#thread-auto').options[form.querySelector('#thread-auto').selectedIndex].value;
-    let words = form.querySelector('#words').value.trim();
-    let ship = form.querySelector('#ship').value.trim().toLowerCase();
-    let date = form.querySelector('#date').value;
+    let records = form.querySelectorAll('.records-row');
+    let ship = form.querySelector('#ship').value.toLowerCase().trim();
+    let data = [];
 
-    let data = {
-        SubmissionType: 'add-record',
-        Site: site,
-        Character: JSON.stringify({
-            name: character.innerText.trim().toLowerCase().replaceAll(`'`, `&apos;`),
-            id: character.value.trim().toLowerCase(),
-        }),
-        Thread: id,
-        Words: words,
-        Ship: ship,
-        Date: date,
-    };
+    records.forEach(record => {
+        data.push({
+            SubmissionType: 'add-record',
+            Site: site,
+            Character: JSON.stringify({
+                name: character.innerText.trim().toLowerCase().replaceAll(`'`, `&apos;`),
+                id: character.value.trim().toLowerCase(),
+            }),
+            Thread: id,
+            Words: record.querySelector('.words').value.trim(),
+            Ship: ship,
+            Date: record.querySelector('.date').value,
+        })
+    });
 
-    sendAjax(form, data, successMessage);
+    data.forEach(item => {
+        sendAjax(form, item, successMessage, false);
+    });
 }
 
 /***** TRANSFER ONLY *****/
