@@ -650,6 +650,9 @@ function sendAjaxSync(data, form = null, count = null, num = null) {
                 if(successMessage) {
                     form.innerHTML = successMessage;
                 }
+            } else {
+                form.querySelector('[type="submit"]').innerText = `Submitting...`;
+                form.querySelector('[type="submit"]').addAttribute('disabled', true);
             }
         }
     });
@@ -814,7 +817,7 @@ function formatRecordsRow() {
         </label>
         <label>
             <b>Post Date</b>
-            <span><input type="date" class="date" /></span>
+            <span><input type="date" class="date" value="${new Date()}" /></span>
         </label>
     </div>`;
 }
