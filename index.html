@@ -49,16 +49,14 @@
             <i class="fa-solid fa-chart-pie"></i>
             <span>Stats</span>
         </button>
+        <button onClick="openSubmenu(this)" data-menu="writing">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span>Writing</span>
+        </button>
         <button onClick="openSubmenu(this)" data-menu="admin">
             <i class="fa-solid fa-wrench"></i>
             <span>Admin</span>
         </button>
-        <!--<button class="toggle--theme" onClick="toggleTheme()">
-            <i class="fa-solid fa-brightness mode--light"></i>
-            <span class="mode--light">Light</span>
-            <i class="fa-solid fa-brightness-low mode--dark"></i>
-            <span class="mode--dark">Dark</span>
-        </button>-->
     </div>
 </nav>
 <nav class="subnav" data-menu="sites">
@@ -80,6 +78,11 @@
         <a href="./stats/statuses.html">Status Comparison</a>
     </div>
 </nav>
+<nav class="subnav" data-menu="writing">
+    <div class="subnav--inner">
+        <a href="./writing/index.html">View Combined</a>
+    </div>
+</nav>
 <nav class="subnav" data-menu="admin">
     <div class="subnav--inner">
         <a href="./admin/new-site.html">Add Site</a>
@@ -87,6 +90,7 @@
         <a href="./admin/new-partner.html">Add Partner</a>
         <a href="./admin/new-character.html">Add Character</a>
         <a href="./admin/new-thread.html">Add Thread</a>
+        <a href="./admin/new-record.html">Add Record</a>
         <a href="./admin/update-tag.html">Edit Tags</a>
         <a href="./admin/update-partner.html">Edit Partner</a>
         <a href="./admin/update-character.html">Edit Character</a>
