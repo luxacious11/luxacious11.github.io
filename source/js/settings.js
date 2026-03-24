@@ -90,6 +90,7 @@ const chartColors = [
     '#799e6c', //green
     '#b66363' //red
 ];
+const accentRGB = '105, 158, 156';
 
 const datasetOptions = {
     backgroundColor: chartColors,
