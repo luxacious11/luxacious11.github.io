@@ -328,9 +328,35 @@ function initThreadSelect(el) {
             Character: JSON.parse(item.Character)
         }))].filter(item => parseInt(item.Character.id) === parseInt(selectedCharacter) && item.SiteID === selectedSite);
 
+        threads.sort((a, b) => {
+            if((a.Status !== 'complete' && a.Status !== 'archived') && (b.Status === 'complete' || b.Status === 'archived')) {
+                return -1;
+            } else if ((b.Status !== 'complete' && b.Status !== 'archived') && (a.Status === 'complete' || a.Status === 'archived')) {
+                return 1;
+            } else if(a.Title < b.Title) {
+                return -1;
+            } else if(a.Title > b.Title) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+
         let html = `<option value="">(select)</option>`;
-        threads.forEach(thread => {
-            html += `<option value="${thread.ThreadID}">${thread.Title}</option>`;
+        threads.forEach((thread, i) => {
+            if(i === 0) {
+                html += `<optgroup label="${thread.Status !== 'complete' && thread.Status !== 'archived' ? 'Active' : 'Inactive'}">`;
+                html += `<option value="${thread.ThreadID}">${capitalize(thread.Title, [' ', '-'])}</option>`;
+            } else if(threads[i - 1].Status !== 'complete' && threads[i - 1].Status !== 'archived' && (thread.Status === 'complete' || thread.Status === 'archived')) {
+                html += `</optgroup>`;
+                html += `<optgroup label="${thread.Status !== 'complete' && thread.Status !== 'archived' ? 'Active' : 'Inactive'}">`;
+                html += `<option value="${thread.ThreadID}">${capitalize(thread.Title, [' ', '-'])}</option>`;
+            } else {
+                html += `<option value="${thread.ThreadID}">${capitalize(thread.Title, [' ', '-'])}</option>`;
+            }
+            if(threads.length - 1 === i) {
+                html += `</optgroup>`;
+            }
         });
         el.closest('form').querySelector('#thread-auto').innerHTML = html;
     });
