@@ -625,7 +625,7 @@ function sendAjax(form, data, successMessage, async = true) {
         }
     });
 }
-function sendAjaxSync(data) {
+function sendAjaxSync(data, form = null, count = null, num = null) {
     $.ajax({
         url: `https://script.google.com/macros/s/${deployID}/exec`,   
         data: data,
@@ -641,7 +641,16 @@ function sendAjaxSync(data) {
             console.log(`Whoops! The sheet connection didn't quite work. Please refresh the page and try again! If this persists, please open the console (ctrl + shift + J) and send Lux a screenshot of what's there.`);
         },
         complete: function () {
-            console.log('thread complete');
+            console.log('call complete');
+            if(count && num && count - 1 === num) {
+                console.log('all complete');
+                form.querySelector('[type="submit"]').innerText = `Submit`;
+                form.querySelector('[type="submit"]').removeAttribute('disabled');
+                
+                if(successMessage) {
+                    form.innerHTML = successMessage;
+                }
+            }
         }
     });
 }
@@ -1592,8 +1601,10 @@ function addRecord(form) {
         })
     });
 
-    data.forEach(item => {
-        sendAjax(form, item, successMessage, false);
+    form.querySelector('[type="submit"]').innerText = `Submitting...`;
+    form.querySelector('[type="submit"]').setAttribute('disabled', true);
+    data.forEach((item, i) => {
+        sendAjaxSync(item, form, data.length, i);
     });
 }
 
