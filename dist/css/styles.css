@@ -1692,13 +1692,43 @@ section.links {
     border-right: var(--border--primary);
     padding: var(--space--md);
     height: 61px; }
+    @media (max-width: 600px) {
+      .records--header {
+        display: -ms-grid;
+        display: grid;
+        -ms-grid-columns: -webkit-max-content 1fr;
+        -ms-grid-columns: max-content 1fr;
+        grid-template-columns: -webkit-max-content 1fr;
+        grid-template-columns: max-content 1fr;
+        gap: var(--space--md); } }
     @media (min-width: 601px) {
       .records--header {
         height: 100vh;
         padding: var(--space--md) 0 var(--space--md) var(--space--md); } }
+    .records--header > button:not(.records--toggle) {
+      background: none;
+      border: var(--border--primary);
+      border-radius: var(--radius--standard);
+      font-size: 9px;
+      text-transform: uppercase;
+      color: var(--text--primary);
+      letter-spacing: 0.1em;
+      font-weight: 700;
+      line-height: 100%;
+      padding: var(--space--sm);
+      cursor: pointer;
+      -webkit-transition: 0.3s ease-in-out;
+      transition: 0.3s ease-in-out; }
+      .records--header > button:not(.records--toggle):hover {
+        background: var(--accent);
+        color: var(--text--secondary); }
+    .records--header > hr {
+      width: calc(100% - var(--space--md)); }
+      @media (max-width: 600px) {
+        .records--header > hr {
+          display: none; } }
     .records--header hr {
       border: 0;
-      width: calc(100% - var(--space--md));
       height: 1px;
       background: var(--border--primary-color);
       margin: var(--space--md) 0; }
@@ -1726,7 +1756,20 @@ section.links {
     outline: none;
     cursor: pointer;
     text-align: left;
-    overflow: auto; }
+    overflow: auto;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center; }
+    @media (max-width: 600px) {
+      .records--toggle {
+        -webkit-box-ordinal-group: 3;
+        -webkit-order: 2;
+            -ms-flex-order: 2;
+                order: 2;
+        margin: 0;
+        padding: 0 var(--space--xs);
+        width: 100%; } }
     .records--toggle::before {
       position: absolute;
       top: 0;
@@ -1738,6 +1781,9 @@ section.links {
       background: var(--bg-accent);
       -webkit-transition: 0.3s ease-in-out;
       transition: 0.3s ease-in-out; }
+      @media (max-width: 600px) {
+        .records--toggle::before {
+          width: calc(50% + var(--space--xs)); } }
     .records--toggle[data-view="list" i]::before {
       left: calc(50% - var(--space--sm)); }
     .records--toggle span {
@@ -1849,7 +1895,12 @@ section.links {
   color: var(--text--primary);
   font-size: 0.5rem;
   text-transform: uppercase;
-  letter-spacing: 0.2em; }
+  letter-spacing: 0.2em;
+  line-height: 200%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
 
 .heatmap--calendars {
   display: -webkit-box;
@@ -1882,6 +1933,9 @@ section.links {
     letter-spacing: 0.2em;
     text-align: center;
     padding: 0 var(--space--xs); }
+    @media (max-width: 480px) {
+      .heatmap--calendar > b {
+        font-size: 0.4rem; } }
   .heatmap--calendar > div {
     width: 100%;
     aspect-ratio: 1 / 1;
@@ -1956,6 +2010,11 @@ section.links {
   width: -moz-max-content;
   width: max-content;
   max-width: 100%; }
+  .heatmap--month .heatmap--stats {
+    margin: var(--space--xs) 0;
+    border-bottom: var(--border--primary);
+    padding-bottom: var(--space--xs);
+    width: 100%; }
   .heatmap--month > b {
     font-family: var(--font--serif);
     font-weight: 900;

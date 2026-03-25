@@ -16,14 +16,47 @@
         padding: var(--space--md);
         height: 61px;
 
+        @include mq-down(xs) {
+            display: grid;
+            grid-template-columns: max-content 1fr;
+            gap: var(--space--md);
+        }
+
         @include mq-up(xs) {
             height: 100vh;
             padding: var(--space--md) 0 var(--space--md) var(--space--md);
         }
 
+        & > button:not(.records--toggle) {
+            background: none;
+            border: var(--border--primary);
+            border-radius: var(--radius--standard);
+            font-size: 9px;
+            text-transform: uppercase;
+            color: var(--text--primary);
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            line-height: 100%;
+            padding: var(--space--sm);
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+
+            &:hover {
+                background: var(--accent);
+                color: var(--text--secondary);
+            }
+        }
+
+        & > hr {
+            width: calc(100% - var(--space--md));
+
+            @include mq-down(xs) {
+                display: none;
+            }
+        }
+
         hr {
             border: 0;
-            width: calc(100% - var(--space--md));
             height: 1px;
             background: var(--border--primary-color);
             margin: var(--space--md) 0;
@@ -59,6 +92,14 @@
         cursor: pointer;
         text-align: left;
         overflow: auto;
+        align-items: center;
+
+        @include mq-down(xs) {
+            order: 2;
+            margin: 0;
+            padding: 0 var(--space--xs);
+            width: 100%;
+        }
 
         &::before {
             position: absolute;
@@ -70,6 +111,10 @@
             border-radius: 50px;
             background: var(--bg-accent);
             transition: 0.3s ease-in-out;
+
+            @include mq-down(xs) {
+                width: calc(50% + var(--space--xs));
+            }
         }
 
         &[data-view="list" i] {
@@ -193,6 +238,8 @@
         font-size: 0.5rem;
         text-transform: uppercase;
         letter-spacing: 0.2em;
+        line-height: 200%;
+        justify-content: center;
     }
     &--calendars {
         display: flex;
@@ -214,6 +261,10 @@
             letter-spacing: 0.2em;
             text-align: center;
             padding: 0 var(--space--xs);
+
+            @include mq-down(xxs) {
+                font-size: 0.4rem;
+            }
         }
         & > div {
             width: 100%;
@@ -281,6 +332,12 @@
         width: max-content;
         max-width: 100%;
         
+        .heatmap--stats {
+            margin: var(--space--xs) 0;
+            border-bottom: var(--border--primary);
+            padding-bottom: var(--space--xs);
+            width: 100%;
+        }
         & > b {
             font-family: var(--font--serif);
             font-weight: 900;
