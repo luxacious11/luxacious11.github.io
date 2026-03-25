@@ -162,6 +162,15 @@
     &--spinner {
         font-size: 100px;
     }
+    &--list {
+        display: grid;
+        grid-template-columns: 100%;
+        gap: var(--space--sm);
+
+        @include mq-up(xl) {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
 
     .threads--filter-group {
         button {
@@ -350,6 +359,110 @@
             text-transform: uppercase;
             letter-spacing: 0.2em;
             font-weight: 900;
+        }
+    }
+}
+
+.record {
+    width: 100%;
+    background: var(--bg--tertiary);
+    border-left: var(--border--thick);
+    display: grid;
+    grid-template-columns: 100%;
+    gap: 0 var(--space--md);
+    padding: var(--space--md);
+
+    @include mq-up(xs) {
+        padding: var(--space--md) var(--space--lg);
+    }
+
+    @include mq-up(md) {
+        grid-template-columns: auto 200px;
+        grid-template-rows: max-content auto;
+    }
+
+    a {
+        color: var(--text-secondary);
+    }
+
+    &--stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space--xs) var(--space--lg);
+        font-size: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        line-height: 200%;
+    }
+
+    &--details {
+        display: flex;
+        height: 100%;
+        gap: var(--space--xs) var(--space--lg);
+        font-size: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        line-height: 200%;
+
+        @include mq-down(md) {
+            flex-wrap: wrap;
+            border-top: var(--border--primary);
+            padding-top: var(--space--md);
+            margin-top: var(--space--md);
+            padding-bottom: var(--space--xs);
+            order: 3;
+        }
+
+        @include mq-up(md) {
+            flex-direction: column;
+            justify-content: center;
+            border-left: var(--border--primary);
+            padding-left: var(--space--lg);
+            grid-row: span 2;
+        }
+
+        & > div {
+            display: flex;
+            align-items: center;
+            gap: var(--space--xs) var(--space--sm);
+
+            @include mq-up(md) {
+                flex-wrap: wrap;
+            }
+
+            & > b {
+                color: var(--text--secondary);
+            }
+        }
+    }
+
+    &--title {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space--sm);
+
+        & > div {
+            display: flex;
+            align-items: end;
+            gap: var(--space--xs);
+        
+            & > b {
+                font-family: var(--font--serif);
+                font-weight: 900;
+                font-size: 48px;
+                line-height: 100%;
+            }
+
+            & > span {
+                padding-bottom: var(--space--xs);
+            }
+        }
+
+        span {
+            font-size: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            line-height: 200%;
         }
     }
 }

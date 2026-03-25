@@ -2146,12 +2146,7 @@ function sendInlineRecordAjax(data, container) {
                 button.removeAttribute('disabled');
             });
             container.querySelector('.record--inline').classList.remove('is-visible');
-
-            sendThreadAjax({
-                ...data,
-                SubmissionType: 'thread-status',
-            }, container);
-            $('#threads--rows').isotope('layout');
+            container.querySelector('.inlineClick').click();
         }
     });
 }
@@ -2188,16 +2183,19 @@ function recordReply(e) {
     container.querySelector('.record--inline').classList.toggle('is-visible');
 }
 function recordReplySend(e) {
-    let site = e.dataset.site,
-        character = e.dataset.character.replaceAll(`'`, `&apos;`),
-        characterID = e.dataset.characterId,
-        threadID = e.dataset.id,
-        container = e.closest('.thread--wrap'),
-        words = e.closest('.record--inline').querySelector('.word-count').value,
-        ship = e.closest('.record--inline').querySelector('.ship').value.toLowerCase().trim();
-    e.classList.add('is-updating');
-    e.setAttribute('disabled', true);
-    sendInlineRecordAjax({
+    e.preventDefault();
+
+    let site = e.currentTarget.querySelector('button').dataset.site,
+        character = e.currentTarget.querySelector('button').dataset.character.replaceAll(`'`, `&apos;`),
+        characterID = e.currentTarget.querySelector('button').dataset.characterId,
+        threadID = e.currentTarget.querySelector('button').dataset.id,
+        container = e.currentTarget.closest('.thread'),
+        words = e.currentTarget.closest('.record--inline').querySelector('.word-count').value,
+        ship = e.currentTarget.closest('.record--inline').querySelector('.ship').value.toLowerCase().trim();
+    e.currentTarget.classList.add('is-updating');
+    e.currentTarget.setAttribute('disabled', true);
+
+    let data = {
         SubmissionType: 'add-record',
         Thread: threadID,
         Site: site,
@@ -2212,7 +2210,8 @@ function recordReplySend(e) {
             month: '2-digit',
             year: 'numeric'
         }).format(new Date()),
-    }, container);
+    };
+    sendInlineRecordAjax(data, container);
 }
 function markComplete(e) {
     e.dataset.status = 'complete';
@@ -2272,19 +2271,19 @@ function formatThread(thread) {
     });
     let extraTags = thread.tags !== '' ? JSON.parse(thread.tags).map(item => `tag--${item}`).join(' ') : '';
 
-    let buttons = `<div class="record--inline">
+    let buttons = `<form class="record--inline" onSubmit="return recordReplySend(event)">
             <input class="word-count" type="number" min="0" />
             <input class="ship" type="text" placeholder="(optional)" />
-            <button onClick="recordReplySend(this)" data-id="${thread.id}" data-site="${thread.site.Site}" data-character="${thread.character.name}" data-character-id="${thread.character.id}">
+            <button data-id="${thread.id}" data-site="${thread.site.Site}" data-character="${thread.character.name}" data-character-id="${thread.character.id}">
                 <span class="not-loading">Send</span>
                 <span class="loading">Sending...</span>
             </button>
-        </div>
+        </form>
         <button class="activeOnly" onClick="recordReply(this)">
             <span class="not-loading">Record Reply</span>
             <span class="loading">Recording...</span>
         </button>
-        <button class="activeOnly" onClick="changeStatus(this)" data-status="${thread.status}" data-id="${thread.id}" data-site="${thread.site.Site}" data-character='${JSON.stringify(thread.character)}'>
+        <button class="activeOnly inlineClick" onClick="changeStatus(this)" data-status="${thread.status}" data-id="${thread.id}" data-site="${thread.site.Site}" data-character='${JSON.stringify(thread.character)}'>
             <span class="not-loading">Update Status</span>
             <span class="loading">Updating...</span>
         </button>
@@ -2948,9 +2947,16 @@ function toggleRecordsView(e) {
     if(view === 'heatmap') {
         e.dataset.view = 'list';
         e.closest('.records').querySelector('.records--content').dataset.view = 'list';
+        let currentMonth = getMonthName(new Date().getMonth());
+        document.querySelectorAll(`.filter--month button`).forEach(button => button.classList.remove('is-active'));
+        document.querySelector(`.filter--month button[data-month="${currentMonth}"]`).classList.add('is-active');
+        initRecords(siteObject, staticRecords);
     } else {
         e.dataset.view = 'heatmap';
         e.closest('.records').querySelector('.records--content').dataset.view = 'heatmap';
+        document.querySelectorAll(`.filter--month button`).forEach(button => button.classList.remove('is-active'));
+        document.querySelector(`.filter--month button[data-month="all"]`).classList.add('is-active');
+        initRecords(siteObject, staticRecords);
     }
 }
 function changeRecordFilter(e) {
@@ -2964,7 +2970,7 @@ function initRecordsFilters(years, characters, ships, sites, partners) {
         else if(parseInt(a) < parseInt(b)) return 1;
         else return 0;
     });
-    let yearsHTML = ``;
+    let yearsHTML = `<button onClick="changeRecordFilter(this)" data-filter="year" data-year="all" class="listOnly">All</button>`;
     years.forEach((year, i) => {
         yearsHTML += `<button onClick="changeRecordFilter(this)" data-filter="year" data-year="${year}" class="${i === 0 ? 'is-active' : ''}">
             ${year}
@@ -3018,6 +3024,7 @@ function initRecords(sites, records) {
     //get active filters
     let selectedFilters = {
         year: parseInt(document.querySelector('.records .filter--year .is-active').dataset.year),
+        month: document.querySelector('.records .filter--month .is-active').dataset.month,
         character: document.querySelector('.records .filter--characters .is-active').dataset.character,
         ship: document.querySelector('.records .filter--ships .is-active').dataset.ship,
         site: document.querySelector('.records .filter--sites') ? document.querySelector('.records .filter--sites .is-active').dataset.site : sites[0].Site,
@@ -3029,20 +3036,17 @@ function initRecords(sites, records) {
     //filter records and threads by the relevant data
     let filteredRecords = records.filter(item => 
         (item.Site === selectedFilters.site || selectedFilters.site === 'all') &&
-        new Date(item.Date).getFullYear() === selectedFilters.year &&
+        (new Date(item.Date).getFullYear() === selectedFilters.year || selectedFilters.year === 'all') &&
+        (getMonthName(new Date(item.Date).getMonth()) === selectedFilters.month || selectedFilters.month === 'all') &&
         (JSON.parse(item.Character).name === selectedFilters.character || selectedFilters.character === 'all') &&
         (item.Ship === selectedFilters.ship || selectedFilters.ship === 'all') &&
         ((item.threadData && item.threadData.Type === selectedFilters.type) || selectedFilters.type === 'all') &&
         (item.partnerNames.includes(selectedFilters.partner) || selectedFilters.partner === 'all')
     );
 
-    console.log('final records:');
-    console.log(selectedFilters);
-    console.log(filteredRecords);
-
     //format and print
     let heatmapHTML = formatHeatmap(filteredRecords, selectedFilters.year, selectedFilters.metric),
-        listHTML = `Coming soon...`;
+        listHTML = formatList(filteredRecords, selectedFilters);
         
     document.querySelector('.records--heatmaps').innerHTML = heatmapHTML;
     document.querySelector('.records--list').innerHTML = listHTML;
@@ -3218,4 +3222,52 @@ function formatMonthlyHeatmap(records, month, year, max, metric) {
     </div>`;
 
     return html;
+}
+function formatList(records, filters) {
+    records.sort((a, b) => {
+        if(new Date(a.Date) > new Date(b.Date)) {
+            return -1;
+        } else if(new Date(a.Date) < new Date(b.Date)) {
+            return 1;
+        } else if(JSON.parse(a.Character).name < JSON.parse(b.Character).name) {
+            return -1;
+        } else if(JSON.parse(a.Character).name > JSON.parse(b.Character).name) {
+            return 1;
+        } else {
+            return 0;
+        }
+    })
+
+    let html = ``;
+    if(records.length > 0) {
+        records.forEach(record => {
+            html += formatListRecord(record, filters);
+        })
+    } else {
+        html += `<blockquote>No records to show.</blockquote>`;
+    }
+    return html;
+}
+function formatListRecord(record) {
+    let site = siteObject[0];
+    if(siteObject.length > 1) {
+        site = siteObject.filter(item => item.Site === record.Site)[0];
+    }
+    let siteURL = site.URL;
+    return `<div class="record">
+        <div class="record--stats">
+            ${siteObject.length > 1 ? `<span>${record.Site}</span>` : ''}
+            ${record.threadData ? `<span>${record.threadData.Type}</span>` : ''}
+            <span>${record.Date}</span>
+        </div>
+        <div class="record--details">
+            <div><b>character</b><span><a href="${siteURL}?showuser=${JSON.parse(record.Character).id}">${JSON.parse(record.Character).name}</a></span></div>
+            <div><b>partner</b><span>${record.partnerNames.map((item, i) => `<a href="${siteURL}?showuser=${record.partnerIds[i]}">${item}</a>`).join(', ')}</span></div>
+            <div><b>ship</b><span>${record.Ship}</span></div>
+        </div>
+        <div class="record--title">
+            <div><b>${record.Words}</b><span>Words</span></div>
+            ${record.threadData ? `<span><a href="${siteURL}?showtopic=${record.Thread}">${record.threadData.Title}</a></span>` : ''}
+        </div>
+    </div>`;
 }
