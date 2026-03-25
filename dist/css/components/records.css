@@ -21,6 +21,10 @@
       height: 1px;
       background: var(--border--primary-color);
       margin: var(--space--md) 0; }
+    .records--header:has([data-view="list" i]) .heatmapOnly {
+      display: none; }
+    .records--header:has([data-view="heatmap" i]) .listOnly {
+      display: none; }
   .records--toggle {
     background: none;
     width: calc(100% - var(--space--md));
