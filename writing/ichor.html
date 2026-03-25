@@ -50,7 +50,7 @@
             <span>Stats</span>
         </button>
         <button onClick="openSubmenu(this)" data-menu="writing">
-            <i class="fa-solid fa-chart-pie"></i>
+            <i class="fa-solid fa-keyboard"></i>
             <span>Writing</span>
         </button>
         <button onClick="openSubmenu(this)" data-menu="admin">
@@ -131,6 +131,20 @@
                     <div class="threads--filter-dropdown">
                         <div class="threads--filter-group filter--ships" data-filter-group="ship">
                             <label class="all is-checked"><span><input type="checkbox" class="all" value="" checked=""></span><b>all</b></label>
+                        </div>
+                    </div>
+                </div>
+                <!--Type-->
+                <div class="threads--filter filter--parent">
+                    <button onClick="openFilters(this)">Type</button>
+                    <div class="threads--filter-dropdown">
+                        <div class="threads--filter-group filter--type" data-filter-group="type">
+                            <button class="is-active" onclick="changeRecordType(this)" data-type="all">all</button>
+                            <button onclick="changeRecordType(this)" data-type="thread">thread</button>
+                            <button onclick="changeRecordType(this)" data-type="comm">comm</button>
+                            <button onclick="changeRecordType(this)" data-type="social media">social media</button>
+                            <button onclick="changeRecordType(this)" data-type="oneshot">oneshot</button>
+                            <button onclick="changeRecordType(this)" data-type="event">event</button>
                         </div>
                     </div>
                 </div>

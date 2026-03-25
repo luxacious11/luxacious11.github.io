@@ -849,7 +849,6 @@ function formatInfoRow() {
 }
 function formatRecordsRow() {
     let formattedDate = `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}-${new Date().getDate()}`;
-    formattedDate = '2026-02-16';
     return `<div class="row records-row grid">
         <label>
             <b>Word Count</b>
@@ -2974,6 +2973,11 @@ function changeRecordCharacter(e) {
     e.classList.add('is-active');
     initRecords(siteObject, staticThreads, staticRecords);
 }
+function changeRecordType(e) {
+    e.closest('.filter--type').querySelectorAll('button').forEach(item => item.classList.remove('is-active'));
+    e.classList.add('is-active');
+    initRecords(siteObject, staticThreads, staticRecords);
+}
 function initRecordsFilters(years, characters, ships, sites) {
     let yearsHTML = ``;
     years.forEach((year, i) => {
@@ -3013,23 +3017,44 @@ function initRecordsFilters(years, characters, ships, sites) {
     }
 }
 function initRecords(sites, threads, records) {
+    //get active filters
     let selectedFilters = {
         year: parseInt(document.querySelector('.records .filter--year .is-active').dataset.year),
         character: document.querySelector('.records .filter--characters .is-active').dataset.character,
         ship: document.querySelector('.records .filter--ships .is-active').dataset.ship,
         site: document.querySelector('.records .filter--sites') ? document.querySelector('.records .filter--sites .is-active').dataset.site : sites[0].Site,
+        type: document.querySelector('.records .filter--type .is-active').dataset.type,
     }
 
-    let filteredRecords = records.filter(item => 
+    //combine thread data into record data
+    let expandedRecords = records.map(item => {
+        let thread = staticThreads.filter(thread => thread.ThreadID === item.Thread)[0];
+        
+        return ({
+            ...item,
+            threadData: thread,
+        });
+    });
+
+    //filter records and threads by the relevant data
+    let filteredRecords = expandedRecords.filter(item => 
         (item.Site === selectedFilters.site || selectedFilters.site === 'all') &&
         new Date(item.Date).getFullYear() === selectedFilters.year &&
         (JSON.parse(item.Character).name === selectedFilters.character || selectedFilters.character === 'all') &&
-        (item.Ship === selectedFilters.ship || selectedFilters.ship === 'all')
+        (item.Ship === selectedFilters.ship || selectedFilters.ship === 'all') &&
+        (item.threadData.Type === selectedFilters.type || selectedFilters.type === 'all')
     );
 
-    console.log('filtered:');
+    let filteredThreads = threads.filter(item => 
+        (item.Site === selectedFilters.site || selectedFilters.site === 'all') &&
+        (JSON.parse(item.Character).name === selectedFilters.character || selectedFilters.character === 'all') &&
+        (item.Type === selectedFilters.type || selectedFilters.type === 'all')
+    );
+
+    console.log('final records:');
     console.log(filteredRecords);
 
+    //format and print
     let heatmapHTML = formatHeatmap(filteredRecords, selectedFilters.year),
         listHTML = `Coming soon...`;
         
@@ -3068,8 +3093,9 @@ function formatHeatmap(records, year) {
         <div class="heatmap--header">
             <h2>${year} Heatmap</h2>
             <div class="heatmap--stats">
-                <span>${records.length} posts</span>
-                <span>${totalWords(records)} words</span>
+                <span>${records.length.toLocaleString('en-US')} posts</span>
+                <span>${totalWords(records).toLocaleString('en-US')} words</span>
+                <span>${getAverage(totalWords(records), records.length)} avg</span>
             </div>
         </div>
         <div class="heatmap--calendars">
@@ -3090,6 +3116,12 @@ function assessYearlyWords(records, year) {
         }
     }
     return yearlyWords;
+}
+function getAverage(words, posts) {
+    if(words > 0 && posts > 0) {
+        return Math.round(words / posts).toLocaleString('en-US');
+    }
+    return 0;
 }
 function getOpacity(words, max) {
     if(!max || words <= 0) return 0;
@@ -3128,7 +3160,7 @@ function formatCalendarRow(row, firstDay, lastDay, rowCount, recordsPerDay, maxW
             //inner row days
             html += `<div ${wordCount > 0 ? `style="background-color: rgba(${accentRGB}, ${getOpacity(wordCount, maxWords)})"` : ''}>
                 <span>${calendarSquare - firstDay + 1}</span>
-                ${wordCount > 0 ? `<div class="heatmap--tooltip">${daysRecords.length} posts<br>${wordCount} words</div>` : ''}
+                ${wordCount > 0 ? `<div class="heatmap--tooltip">${daysRecords.length} posts<br>${wordCount} words<br>${getAverage(wordCount, daysRecords.length)} avg</div>` : ''}
             </div>`;
         }
     }
@@ -3162,7 +3194,11 @@ function formatMonthlyHeatmap(records, month, year, maxWords) {
 
     let html = `<div class="heatmap--month">
         <b>${month}</b>
-        <span>${totalWords(records)} words</span>
+        <div class="heatmap--stats">
+            <span>${records.length.toLocaleString('en-US')} posts</span>
+            <span>${totalWords(records).toLocaleString('en-US')} words</span>
+            <span>${getAverage(totalWords(records), records.length)} avg</span>
+        </div>
         <div class="heatmap--calendar">
             <b>Sun</b>
             <b>Mon</b>
