@@ -3107,11 +3107,18 @@ function getAverage(words, posts) {
     }
     return 0;
 }
-function getOpacity(words, max) {
+function getColor(words, max) {
     if(!max || words <= 0) return 0;
 
-    const percent = words / max;
-    return Math.round(percent * 100) / 100;
+    const percentNum = Math.round((words / max) * 100);
+    const roundedTen = Math.ceil(percentNum / 10) * 10;
+    const chunk = roundedTen / 100;
+    if(chunk < 0.4) {
+        return `${heatmapLow}, ${chunk + 0.1}`;
+    } else if(chunk >= 0.7) {
+        return `${heatmapHigh}, ${chunk}`;
+    }
+    return `${heatmapMid}, ${chunk}`;
 }
 function formatHeatmapCalendar(records, year) {
     let html = ``;
@@ -3142,7 +3149,7 @@ function formatCalendarRow(row, firstDay, lastDay, rowCount, recordsPerDay, maxW
             html += `<div class="placeholder"></div>`;
         } else {
             //inner row days
-            html += `<div ${wordCount > 0 ? `style="background-color: rgba(${accentRGB}, ${getOpacity(wordCount, maxWords)})"` : ''}>
+            html += `<div ${wordCount > 0 ? `style="background-color: rgba(${getColor(wordCount, maxWords)})"` : ''}>
                 <span>${calendarSquare - firstDay + 1}</span>
                 ${wordCount > 0 ? `<div class="heatmap--tooltip">${daysRecords.length} posts<br>${wordCount} words<br>${getAverage(wordCount, daysRecords.length)} avg</div>` : ''}
             </div>`;
