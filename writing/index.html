@@ -126,6 +126,27 @@
                         <div class="threads--filter-group filter--year" data-filter-group="year"></div>
                     </div>
                 </div>
+                <!--Month-->
+                <div class="threads--filter filter--parent listOnly">
+                    <button onClick="openFilters(this)">Month</button>
+                    <div class="threads--filter-dropdown">
+                        <div class="threads--filter-group filter--month" data-filter-group="month">
+                            <button onclick="changeRecordFilter(this)" data-filter="month" data-month="all" class="is-active">all</button>
+                            <button onclick="changeRecordFilter(this)" data-filter="month" data-month="january">january</button>
+                            <button onclick="changeRecordFilter(this)" data-filter="month" data-month="february">february</button>
+                            <button onclick="changeRecordFilter(this)" data-filter="month" data-month="march">march</button>
+                            <button onclick="changeRecordFilter(this)" data-filter="month" data-month="april">april</button>
+                            <button onclick="changeRecordFilter(this)" data-filter="month" data-month="may">may</button>
+                            <button onclick="changeRecordFilter(this)" data-filter="month" data-month="june">june</button>
+                            <button onclick="changeRecordFilter(this)" data-filter="month" data-month="july">july</button>
+                            <button onclick="changeRecordFilter(this)" data-filter="month" data-month="august">august</button>
+                            <button onclick="changeRecordFilter(this)" data-filter="month" data-month="september">september</button>
+                            <button onclick="changeRecordFilter(this)" data-filter="month" data-month="october">october</button>
+                            <button onclick="changeRecordFilter(this)" data-filter="month" data-month="november">november</button>
+                            <button onclick="changeRecordFilter(this)" data-filter="month" data-month="december">december</button>
+                        </div>
+                    </div>
+                </div>
                 <!--Characters-->
                 <div class="threads--filter filter--parent">
                     <button onClick="openFilters(this)">Character</button>
@@ -236,7 +257,7 @@
                     if(thread) {
                         return ({
                             ...data,
-                            Thread: threadData,
+                            threadData: thread,
                         });
                     } else {
                         return data;

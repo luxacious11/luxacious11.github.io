@@ -88,6 +88,11 @@
                     outline: none;
                     cursor: pointer;
                     text-align: left;
+
+                    &:hover {
+                        border-color: var(--accent);
+                        color: var(--text--secondary);
+                    }
                 }
                 &.is-active {
                     & > button {
