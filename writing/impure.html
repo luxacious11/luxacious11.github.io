@@ -110,6 +110,16 @@
         <div class="threads--filters">
             <div class="threads--filters-inner">
                 <!--Year-->
+                <div class="threads--filter filter--parent heatmapOnly">
+                    <button onClick="openFilters(this)">Metric</button>
+                    <div class="threads--filter-dropdown">
+                        <div class="threads--filter-group filter--metric">
+                            <button class="is-active" onclick="changeRecordFilter(this)" data-filter="metric" data-metric="words">word count</button>
+                            <button onclick="changeRecordFilter(this)" data-filter="metric" data-metric="posts">post count</button>
+                        </div>
+                    </div>
+                </div>
+                <!--Year-->
                 <div class="threads--filter filter--parent">
                     <button onClick="openFilters(this)">Year</button>
                     <div class="threads--filter-dropdown">
@@ -201,19 +211,29 @@
                 let combinedRecords = filteredRecords.map(item => {
                     let thread = staticThreads.filter(thread => thread.ThreadID === item.Thread && thread.Site === item.Site)[0];
                     let partnerNamesArray = [], partnerIdsArray = [];
-                    JSON.parse(thread.Featuring).forEach(partner => {
-                        if(!partnerNamesArray.includes(partner.writer)) {
-                            partnerNamesArray.push(partner.writer);
-                            partnerIdsArray.push(partner.writerId);
-                        }
-                    });
-                    
-                    return ({
+                    if(thread) {
+                        JSON.parse(thread.Featuring).forEach(partner => {
+                            if(!partnerNamesArray.includes(partner.writer)) {
+                                partnerNamesArray.push(partner.writer);
+                                partnerIdsArray.push(partner.writerId);
+                            }
+                        });
+                    }
+
+                    let data = {
                         ...item,
-                        threadData: thread,
                         partnerNames: partnerNamesArray,
                         partnerIds: partnerIdsArray,
-                    });
+                    };
+                    
+                    if(thread) {
+                        return ({
+                            ...data,
+                            Thread: threadData,
+                        });
+                    } else {
+                        return data;
+                    }
                 });
 
                 if(siteObject.length === 1) {

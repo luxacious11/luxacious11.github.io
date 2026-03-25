@@ -28,6 +28,18 @@
             background: var(--border--primary-color);
             margin: var(--space--md) 0;
         }
+
+        &:has([data-view="list" i]) {
+            .heatmapOnly {
+                display: none;
+            }
+        }
+
+        &:has([data-view="heatmap" i]) {
+            .listOnly {
+                display: none;
+            }
+        }
     }
     &--toggle {
         background: none;

@@ -3023,6 +3023,7 @@ function initRecords(sites, records) {
         site: document.querySelector('.records .filter--sites') ? document.querySelector('.records .filter--sites .is-active').dataset.site : sites[0].Site,
         type: document.querySelector('.records .filter--type .is-active').dataset.type,
         partner: document.querySelector('.records .filter--partners .is-active').dataset.partner,
+        metric: document.querySelector('.records .filter--metric .is-active').dataset.metric,
     }
 
     //filter records and threads by the relevant data
@@ -3031,15 +3032,16 @@ function initRecords(sites, records) {
         new Date(item.Date).getFullYear() === selectedFilters.year &&
         (JSON.parse(item.Character).name === selectedFilters.character || selectedFilters.character === 'all') &&
         (item.Ship === selectedFilters.ship || selectedFilters.ship === 'all') &&
-        (item.threadData.Type === selectedFilters.type || selectedFilters.type === 'all') &&
+        ((item.threadData && item.threadData.Type === selectedFilters.type) || selectedFilters.type === 'all') &&
         (item.partnerNames.includes(selectedFilters.partner) || selectedFilters.partner === 'all')
     );
 
     console.log('final records:');
+    console.log(selectedFilters);
     console.log(filteredRecords);
 
     //format and print
-    let heatmapHTML = formatHeatmap(filteredRecords, selectedFilters.year),
+    let heatmapHTML = formatHeatmap(filteredRecords, selectedFilters.year, selectedFilters.metric),
         listHTML = `Coming soon...`;
         
     document.querySelector('.records--heatmaps').innerHTML = heatmapHTML;
@@ -3058,7 +3060,7 @@ function daysInMonth(month, year) {
 function firstDayOfMonth(month, year) {
     return new Date(year, month, 1).getDay();
 }
-function formatHeatmap(records, year) {
+function formatHeatmap(records, year, metric) {
     let monthlyRecords = {
         january: records.filter(item => new Date(item.Date).getMonth() === 0),
         february: records.filter(item => new Date(item.Date).getMonth() === 1),
@@ -3083,7 +3085,7 @@ function formatHeatmap(records, year) {
             </div>
         </div>
         <div class="heatmap--calendars">
-            ${formatHeatmapCalendar(monthlyRecords, year)}
+            ${formatHeatmapCalendar(monthlyRecords, year, metric)}
         </div>
     </div>`;
 
@@ -3101,37 +3103,50 @@ function assessYearlyWords(records, year) {
     }
     return yearlyWords;
 }
+function assessYearlyPosts(records, year) {
+    let yearlyPosts = {};
+    for(let month = 0; month < 12; month++) {
+        for(let day = 0; day < daysInMonth(month, year); day++) {
+            let recordsByDay = records[getMonthName(month)].filter(item => (new Date(item.Date).getDate() === day + 1) && new Date(item.Date).getMonth() === month);
+            yearlyPosts[`${month + 1}/${day + 1}/${year}`] = recordsByDay.length;
+        }
+    }
+    return yearlyPosts;
+}
 function getAverage(words, posts) {
     if(words > 0 && posts > 0) {
         return Math.round(words / posts).toLocaleString('en-US');
     }
     return 0;
 }
-function getColor(words, max) {
-    if(!max || words <= 0) return 0;
+function getColor(actual, max) {
+    if(!max || actual <= 0) return 0;
 
-    const percentNum = Math.round((words / max) * 100);
-    const roundedTen = Math.ceil(percentNum / 10) * 10;
-    const chunk = roundedTen / 100;
-    if(chunk < 0.4) {
-        return `${heatmapLow}, ${chunk + 0.1}`;
-    } else if(chunk >= 0.7) {
-        return `${heatmapHigh}, ${chunk}`;
+    const percent = Math.round((actual / max) * 100) / 100;
+    if(percent < 0.34) {
+        return `${heatmapLow}, ${percent + 0.1}`;
+    } else if(percent >= 0.66) {
+        return `${heatmapHigh}, ${percent}`;
     }
-    return `${heatmapMid}, ${chunk}`;
+    return `${heatmapMid}, ${percent}`;
 }
-function formatHeatmapCalendar(records, year) {
+function formatHeatmapCalendar(records, year, metric) {
     let html = ``;
-    let yearlyWords = assessYearlyWords(records, year);
-    let maxWords = Math.max(0, ...Object.values(yearlyWords));
+    let yearly, max;
+    if(metric === 'words') {
+        yearly = assessYearlyWords(records, year);
+    } else if(metric === 'posts') {
+        yearly = assessYearlyPosts(records, year);
+    }
+    max = Math.max(0, ...Object.values(yearly));
 
     for(let i = 0; i < 12; i++) {
-        html += formatMonthlyHeatmap(records[getMonthName(i)], getMonthName(i), year, maxWords);
+        html += formatMonthlyHeatmap(records[getMonthName(i)], getMonthName(i), year, max, metric);
     }
 
     return html;
 }
-function formatCalendarRow(row, firstDay, lastDay, rowCount, recordsPerDay, maxWords) {
+function formatCalendarRow(row, firstDay, lastDay, rowCount, recordsPerDay, max, metric) {
     let html = ``;
 
     for(let i = 0; i < 7; i++) {
@@ -3149,7 +3164,7 @@ function formatCalendarRow(row, firstDay, lastDay, rowCount, recordsPerDay, maxW
             html += `<div class="placeholder"></div>`;
         } else {
             //inner row days
-            html += `<div ${wordCount > 0 ? `style="background-color: rgba(${getColor(wordCount, maxWords)})"` : ''}>
+            html += `<div ${wordCount > 0 ? `style="background-color: rgba(${getColor(metric === 'words' ? wordCount : daysRecords.length, max)})"` : ''}>
                 <span>${calendarSquare - firstDay + 1}</span>
                 ${wordCount > 0 ? `<div class="heatmap--tooltip">${daysRecords.length} posts<br>${wordCount} words<br>${getAverage(wordCount, daysRecords.length)} avg</div>` : ''}
             </div>`;
@@ -3158,7 +3173,7 @@ function formatCalendarRow(row, firstDay, lastDay, rowCount, recordsPerDay, maxW
 
     return html;
 }
-function formatMonthlyHeatmap(records, month, year, maxWords) {
+function formatMonthlyHeatmap(records, month, year, max, metric) {
     let numDays = daysInMonth(getMonthNum(month), year);
     let firstDay = firstDayOfMonth (getMonthNum(month) - 1, year);
     let numRows = Math.ceil((numDays + firstDay) / 7);
@@ -3174,12 +3189,12 @@ function formatMonthlyHeatmap(records, month, year, maxWords) {
     for(let i = 0; i < numRows; i++) {
         if(i === 0) {
             //first week
-            gridHTML += formatCalendarRow(i + 1, firstDay, 7 - lastDay, numRows, recordsPerDay, maxWords);
+            gridHTML += formatCalendarRow(i + 1, firstDay, 7 - lastDay, numRows, recordsPerDay, max, metric);
         } else if(i === numRows - 1) {
             //last week
-            gridHTML += formatCalendarRow(i + 1, firstDay, 7 - lastDay, numRows, recordsPerDay, maxWords);
+            gridHTML += formatCalendarRow(i + 1, firstDay, 7 - lastDay, numRows, recordsPerDay, max, metric);
         } else {
-            gridHTML += formatCalendarRow(i + 1, firstDay, 7 - lastDay, numRows, recordsPerDay, maxWords);
+            gridHTML += formatCalendarRow(i + 1, firstDay, 7 - lastDay, numRows, recordsPerDay, max, metric);
         }
     }
 
