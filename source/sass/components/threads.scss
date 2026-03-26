@@ -133,6 +133,63 @@
                 }
             }
         }
+
+        &-active {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space--xs);
+
+            &:has(.threads--filters-clipped:empty) {
+                display: none;
+            }
+        }
+        &-clear {
+            background: var(--bg-accent);
+            border: var(--border--primary);
+            border-color: var(--bg-accent);
+            border-radius: var(--radius--standard);
+            font-size: 9px;
+            text-transform: uppercase;
+            color: var(--text--on-accent);
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            line-height: 100%;
+            padding: var(--space--sm);
+            cursor: pointer;
+        }
+        &-clipped {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space--xs);
+
+            button {
+                display: flex;
+                gap: var(--space--sm);
+                align-items: center;
+                background: none;
+                border: var(--border--primary);
+                border-radius: var(--radius--standard);
+                font-size: 9px;
+                text-transform: uppercase;
+                color: var(--text--primary);
+                letter-spacing: 0.1em;
+                font-weight: 700;
+                line-height: 100%;
+                padding: var(--space--sm);
+                cursor: pointer;
+                transition: 0.3s ease-in-out;
+
+                &::before {
+                    content: '\f00d';
+                    font-family: 'Font Awesome 7 Pro';
+                }
+
+                &:hover {
+                    background: var(--accent);
+                    color: var(--text--on-accent);
+                }
+            }
+        }
     }
     &--filter {
         &-dropdown {
@@ -189,6 +246,13 @@
                         background: var(--accent);
                     }
                 }
+            }
+
+            & > b {
+                font-family: var(--font--serif);
+                font-weight: 900;
+                font-size: 18px;
+                text-transform: capitalize;
             }
         }
     }
