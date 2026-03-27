@@ -172,7 +172,7 @@ function initSiteSelects() {
 }
 function initPartnerSelect(el, data, type = 'initial', siteField = '#site', hasNPC = false) {
     let site = el.closest('form').querySelector(siteField).options[el.closest('form').querySelector(siteField).selectedIndex].innerText.trim().toLowerCase();
-    let partners = data.filter(item => item.Site === site && item.Status === 'active');
+    let partners = data.filter(item => item.Site === site && item.Status !== 'inactive');
     console.log(hasNPC);
     partners.sort((a, b) => {
         if(a.Writer < b.Writer) {
@@ -1050,6 +1050,7 @@ function submitPartner(form) {
         WriterID: id,
         Writer: alias,
         Characters: JSON.stringify(characterList),
+        Status: 'active',
     };
 
     sendAjax(form, data, successMessage);
