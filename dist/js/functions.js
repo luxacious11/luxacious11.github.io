@@ -1257,7 +1257,7 @@ function submitThread(form) {
             Thread: id,
             Words: words,
             Ship: ship,
-            Date: `${getMonthName(new Date().getMonth())} ${new Date().getDate()}, ${new Date().getFullYear}`,
+            Date: `${getMonthName(new Date().getMonth())} ${new Date().getDate()}, ${new Date().getFullYear()}`,
         };
 
         sendAjaxSync(record, form, 2, 0);
