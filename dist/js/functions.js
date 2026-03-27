@@ -1228,6 +1228,8 @@ function submitThread(form) {
     let month = getMonthName(new Date().getMonth());
     let day = new Date().getDate();
     let update = `${month} ${day}, ${year}`;
+    let ship = form.querySelector('#ship').value.trim().toLowerCase();
+    let words = form.querySelector('#words').value.trim();
 
     //complex fields - tags and featuring
     let tags = Array.from(form.querySelectorAll('.threadTag:checked')).map(item => item.value);
@@ -1262,7 +1264,25 @@ function submitThread(form) {
         LastUpdated: update,
     };
 
-    sendAjax(form, data, successMessage);
+    if(words !== '' || ship !== '') {
+        let record = {
+            SubmissionType: 'add-record',
+            Site: site,
+            Character: JSON.stringify({
+                name: character.innerText.trim().toLowerCase().replaceAll(`'`, `&apos;`),
+                id: character.value.trim().toLowerCase(),
+            }),
+            Thread: id,
+            Words: words,
+            Ship: ship,
+            Date: `${getMonthName(new Date().getMonth())} ${new Date().getDate()}, ${new Date().getFullYear}`,
+        };
+
+        sendAjaxSync(record, form, 2, 0);
+    }
+
+    sendAjaxSync(data, form, 2, 1);
+
 }
 function updateTags(form, data) {
     let title = form.querySelector('#title').options[form.querySelector('#title').selectedIndex].value.trim().toLowerCase();
