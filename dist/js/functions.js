@@ -34,9 +34,9 @@ function initMenus() {
         storedSites = [...data];
 
         data.sort((a, b) => {
-            if(a.Status === 'active' && b.Status === 'inactive') {
+            if(a.Close === '' && b.Close === '') {
                 return -1;
-            } else if (b.Status === 'active' && a.Status === 'inactive') {
+            } else if (b.Close === '' && a.Close === '') {
                 return 1;
             } else if(a.Site < b.Site) {
                 return -1;
@@ -101,6 +101,9 @@ function initMenus() {
             });
             document.querySelector('#loading').remove();
         }
+        if(document.querySelector('body.index')) {
+            initIndex([...storedSites]);
+        }
     });
 }
 function initAccordion(target = '.accordion') {
@@ -131,6 +134,72 @@ function initAccordion(target = '.accordion') {
         })
     })
 }
+function initIndex(sites) {
+    sites.sort((a, b) => {
+        if(a.Close === '' && b.Close !== '') return -1;
+        else if(a.Close !== '' && b.Close === '') return 1;
+        else if(a.Site < b.Site) return -1;
+        else if(a.Site > b.Site) return 1;
+        else return 0;
+    });
+    fetch(`https://opensheet.elk.sh/${sheetID}/Characters`)
+    .then((response) => response.json())
+    .then((characterData) => {
+        storedCharacters = [...characterData];
+
+        fetch(`https://opensheet.elk.sh/${sheetID}/Threads`)
+        .then((response) => response.json())
+        .then((threadData) => {
+            storedThreads = [...threadData];
+
+            fetch(`https://opensheet.elk.sh/${sheetID}/Writing`)
+            .then((response) => response.json())
+            .then((recordData) => {
+                storedRecords = [...recordData];
+
+
+                let html = ``;
+                sites.forEach((site, i) => {
+                    let siteCharacters = storedCharacters.filter(item => item.Sites.includes(site.Site));
+                    let siteThreads = storedThreads.filter(item => item.Site === site.Site);
+                    let siteRecords = storedRecords.filter(item => item.Site === site.Site);
+                    
+                    if(i === 0) {
+                        html += `<h2 class="h2">Active</h2><div class="grid">`;
+                    } else if(sites[i - 1].Close === '' && site.Close !== '') {
+                        html += `</div><h2 class="h2">Inactive</h2><div class="grid">`;
+                    }
+                    html += formatSiteBlock(site, siteCharacters, siteThreads, siteRecords);
+                    if(sites.length - 1 === i) {
+                        html += `</div>`;
+                    }
+                });
+                document.querySelector('main').innerHTML = html;
+            });
+        });
+    });
+}
+function formatSiteBlock(site, characters, threads, records) {
+    return `<div class="site">
+        <div class="site--stats">
+            <div class="site--stat"><a href="./characters/${site.ID}.html">Characters</a></div>
+            <div class="site--stat"><a href="./threads/${site.ID}.html">Threads</a></div>
+            <div class="site--stat"><a href="./stats/${site.ID}.html">Stats</a></div>
+            <div class="site--stat"><a href="./writing/${site.ID}.html">Records</a></div>
+        </div>
+        <div class="site--title">
+            <a href="${site.URL}">${capitalize(site.Site, [' ', '-'])}</a>
+            ${site.Tagline && site.Tagline !== '' ? `<p>${site.Tagline}</p>` : ''}
+        </div>
+        <div class="site--stats">
+            <div class="site--stat"><b>${characters.length}</b> Characters</div>
+            <div class="site--stat"><b>${threads.length}</b> Threads</div>
+            <div class="site--stat"><b>${records.length}</b> Recorded Posts</div>
+            ${site.Close && site.Close !== '' ? `<div class="site--stat">Open from ${site.Open} to ${site.Close}</div>` : `<div class="site--stat">Opened ${site.Open}</div>`}
+            
+        </div>
+    </div>`;
+}
 
 /***** FORM INITS *****/
 function initSiteSelects() {
@@ -138,9 +207,9 @@ function initSiteSelects() {
         let sites = [...storedSites];
     
         sites.sort((a, b) => {
-            if(a.Status === 'active' && b.Status !== 'active') {
+            if(a.Close === '' && b.Close !== '') {
                 return -1;
-            } else if (a.Status !== 'active' && b.Status === 'active') {
+            } else if (a.Close !== '' && b.Close === '') {
                 return 1;
             } else if(a.Site < b.Site) {
                 return -1;
@@ -156,7 +225,7 @@ function initSiteSelects() {
             if(i === 0) {
                 html += `<optgroup label="Active">`;
                 html += `<option value="${site.ID}">${capitalize(site.Site, [' ', '-'])}</option>`;
-            } else if (sites[i - 1].Status === 'active' && site.Status !== 'active') {
+            } else if (sites[i - 1].Close === '' && site.Close !== '') {
                 html += `</optgroup>`;
                 html += `<optgroup label="Inactive">`;
                 html += `<option value="${site.ID}">${capitalize(site.Site, [' ', '-'])}</option>`;
@@ -999,6 +1068,9 @@ function submitSite(form) {
     let id = form.querySelector('#id').value.trim().toLowerCase();
     let url = form.querySelector('#url').value.trim();
     let directory = form.querySelector('#directory').options[form.querySelector('#directory').selectedIndex].value;
+    let tagline = form.querySelector('#tagline').value.trim();
+    let open = new Date(form.querySelector('#open').value.trim());
+    let close = form.querySelector('#close').value ? new Date(form.querySelector('#close').value.trim()) : null;
     let status = form.querySelector('#active').checked ? 'active' : 'inactive';
 
     let data = {
@@ -1007,6 +1079,9 @@ function submitSite(form) {
         ID: id,
         URL: url,
         Directory: directory,
+        Tagline: tagline,
+        Open: `${getMonthName(open.getMonth())} ${open.getDate()}, ${open.getFullYear()}`,
+        Close: close ? `${getMonthName(close.getMonth())} ${close.getDate()}, ${close.getFullYear()}` : '',
         Status: status,
     };
 
@@ -1881,7 +1956,7 @@ function prepThreads(data, site, sites) {
     let threads = site !== 'all' ? data.filter(item => item.Site.trim().toLowerCase() === site && item.Status.trim().toLowerCase() !== 'archived') : data.filter(item => item.Status.trim().toLowerCase() !== 'archived');
 
     if(site === 'all') {
-        let activeSites = sites.filter(item => item.Status === 'active').map(item => item.Site);
+        let activeSites = sites.filter(item => item.Close === '').map(item => item.Site);
         threads = threads.filter(item => activeSites.includes(item.Site));
     }
 
@@ -1983,7 +2058,7 @@ function populateThreads(array, siteObject) {
         document.querySelector('.filter--tags').insertAdjacentHTML('beforeend', `<label><span><input type="checkbox" value=".tag--${tag}"/></span><b>${tag}</b></label>`);
     });
     if(siteObject.length > 1) {
-        siteObject = siteObject.filter(item => item.Status === 'active');
+        siteObject = siteObject.filter(item => item.Close === '');
         siteObject.forEach(site => {
             document.querySelector('.filter--sites').insertAdjacentHTML('beforeend', `<label><span><input type="checkbox" value=".site--${site.ID}"/></span><b>${site.Site}</b></label>`);
         });
@@ -2696,7 +2771,7 @@ function createCharacterStats(data, site, sites) {
             countStats(stats.ages, character.age);
         });
     } else {
-        let activeSites = sites.filter(item => item.Status === 'active').map(item => item.Site);
+        let activeSites = sites.filter(item => item.Close === '').map(item => item.Site);
         characters = data.map(item => ({...item, Basics: JSON.parse(item.Basics)}));
         let activeCount = 0;
         characters.forEach(character => {
@@ -2728,7 +2803,7 @@ function createThreadStats(data, site, siteID, sites) {
     let commThreads = activeThreads.filter(item => item.Type === 'comm');
     
     if(siteID === 'all') {
-        let activeSites = sites.filter(item => item.Status === 'active').map(item => item.Site);
+        let activeSites = sites.filter(item => item.Close === '').map(item => item.Site);
         activeThreads = activeThreads.filter(item => activeSites.includes(item.Site));
         completedThreads = completedThreads.filter(item => activeSites.includes(item.Site));
         icThreads = icThreads.filter(item => activeSites.includes(item.Site));
@@ -3002,7 +3077,7 @@ function initRecordsFilters(years, characters, ships, sites, partners) {
         let sitesHTML = `<button onClick="changeRecordFilter(this)" data-all data-filter="sites" data-site="all" class="is-active">All</button>`;
         sitesHTML += '<b>Active</b>';
         sites.forEach((site, i) => {
-            if(sites[i - 1] && sites[i - 1].Status === 'active' && site.Status !== 'active') {
+            if(sites[i - 1] && sites[i - 1].Close === '' && site.Close !== '') {
                 sitesHTML += '<b>Inactive</b>';
             }
             sitesHTML += `<button onClick="changeRecordFilter(this)" data-list-filter data-filter="sites" data-site="${site.Site}">

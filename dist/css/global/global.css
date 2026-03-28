@@ -58,3 +58,51 @@ main {
   display: flex;
   align-items: center;
   justify-content: center; }
+
+body.index h2 {
+  font-size: 48px;
+  text-align: center; }
+
+body.index .grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space--md); }
+
+.site {
+  background: var(--bg--tertiary);
+  border-left: var(--border--thick);
+  display: grid;
+  grid-template-columns: 100%;
+  gap: 0 var(--space--md);
+  padding: var(--space--md); }
+  @media (min-width: 601px) {
+    .site {
+      padding: var(--space--md) var(--space--lg); } }
+  .site a {
+    color: var(--text-secondary); }
+  .site--title {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0 13px; }
+    .site--title > a {
+      font-family: var(--font--serif);
+      font-weight: 900;
+      font-size: 24px; }
+    .site--title > p {
+      font-size: 0.75rem;
+      line-height: 180%;
+      margin: 0; }
+  .site--stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space--xs) var(--space--lg);
+    color: var(--text--primary);
+    font-size: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    line-height: 200%; }
+    .site--stats b {
+      color: var(--text--secondary); }
+    .site--stats a {
+      border-bottom: var(--border--primary);
+      border-color: var(--accent); }

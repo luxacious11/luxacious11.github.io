@@ -1,0 +1,74 @@
+<div style="padding: 100px;"><button onClick="portInfo(this)">Port</button></div>
+
+<script>
+    function portInfo(e) {
+        let oldRecords = [], characterIds = [];
+        let button = e;
+        button.setAttribute('disabled', true);
+        button.innerText = 'Submitting...';
+
+        fetch(`https://opensheet.elk.sh/${sheetID}/Characters`)
+        .then((response) => response.json())
+        .then((data) => {
+            oldRecords = [...data].filter(item => item.Sites.includes('where the hell is'));
+            characterIds = [...oldRecords.map(item => JSON.parse(item.Sites).filter(item => item.site === 'where the hell is')[0].id)];
+
+            oldRecords.forEach((record, i) => {
+                fetch(`https://wherethehellis.jcink.net/?showuser=${characterIds[i]}`)
+                .then((response) => response.text())
+                .then((html) => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, "text/html");
+                    let cheatsheet = doc.querySelector('.trackCheatsheet').innerHTML.replaceAll('\n', '');
+                    let freeform = doc.querySelector('.trackFreeform').innerHTML.replaceAll('\n', '');
+                    let miscFormatted = {
+                        overview: doc.querySelector('.profile--plotting .profile--column:nth-of-type(2) .scroll').innerHTML.replaceAll('\n', ''),
+                        interested: doc.querySelector('.profile--plotting .trackIgnore .short:nth-of-type(1) .scroll').innerHTML.replaceAll('\n', ''),
+                        avoiding: doc.querySelector('.profile--plotting .trackIgnore .short:nth-of-type(2) .scroll').innerHTML.replaceAll('\n', ''),
+                        relationships: doc.querySelector('.profile--details .trackIgnore .scroll').innerHTML.replaceAll('\n', ''),
+                    }
+                    let data = {
+                        SubmissionType: 'add-longform',
+                        Character: record.Character,
+                        ID: characterIds[i],
+                        SiteID: 'wthi',
+                        Cheatsheet: cheatsheet,
+                        Freeform: freeform,
+                        Misc: JSON.stringify(miscFormatted),
+                    };
+
+                    console.log(data);
+			        sendPortAjax(data, button, oldRecords.length, i);  
+                });
+            });
+        });
+    }
+
+    function sendPortAjax(record, button, count, num) {
+            $.ajax({
+                url: `https://script.google.com/macros/s/${deployID}/exec`,   
+                data: record,
+                method: "POST",
+                type: "POST",
+                dataType: "json", 
+                async: false,
+                success: function () {
+                    console.log('success');
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log('error');
+                    console.log(`Whoops! The sheet connection didn't quite work. Please refresh the page and try again! If this persists, please open the console (ctrl + shift + J) and send Lux a screenshot of what's there.`);
+                },
+                complete: function () {
+                    console.log('call complete');
+                    if(count && num && (count - 1 === num || count === num)) {
+                        console.log('all complete');
+                        setTimeout(() => {
+                            button.innerText = `Submit`;
+                            button.removeAttribute('disabled');
+                        }, 100);
+                    }
+                }
+            });
+    }
+</script>

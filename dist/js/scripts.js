@@ -1,6 +1,6 @@
+let storedSites = [], storedPartners = [], storedCharacters = [], storedThreads = [], storedTags = [], storedRecords = [], storedFreeforms = [];
 setTheme();
 initMenus();
-let storedSites = [], storedPartners = [], storedCharacters = [], storedThreads = [], storedTags = [], storedRecords = [], storedFreeforms = [];
 
 document.querySelectorAll('.backdrop').forEach(overlay => {
     overlay.addEventListener('click', () => {
