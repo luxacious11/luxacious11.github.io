@@ -26,6 +26,9 @@ document.querySelectorAll('form').forEach(form => {
             case 'add-character':
                 submitCharacter(form);
                 break;
+            case 'add-app':
+                submitApp(form);
+                break;
             case 'add-partner':
                 submitPartner(form);
                 break;

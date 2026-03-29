@@ -131,6 +131,13 @@
     justify-content: center; }
     .records--spinner:not(:only-child) {
       display: none; }
+    body.index .records--spinner {
+      left: calc(var(--size--menu-width));
+      width: calc(100% - var(--size--menu-width)); }
+    @media (max-width: 600px) {
+      .records--spinner {
+        left: calc(var(--size--menu-width));
+        width: calc(100% - var(--size--menu-width)); } }
   .records--list {
     display: grid;
     grid-template-columns: 100%;

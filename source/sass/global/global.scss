@@ -95,8 +95,11 @@ body.index {
     }
     .grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
         gap: var(--space--md);
+
+        @include mq-up(md) {
+            grid-template-columns: repeat(2, 1fr);
+        }
     }
 }
 

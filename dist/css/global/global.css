@@ -65,8 +65,10 @@ body.index h2 {
 
 body.index .grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   gap: var(--space--md); }
+  @media (min-width: 1025px) {
+    body.index .grid {
+      grid-template-columns: repeat(2, 1fr); } }
 
 .site {
   background: var(--bg--tertiary);

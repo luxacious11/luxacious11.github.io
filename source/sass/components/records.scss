@@ -187,6 +187,16 @@
         &:not(:only-child) {
             display: none;
         }
+
+        body.index & {
+            left: calc(var(--size--menu-width));
+            width: calc(100% - var(--size--menu-width));
+        }
+
+        @include mq-down(xs) {
+            left: calc(var(--size--menu-width));
+            width: calc(100% - var(--size--menu-width));
+        }
     }
     &--list {
         display: grid;
