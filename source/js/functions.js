@@ -1402,7 +1402,6 @@ function submitApp(form) {
     if(existing.length > 0) {
         data.SubmissionType = 'replace-longform';
     }
-    console.log(data);
 
     sendAjax(form, data, successMessage);
 }
