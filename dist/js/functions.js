@@ -1715,8 +1715,10 @@ function updateCharacter(form, data) {
     sendAjax(form, existing, successMessage);
 }
 function updateThread(form, data) {
-    let currentTitle = form.querySelector('#title').value.trim().toLowerCase();
+    let currentTitle = form.querySelector('#title').options[form.querySelector('#title').selectedIndex].innerText.trim().toLowerCase();
     let site = form.querySelector('#site').options[form.querySelector('#site').selectedIndex].innerText.trim().toLowerCase();
+    console.log(currentTitle);
+    console.log(site);
     let existing = data.filter(item => item.Title === currentTitle && item.Site === site)[0];
     let selected = Array.from(form.querySelectorAll('.updates input:checked')).map(item => item.value);
 
