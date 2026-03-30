@@ -1794,6 +1794,11 @@ function addRecord(form) {
         sendAjaxSync(item, form, data.length, i);
     });
 }
+function countWords(e) {
+    let form = e.closest('form');
+    let content = form.querySelector('textarea');
+    form.querySelector('.result').innerHTML = `${content.value.replace(/\n/g, ' ').split(' ').filter(word => word !== '').length} Words`;
+}
 
 /***** ISOTOPE FUNCTIONS *****/
 function openFilters(e) {
@@ -2238,6 +2243,9 @@ function sendInlineRecordAjax(data, container) {
         }
     });
 }
+function countContentWords(content) {
+    return content.replace(/\n/g, ' ').split(' ').filter(word => word !== '').length;
+}
 function changeStatus(e) {
     if(e.dataset.status === 'mine' || e.dataset.status === 'planned') {
         e.dataset.status = 'theirs';
@@ -2279,9 +2287,10 @@ function recordReplySend(e) {
         threadID = e.currentTarget.querySelector('button').dataset.id,
         container = e.currentTarget.closest('.thread'),
         words = e.currentTarget.closest('.record--inline').querySelector('.word-count').value,
+        postWords = countContentWords(e.currentTarget.closest('.record--inline').querySelector('.post').value),
         ship = e.currentTarget.closest('.record--inline').querySelector('.ship').value.toLowerCase().trim();
-    e.currentTarget.classList.add('is-updating');
-    e.currentTarget.setAttribute('disabled', true);
+        e.currentTarget.classList.add('is-updating');
+        e.currentTarget.setAttribute('disabled', true);
 
     let data = {
         SubmissionType: 'add-record',
@@ -2291,7 +2300,7 @@ function recordReplySend(e) {
             name: character,
             id: characterID,
         }),
-        Words: words,
+        Words: words ? words : postWords,
         Ship: ship,
         Date: new Intl.DateTimeFormat('en-CA', {
             day: '2-digit',
@@ -2360,8 +2369,9 @@ function formatThread(thread) {
     let extraTags = thread.tags !== '' ? JSON.parse(thread.tags).map(item => `tag--${item}`).join(' ') : '';
 
     let buttons = `<form class="record--inline" onSubmit="return recordReplySend(event)">
-            <input class="word-count" type="number" min="0" />
+            <input class="word-count" type="number" min="0" placeholder="words" />
             <input class="ship" type="text" placeholder="(optional)" />
+            <textarea class="post" placeholder="post to count"></textarea>
             <button data-id="${thread.id}" data-site="${thread.site.Site}" data-character="${thread.character.name}" data-character-id="${thread.character.id}">
                 <span class="not-loading">Send</span>
                 <span class="loading">Sending...</span>
