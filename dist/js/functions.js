@@ -1978,10 +1978,13 @@ function initIsotope() {
     });
 
     // use value of search field to filter
-    document.querySelector(typeSearch).addEventListener('keyup', e => {
-        appendSearchQuery('typesearch', e.currentTarget.value);
+    const searchInput = document.querySelector(typeSearch);
+    const handleKeyUp = debounce((e) => {
+        console.log('Searching for:', e.target.value);
+        appendSearchQuery('typesearch', e.target.value);
         setCustomFilter();
-    });
+    }, 300);
+    searchInput.addEventListener('keyup', handleKeyUp);
 
     // bind sort button click
     let sortButtons = document.querySelectorAll(sorts);
@@ -1995,6 +1998,16 @@ function initIsotope() {
             e.currentTarget.classList.add('is-checked');
         });
     });
+}
+function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        const context = this;
+        clearTimeout(timeout); // Cancel previous timer
+        timeout = setTimeout(() => {
+            func.apply(context, args); // Execute after 'wait' period
+        }, wait);
+    };
 }
 function toggleFilters(e) {
     e.closest('.filters--wrap').querySelector('.filters--collapsible').classList.toggle('is-open');
