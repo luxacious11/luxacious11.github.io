@@ -2321,6 +2321,9 @@ function recordReplySend(e) {
             year: 'numeric'
         }).format(new Date()),
     };
+
+    e.currentTarget.closest('.record--inline').querySelector('.word-count').value = '';
+    e.currentTarget.closest('.record--inline').querySelector('.post').value = '';
     sendInlineRecordAjax(data, container);
 }
 function markComplete(e) {
