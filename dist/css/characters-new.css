@@ -181,6 +181,13 @@ body#ST .post:has(.saf-custom).saf-8 .luxpost {
   --rgb: 212, 161, 168;
   --wideImage: url(https://64.media.tumblr.com/af9ec3d9fd3a651a674d8c9c06f6e4a7/779500705ab3fd6b-f0/s1280x1920/93f140ea7927fb9c555a07b0a9938253ac86f3c3.jpg); }
 
+#post-preview .ii-custom.luxpost.laine,
+body#ST .post .luxpost.luxpost.laine,
+body#ST .post:has(.saf-custom).luxpost.laine {
+  --squareImage: url('https://64.media.tumblr.com/01dfd611b0f3b7d2a7d26c805544479a/cef0736f9f1b7e8f-de/s1280x1920/7ddcdbaa6dd8922e43fdf1f71a8157e70a5e7530.jpg');
+  --imagePosition: top;
+  --quote: 'unbreak the broken, unsay these spoken words, find hope in the hopeless, pull me out of the train wreck'; }
+
 #post-preview .ii-custom.luxpost.naomi,
 body#ST .post .luxpost.luxpost.naomi,
 body#ST .post:has(.saf-custom).luxpost.naomi {

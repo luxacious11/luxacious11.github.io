@@ -188,6 +188,13 @@ body#ST .post:has(.saf-custom) {
         --wideImage: url(https://64.media.tumblr.com/af9ec3d9fd3a651a674d8c9c06f6e4a7/779500705ab3fd6b-f0/s1280x1920/93f140ea7927fb9c555a07b0a9938253ac86f3c3.jpg);
     }
 
+    //madelaine
+    &.luxpost.laine {
+        --squareImage: url('https://64.media.tumblr.com/01dfd611b0f3b7d2a7d26c805544479a/cef0736f9f1b7e8f-de/s1280x1920/7ddcdbaa6dd8922e43fdf1f71a8157e70a5e7530.jpg');
+        --imagePosition: top;
+        --quote: 'unbreak the broken, unsay these spoken words, find hope in the hopeless, pull me out of the train wreck';
+    }
+
     //naomi
     &.luxpost.naomi {
         --squareImage: url('https://64.media.tumblr.com/53a9e899bfe66e9d42f2aef0ce90c1e2/9d0622e23af270f0-9c/s1280x1920/a3899ac773d7cfcee1794ab680ffddd1dbd8dc2f.gif');
