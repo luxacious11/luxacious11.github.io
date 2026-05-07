@@ -158,7 +158,13 @@ body#ST .post:has(.saf-custom) {
     //harley
     &.saf-11 .luxpost {
         --rgb: 200, 176, 191;
-        --wideImage: url(https://64.media.tumblr.com/c1003be3f2640da516e73f8e30139f97/a2b0567dca8400b1-96/s540x810/97483a753024434459733feb4d8e2e817cb05348.gif);
+        --wideImage: url('https://64.media.tumblr.com/c1003be3f2640da516e73f8e30139f97/a2b0567dca8400b1-96/s540x810/97483a753024434459733feb4d8e2e817cb05348.gif');
+    }
+
+    //harry
+    &.luxpost.harry {
+        --squareImage: url('https://64.media.tumblr.com/2ce76781ffb02920923703d0fef77be1/dc693759869c3a18-ad/s400x600/b5f65ed2788462e505e45b44e7e603db7b121b6e.gif');
+        --quote: "but i've got a blank space, baby, and i'll write your name";
     }
 
     //kit
@@ -193,6 +199,12 @@ body#ST .post:has(.saf-custom) {
         --squareImage: url('https://64.media.tumblr.com/01dfd611b0f3b7d2a7d26c805544479a/cef0736f9f1b7e8f-de/s1280x1920/7ddcdbaa6dd8922e43fdf1f71a8157e70a5e7530.jpg');
         --imagePosition: top;
         --quote: 'unbreak the broken, unsay these spoken words, find hope in the hopeless, pull me out of the train wreck';
+    }
+
+    //mel
+    &.luxpost.mel {
+        --squareImage: url('https://64.media.tumblr.com/21311d7eef542b2fd183f62ce47fb404/627ede159cd878a1-7d/s1280x1920/ff5d952bde9eb91621b49e9671968d54f1b1f98f.jpg');
+        --quote: 'all i need is a hand to hold to drive out the darkness and leave a little love in its place';
     }
 
     //naomi
