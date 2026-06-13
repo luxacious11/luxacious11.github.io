@@ -43,15 +43,32 @@ body#ST .post .luxpost.ii-custom {
   --squareImage: url(https://picsum.photos/250);
   --imagePosition: center;
   --quote: ''; }
-  #post-preview .luxpost.ii-custom tag-image,
-  body#ST .post .luxpost.ii-custom tag-image {
+  #post-preview .luxpost.ii-custom tag-image:not(:has(span)),
+  body#ST .post .luxpost.ii-custom tag-image:not(:has(span)) {
     width: 100%;
     aspect-ratio: 1 / 1;
     background-image: var(--squareImage);
     background-size: cover;
     background-position: var(--imagePosition); }
+  #post-preview .luxpost.ii-custom tag-image > span,
+  body#ST .post .luxpost.ii-custom tag-image > span {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-image: var(--squareImage);
+    background-size: cover;
+    background-position: var(--imagePosition); }
+    #post-preview .luxpost.ii-custom tag-image > span + img,
+    body#ST .post .luxpost.ii-custom tag-image > span + img {
+      display: none; }
   #post-preview .luxpost.ii-custom tag-tagline::before,
-  body#ST .post .luxpost.ii-custom tag-tagline::before {
+  #post-preview .luxpost.ii-custom tag-icotagline::before,
+  #post-preview .luxpost.ii-custom tag-icotitle::before,
+  #post-preview .luxpost.ii-custom tag-icohighlight > span::before,
+  body#ST .post .luxpost.ii-custom tag-tagline::before,
+  body#ST .post .luxpost.ii-custom tag-icotagline::before,
+  body#ST .post .luxpost.ii-custom tag-icotitle::before,
+  body#ST .post .luxpost.ii-custom tag-icohighlight > span::before {
     content: var(--quote); }
 
 #post-preview .ii-custom.luxpost.aiden,

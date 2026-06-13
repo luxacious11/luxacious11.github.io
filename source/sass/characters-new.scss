@@ -52,13 +52,30 @@ body#ST .post {
             --quote: '';
 
             tag-image {
-                width: 100%;
-                aspect-ratio: 1 / 1;
-                background-image: var(--squareImage);
-                background-size: cover;
-                background-position: var(--imagePosition);
+                &:not(:has(span)) {
+                    width: 100%;
+                    aspect-ratio: 1 / 1;
+                    background-image: var(--squareImage);
+                    background-size: cover;
+                    background-position: var(--imagePosition);
+                }
+                & > span {
+                    display: block;
+                    width: 100%;
+                    aspect-ratio: 1 / 1;
+                    background-image: var(--squareImage);
+                    background-size: cover;
+                    background-position: var(--imagePosition);
+
+                    & + img {
+                        display: none;
+                    }
+                }
             }
-            tag-tagline {
+            tag-tagline,
+            tag-icotagline,
+            tag-icotitle,
+            tag-icohighlight > span {
                 &::before {
                     content: var(--quote);
                 }
