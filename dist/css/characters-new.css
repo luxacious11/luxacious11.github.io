@@ -141,6 +141,12 @@ body#ST .post:has(.saf-custom).luxpost.fio {
   --squareImage: url('https://64.media.tumblr.com/a1253db6762664bd19a2036ef864ef40/5ef0677be384507c-82/s1280x1920/36fb589ce72f6ce62a61eedc35f2531641dfab35.jpg');
   --quote: "sick of the poison, wish i had something to live for tomorrow"; }
 
+#post-preview .ii-custom.luxpost.gen,
+body#ST .post .luxpost.luxpost.gen,
+body#ST .post:has(.saf-custom).luxpost.gen {
+  --squareImage: url('https://64.media.tumblr.com/0724aaf4e2729df491dbb9ec5369e114/e67b2a2ca5d1dd2f-e8/s1280x1920/3d71b7c11db30c5b4f3fff50a5d62be3c5a94149.jpg');
+  --quote: "look fine from the outside, but in my mind i was upside down and screaming"; }
+
 #post-preview .ii-custom.saf-54 .luxpost,
 body#ST .post .luxpost.saf-54 .luxpost,
 body#ST .post:has(.saf-custom).saf-54 .luxpost {
