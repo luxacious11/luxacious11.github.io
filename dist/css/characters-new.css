@@ -260,6 +260,13 @@ body#ST .post:has(.saf-custom).luxpost.river {
   --imagePosition: left;
   --quote: "choked up, i realize: i've been less than half myself for more than half my life"; }
 
+#post-preview .ii-custom.luxpost.river2,
+body#ST .post .luxpost.luxpost.river2,
+body#ST .post:has(.saf-custom).luxpost.river2 {
+  --squareImage: url('https://64.media.tumblr.com/5b88317fa423b84494ada56cf3150c4a/905f53e710799278-30/s1280x1920/13cd37c73210a45820a649a61d1d35fb6faa908a.gif');
+  --imagePosition: left;
+  --quote: "the worry feels like worship when i'm burning in your touch"; }
+
 #post-preview .ii-custom.luxpost.rory,
 body#ST .post .luxpost.luxpost.rory,
 body#ST .post:has(.saf-custom).luxpost.rory {
