@@ -217,6 +217,13 @@ body#ST .post:has(.saf-custom).luxpost.laine {
   --imagePosition: top;
   --quote: 'unbreak the broken, unsay these spoken words, find hope in the hopeless, pull me out of the train wreck'; }
 
+#post-preview .ii-custom.luxpost.lily,
+body#ST .post .luxpost.luxpost.lily,
+body#ST .post:has(.saf-custom).luxpost.lily {
+  --squareImage: url('https://64.media.tumblr.com/670768c00ca1176629acc7520b881a9e/149a08d294b5218e-b6/s1280x1920/1a04840d894c7117c7ccfa50185c971242c17a2e.jpg');
+  --imagePosition: top;
+  --quote: "to fight, just a little, to bring back the fire in her eyes, that's been gone but it used to be mine"; }
+
 #post-preview .ii-custom.luxpost.mel,
 body#ST .post .luxpost.luxpost.mel,
 body#ST .post:has(.saf-custom).luxpost.mel {

@@ -222,6 +222,13 @@ body#ST .post:has(.saf-custom) {
         --quote: 'unbreak the broken, unsay these spoken words, find hope in the hopeless, pull me out of the train wreck';
     }
 
+    //lily
+    &.luxpost.lily {
+        --squareImage: url('https://64.media.tumblr.com/670768c00ca1176629acc7520b881a9e/149a08d294b5218e-b6/s1280x1920/1a04840d894c7117c7ccfa50185c971242c17a2e.jpg');
+        --imagePosition: top;
+        --quote: "to fight, just a little, to bring back the fire in her eyes, that's been gone but it used to be mine";
+    }
+
     //mel
     &.luxpost.mel {
         --squareImage: url('https://64.media.tumblr.com/21311d7eef542b2fd183f62ce47fb404/627ede159cd878a1-7d/s1280x1920/ff5d952bde9eb91621b49e9671968d54f1b1f98f.jpg');
