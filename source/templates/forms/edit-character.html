@@ -141,7 +141,6 @@
     <button type="submit" class="fullWidth">Submit</button>
 </form>
 <script>
-        
     fetch(`https://opensheet.elk.sh/${sheetID}/Characters`)
     .then((response) => response.json())
     .then((characterData) => {
@@ -151,10 +150,16 @@
         .then((response) => response.json())
         .then((tagData) => {
             storedTags = [...tagData];
-            
-        }).then(() => {
-            initEditCharacterSelect(document.querySelector('[data-form="edit-character"] #character'), storedCharacters);
-            document.querySelector('#loading').remove();
+
+            fetch(`https://opensheet.elk.sh/${sheetID}/Partners`)
+            .then((response) => response.json())
+            .then((partnerData) => {
+                storedPartners = [...partnerData];
+
+            }).then(() => {
+                initEditCharacterSelect(document.querySelector('[data-form="edit-character"] #character'), storedCharacters);
+                document.querySelector('#loading').remove();
+            });
         });
     });
 </script>

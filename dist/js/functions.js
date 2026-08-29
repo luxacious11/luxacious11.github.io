@@ -915,6 +915,7 @@ function addRow(e) {
         initPartnerSelect(e, storedPartners);
     } else if(e.closest('.multi-buttons').dataset.rowType === 'add-ships') {
         e.closest('.adjustable').querySelector('.rows').insertAdjacentHTML('beforeend', formatShipsRow(e));
+        console.log(storedPartners);
         initPartnerSelect(e, storedPartners, 'initial', '#characterSite', true);
     } else if(e.closest('.multi-buttons').dataset.rowType === 'add-info') {
         e.closest('.adjustable').querySelector('.rows').insertAdjacentHTML('beforeend', formatInfoRow(e));
