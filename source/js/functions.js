@@ -2387,7 +2387,10 @@ function formatThread(thread) {
             partnersText += `, `;
         }
         partnerClasses += `partner--${featured.writer}`;
-        featuringClasses += `featured--${featured.name.split(' ')[0]}-${featured.name.split(' ')[1] ? featured.name.split(' ')[1][0] : ''}`;
+
+        let featuredArray = featured.name.toLowerCase().trim().split(' ');
+        let featuredClass = featuredArray.length > 1 ? `${featuredArray[0]}-${featuredArray[1][0]}` : featuredArray[0];
+        featuringClasses += `featured--${featuredClass}`;
         featuringText += `<a href="${thread.site.URL}/${thread.site.Directory}${featured.id}">${featured.name}</a>`;
         partnersText += `<a href="${thread.site.URL}/${thread.site.Directory}${featured.writerId}">${featured.writer}</a>`;
     });
