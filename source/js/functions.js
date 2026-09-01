@@ -342,6 +342,15 @@ function initTags(el, site, data) {
                 </div>
             </div>`;
     });
+    html += `<div class="accordion--trigger">Status</div>
+        <div class="accordion--content">
+            <div class="multiselect">
+                <label>
+                    <span><input type="checkbox" class="tag" name="status" value="active" /></span>
+                    <b>Active</b>
+                </label>
+            </div>
+        </div>`;
 
     el.querySelector('.clip-tags').innerHTML = html;
     initAccordion('.accordion .clip-tags');
@@ -915,7 +924,6 @@ function addRow(e) {
         initPartnerSelect(e, storedPartners);
     } else if(e.closest('.multi-buttons').dataset.rowType === 'add-ships') {
         e.closest('.adjustable').querySelector('.rows').insertAdjacentHTML('beforeend', formatShipsRow(e));
-        console.log(storedPartners);
         initPartnerSelect(e, storedPartners, 'initial', '#characterSite', true);
     } else if(e.closest('.multi-buttons').dataset.rowType === 'add-info') {
         e.closest('.adjustable').querySelector('.rows').insertAdjacentHTML('beforeend', formatInfoRow(e));
@@ -1587,6 +1595,7 @@ function updateCharacter(form, data) {
     //add tags
     if(selected.includes('addTags')) {
         let siteTags = form.querySelectorAll('input.tag:checked');
+
         let tagList = {};
         let tagArray = [];
         let replacingTags = [];
@@ -1612,21 +1621,25 @@ function updateCharacter(form, data) {
         //add to existing
         for(instance in existingTags) {
             if(existingTags[instance].site === site) {
-                for(set in existingTags[instance].tags) {
-                    for(newSet in tagArray) {
+                if(existingTags[instance].tags.length > 0) {
+                    for(set in existingTags[instance].tags) {
+                        for(newSet in tagArray) {
 
-                        if(existingTags[instance].tags[set].type === tagArray[newSet].type) {
-                            if(replacingTags.includes(tagArray[newSet].type)) {
-                                existingTags[instance].tags[set].tags = tagArray[newSet].tags;
+                            if(existingTags[instance].tags[set].type === tagArray[newSet].type) {
+                                if(replacingTags.includes(tagArray[newSet].type)) {
+                                    existingTags[instance].tags[set].tags = tagArray[newSet].tags;
+                                } else {
+                                    existingTags[instance].tags[set].tags = [...existingTags[instance].tags[set].tags, ...tagArray[newSet].tags];
+                                }
                             } else {
-                                existingTags[instance].tags[set].tags = [...existingTags[instance].tags[set].tags, ...tagArray[newSet].tags];
-                            }
-                        } else {
-                            if(!notExistingTags.includes(tagArray[newSet].type)) {
-                                notExistingTags.push(tagArray[newSet].type);
+                                if(!notExistingTags.includes(tagArray[newSet].type)) {
+                                    notExistingTags.push(tagArray[newSet].type);
+                                }
                             }
                         }
                     }
+                } else {
+                    existingTags[instance].tags = [...tagArray];
                 }
             }
         }
@@ -1718,8 +1731,7 @@ function updateCharacter(form, data) {
 function updateThread(form, data) {
     let currentTitle = form.querySelector('#title').options[form.querySelector('#title').selectedIndex].innerText.trim().toLowerCase();
     let site = form.querySelector('#site').options[form.querySelector('#site').selectedIndex].innerText.trim().toLowerCase();
-    console.log(currentTitle);
-    console.log(site);
+
     let existing = data.filter(item => item.Title === currentTitle && item.Site === site)[0];
     let selected = Array.from(form.querySelectorAll('.updates input:checked')).map(item => item.value);
 
@@ -1981,7 +1993,6 @@ function initIsotope() {
     // use value of search field to filter
     const searchInput = document.querySelector(typeSearch);
     const handleKeyUp = debounce((e) => {
-        console.log('Searching for:', e.target.value);
         appendSearchQuery('typesearch', e.target.value);
         setCustomFilter();
     }, 300);
@@ -2580,6 +2591,10 @@ function formatCharacter(character, viewAll, sites) {
 }
 function formatSingleInstance(character, sites) {
     let tagsString = ``;
+    let availableTagTypes = character.tags.map(item => item.tags.length > 0 ? item.type : '').filter(item => item !== '');
+    if(availableTagTypes.length === 0 || !availableTagTypes.includes('status')) {
+        tagsString += `status--inactive`;
+    }
     for(type in character.tags) {
         character.tags[type].tags.forEach((set, i) => {
             tagsString += ` `;
@@ -3026,7 +3041,7 @@ function formatMarkdown(str, identifier, opening, closing) {
 
 /***** STATS AND CHARTS FUNCTIONS *****/
 function createCharacterStats(data, site, sites) {
-    let siteName, characters;
+    let siteName, characters, activeCharacters = [];
     let stats = {
         genders: {
             tags: [],
@@ -3045,12 +3060,24 @@ function createCharacterStats(data, site, sites) {
 
     if(site.length === 1) {
         siteName = site[0].Site;
-        characters = data.map(item => JSON.parse(item.Basics).filter(instance => instance.site === siteName)[0] ? JSON.parse(item.Basics).filter(instance => instance.site === siteName)[0].basics : 'remove').filter(item => item !== 'remove');
+        let siteCharacters = data.filter(item => JSON.parse(item.Sites).map(item => item.site).includes(siteName));
+        siteCharacters.forEach(character => {
+            let siteTags = JSON.parse(character.Tags).filter(instance => instance.site === siteName)[0].tags;
+            if(siteTags.length > 0) {
+                siteTags.forEach(tagSet => {
+                    if(tagSet.type === 'status' && tagSet.tags.includes('active')) {
+                        activeCharacters.push(character);
+                    }
+                })
+            }
+        });
+
+        characters = activeCharacters.map(item => JSON.parse(item.Basics).filter(instance => instance.site === siteName)[0] ? JSON.parse(item.Basics).filter(instance => instance.site === siteName)[0].basics : 'remove').filter(item => item !== 'remove');
 
         stats.total = characters.length;
 
         characters.map(item => item.age = groupAges(item.age));
-    
+
         characters.forEach(character => {
             countStats(stats.genders, character.gender);
             countStats(stats.pronouns, character.pronouns);
@@ -3058,7 +3085,7 @@ function createCharacterStats(data, site, sites) {
         });
     } else {
         let activeSites = sites.filter(item => item.Close === '').map(item => item.Site);
-        characters = data.map(item => ({...item, Basics: JSON.parse(item.Basics)}));
+        characters = activeCharacters.length > 0 ? activeCharacters.map(item => ({...item, Basics: JSON.parse(item.Basics)})) : data.map(item => ({...item, Basics: JSON.parse(item.Basics)}));
         let activeCount = 0;
         characters.forEach(character => {
             let sites = character.Basics.map(item => item.site);
