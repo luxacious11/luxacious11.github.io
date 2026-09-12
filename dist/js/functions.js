@@ -1429,7 +1429,6 @@ function updateTags(form, data) {
     let newTags = Array.from(form.querySelectorAll('.tag-options input')).map(item => item.value.toLowerCase().trim());
 
     let existing = data.filter(item => item.Tag === title)[0];
-    console.log(newSites);
     if(newSites.length > 0) {
         let combined;
         //replace all
@@ -1450,7 +1449,7 @@ function updateTags(form, data) {
     }
     existing.SubmissionType = 'edit-tags';
 
-    //sendAjax(form, existing, successMessage);
+    sendAjax(form, existing, successMessage);
 }
 function updatePartner(form, data) {
     let site = form.querySelector('#site').options[form.querySelector('#site').selectedIndex].innerText.trim().toLowerCase();
