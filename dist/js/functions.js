@@ -2480,7 +2480,17 @@ function prepTags(data, site) {
     let html = ``;
 
     activeTags.forEach(set => {
-        html += `<div class="characters--filter filter--parent">
+        html += `${set.Tag === 'true age' ? `<div class="characters--filter filter--parent">
+            <button onClick="openFilters(this)">Mortality</button>
+            <div class="characters--filter-dropdown">
+                <div class="characters--filter-group filter--sites" data-filter-group="mortality">
+                    <label class="all is-checked"><span><input type="checkbox" class="all" value="" checked=""></span><b>any</b></label>
+                    <label><span><input type="checkbox" value=".trueage--mortal"></span><b>Mortal</b></label>
+                    <label><span><input type="checkbox" value=".trueage--immortal"></span><b>Immortal</b></label>
+                </div>
+            </div>
+        </div>` : ''}
+        <div class="characters--filter filter--parent">
             <button onClick="openFilters(this)">${set.Tag}</button>
             <div class="characters--filter-dropdown">
                 <div class="characters--filter-group filter--sites" data-filter-group="${cleanText(set.Tag)}">
